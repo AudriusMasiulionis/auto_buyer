@@ -17,16 +17,22 @@
     "@mui/x-date-pickers": "^7.17.0",
     "@tanstack/react-query": "^5.56.2",
     "next": "14.2.11",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.0"
   },
   "devDependencies": {
+    "@10speed/eslint-config-ten-speed-react": "^1.5.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
+    "@typescript-eslint/eslint-plugin": "8.5.0",
+    "@typescript-eslint/parser": "8.5.0",
+    "eslint": "8.57.0",
     "eslint-config-next": "14.2.11",
-    "typescript": "^5"
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4.0.0",
+    "typescript": "^5",
+    "typescript-eslint": "^8.5.0"
   }
 }
