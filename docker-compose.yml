@@ -1,0 +1,12 @@
+services:
+  pocketbase:
+    image: pocketbase
+    container_name: pocketbase
+    build: 
+      context: ./apps/api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./apps/api/pb_data:/pb/pb_data
+    restart: unless-stopped
