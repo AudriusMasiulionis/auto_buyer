@@ -11,13 +11,14 @@ import {
 import { Stack } from "@mui/system";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { FormValues } from "./PPForm";
 
 const PaymentInfoForm = () => {
-  const { control, watch } = useFormContext<FormValues>();
+  const [isPaymentToday, setIsPaymentToday] = useState(true);
 
-  const isPaymentDateNow = watch("isPaymentDateNow");
+  const { control } = useFormContext<FormValues>();
 
   return (
     <Stack gap={1}>
@@ -56,32 +57,26 @@ const PaymentInfoForm = () => {
       />
 
       <Stack direction="row" gap={2} alignItems="end">
-        <Controller
-          name="isPaymentDateNow"
-          control={control}
-          render={({ field }) => (
-            <FormControl sx={{ flex: 1 }}>
-              <FormLabel id="payment-date">Atsiskaitymo momentas:</FormLabel>
-              <RadioGroup
-                {...field}
-                aria-labelledby="payment-date"
-                defaultValue=""
-                sx={{ flex: 1 }}
-              >
-                <FormControlLabel
-                  value="true"
-                  control={<Radio />}
-                  label="Sutarties sudarymo metu"
-                />
-                <FormControlLabel
-                  value="false"
-                  control={<Radio />}
-                  label="Kitu metu:"
-                />
-              </RadioGroup>
-            </FormControl>
-          )}
-        />
+        <FormControl sx={{ flex: 1 }}>
+          <FormLabel id="payment-date">Atsiskaitymo momentas:</FormLabel>
+          <RadioGroup
+            aria-labelledby="payment-date"
+            defaultValue=""
+            sx={{ flex: 1 }}
+          >
+            <FormControlLabel
+              onChange={() => setIsPaymentToday(true)}
+              control={<Radio />}
+              label="Sutarties sudarymo metu"
+            />
+            <FormControlLabel
+              onChange={() => setIsPaymentToday(false)}
+              control={<Radio />}
+              label="Kitu metu:"
+            />
+          </RadioGroup>
+        </FormControl>
+
         <Box sx={{ flex: 1 }}>
           <Controller
             name="paymentDate"
@@ -92,7 +87,7 @@ const PaymentInfoForm = () => {
                   format="yyyy/MM/dd"
                   value={value}
                   onChange={onChange}
-                  disabled={isPaymentDateNow === "true"}
+                  disabled={isPaymentToday}
                 />
               </LocalizationProvider>
             )}

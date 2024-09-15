@@ -30,7 +30,6 @@ export type FormValues = {
   // payment info
   price: number | "";
   paymentMethod: PaymentMethod | "";
-  isPaymentDateNow: FormBoolean;
   paymentDate: string;
   buyersEmail: string;
 };
@@ -56,7 +55,6 @@ export const PPForm = () => {
       incidentsInformation: "",
       price: "",
       paymentMethod: "",
-      isPaymentDateNow: "",
       paymentDate: new Date().toISOString(),
       buyersEmail: ""
     }
