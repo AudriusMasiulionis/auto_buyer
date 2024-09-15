@@ -1,1 +1,1 @@
-export * from "./SellerInfoForm";
+export { PPForm } from "./PPForm";

@@ -1,13 +1,15 @@
 "use client";
 
+import { PPForm } from "@/components/form";
 import { theme } from "@/theme";
-import { ThemeProvider } from "@mui/material";
-import styles from "./page.module.css";
+import { Box, ThemeProvider } from "@mui/material";
 
 export default function Home() {
   return (
     <ThemeProvider theme={theme}>
-      <div className={styles.page}>asd</div>
+      <Box>
+        <PPForm />
+      </Box>
     </ThemeProvider>
   );
 }
