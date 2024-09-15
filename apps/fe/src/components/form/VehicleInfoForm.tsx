@@ -17,7 +17,7 @@ const VehicleInfoForm = () => {
   const {} = useFormContext<FormValues>();
 
   return (
-    <Stack gap={0.5}>
+    <Stack gap={1}>
       <Typography variant="h6">Transporto priemonės informacija</Typography>
       <TextField label="SDK" />
       <TextField label="Markė (D.1) ar komercinis pavadinimas (D.3)" />

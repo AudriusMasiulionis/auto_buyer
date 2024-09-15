@@ -6,7 +6,7 @@ export const SellerInfoForm = () => {
   const {} = useFormContext<FormValues>();
 
   return (
-    <Stack gap={0.5}>
+    <Stack gap={1}>
       <Typography variant="h6">Pardavėjo informacija</Typography>
       <TextField label="Asmens/įmonės kodas" />
       <TextField label="Vardas Pavardė/Juridinio asmens pavadinimas" />

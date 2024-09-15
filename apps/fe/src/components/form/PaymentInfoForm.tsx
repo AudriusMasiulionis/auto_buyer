@@ -18,7 +18,7 @@ const PaymentInfoForm = () => {
   const {} = useFormContext<FormValues>();
 
   return (
-    <Stack gap={0.5}>
+    <Stack gap={1}>
       <Typography variant="h6">Atsiskaitymo informacija</Typography>
       <TextField label="Transporto priemonės kaina" />
       <FormControl>
