@@ -6,12 +6,15 @@ import VehicleInfoForm from "./VehicleInfoForm";
 
 export type PaymentMethod = "cash" | "bank_transfer";
 
+type FormBoolean = "true" | "false" | "";
+
 export type FormValues = {
   // sellers info
-  code: number | "";
+  personalCode: number | "";
   name: string;
   phone: string;
-  email: string;
+  sellersEmail: string;
+  sellersAddress: string;
   // vehicle info
   sdk: string;
   make: string;
@@ -19,14 +22,15 @@ export type FormValues = {
   mileage: number | "";
   identificationNumber: string;
   serialNumber: number | "";
-  technicalInspectionIsValid: boolean | "";
-  incidents: boolean | "";
-  knowAboutIncidents: boolean | "";
+  technicalInspectionIsValid: FormBoolean;
+  incidents: FormBoolean;
+  knowAboutIncidents: FormBoolean;
   defects: string[];
+  incidentsInformation: string;
   // payment info
   price: number | "";
   paymentMethod: PaymentMethod | "";
-  paymentOnTheSpot: boolean;
+  isPaymentDateNow: FormBoolean;
   paymentDate: string;
   buyersEmail: string;
 };
@@ -34,10 +38,11 @@ export type FormValues = {
 export const PPForm = () => {
   const methods = useForm<FormValues>({
     defaultValues: {
-      code: "",
+      personalCode: "",
       name: "",
       phone: "",
-      email: "",
+      sellersEmail: "",
+      sellersAddress: "",
       sdk: "",
       make: "",
       registrationNumber: "",
@@ -48,17 +53,18 @@ export const PPForm = () => {
       incidents: "",
       knowAboutIncidents: "",
       defects: [],
+      incidentsInformation: "",
       price: "",
       paymentMethod: "",
-      paymentDate: "",
+      isPaymentDateNow: "",
+      paymentDate: new Date().toISOString(),
       buyersEmail: ""
     }
   });
 
   const { handleSubmit } = methods;
 
-  const onSubmit = handleSubmit(async (values: FormValues) => {
-    alert(JSON.stringify(values));
+  const onSubmit = handleSubmit((values: FormValues) => {
     // eslint-disable-next-line no-console
     console.log(values);
   });
