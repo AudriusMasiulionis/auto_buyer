@@ -1,4 +1,4 @@
-import { Paper, Stack } from "@mui/material";
+import { Button, Paper, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import PaymentInfoForm from "./PaymentInfoForm";
 import { SellerInfoForm } from "./SellerInfoForm";
@@ -55,10 +55,19 @@ export const PPForm = () => {
     }
   });
 
+  const { handleSubmit } = methods;
+
+  const onSubmit = handleSubmit(async (values: FormValues) => {
+    alert(JSON.stringify(values));
+    // eslint-disable-next-line no-console
+    console.log(values);
+  });
+
   return (
     <FormProvider {...methods}>
       <Paper
         component="form"
+        onSubmit={onSubmit}
         sx={{ maxWidth: "21cm", p: 3, mx: "auto", my: 3 }}
         elevation={4}
       >
@@ -66,6 +75,9 @@ export const PPForm = () => {
           <SellerInfoForm />
           <VehicleInfoForm />
           <PaymentInfoForm />
+          <Button type="submit" variant="contained">
+            What a save!!!
+          </Button>
         </Stack>
       </Paper>
     </FormProvider>
