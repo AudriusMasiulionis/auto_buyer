@@ -1,4 +1,6 @@
+import { carMakes } from "@/utils";
 import {
+  Autocomplete,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -41,10 +43,19 @@ const VehicleInfoForm = () => {
       <Controller
         control={control}
         name="make"
-        render={({ field }) => (
-          <TextField
-            {...field}
-            label="Markė (D.1) ar komercinis pavadinimas (D.3)"
+        render={({ field: { onChange, value } }) => (
+          <Autocomplete
+            disablePortal
+            freeSolo
+            options={carMakes}
+            value={value || ""}
+            onInputChange={(_, newValue) => onChange(newValue)} // Updates form value
+            renderInput={params => (
+              <TextField
+                {...params}
+                label="Markė (D.1) ar komercinis pavadinimas (D.3)"
+              />
+            )}
           />
         )}
       />

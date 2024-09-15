@@ -56,9 +56,9 @@ const PaymentInfoForm = () => {
         )}
       />
 
+      <FormLabel id="payment-date">Atsiskaitymo momentas:</FormLabel>
       <Stack direction="row" gap={2} alignItems="end">
         <FormControl sx={{ flex: 1 }}>
-          <FormLabel id="payment-date">Atsiskaitymo momentas:</FormLabel>
           <RadioGroup
             aria-labelledby="payment-date"
             defaultValue=""
