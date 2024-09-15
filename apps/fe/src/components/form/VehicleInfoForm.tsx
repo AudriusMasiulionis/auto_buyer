@@ -1,6 +1,7 @@
 import { carMakes } from "@/utils";
 import {
   Autocomplete,
+  autocompleteClasses,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -49,7 +50,10 @@ const VehicleInfoForm = () => {
             freeSolo
             options={carMakes}
             value={value || ""}
-            onInputChange={(_, newValue) => onChange(newValue)} // Updates form value
+            sx={{
+              [`.${autocompleteClasses.endAdornment}`]: { display: "none" }
+            }}
+            onInputChange={(_, newValue) => onChange(newValue)}
             renderInput={params => (
               <TextField
                 {...params}
