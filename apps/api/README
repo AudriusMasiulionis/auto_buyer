@@ -1,8 +1,0 @@
-# Run the container
-
-`docker run --rm -d -p 8080:8080 --name pocketbase pocketbase`
-
-# Creating a migration
-
-1. Conaitner shoould be running 
-2. From api folder run `docker run -it --rm -v $(pwd)/pb_migrations:/pb/pb_migrations pocketbase pb/pocketbase migrate create "test"`
