@@ -2,6 +2,7 @@ import {
   Box,
   FormControl,
   FormControlLabel,
+  FormHelperText,
   FormLabel,
   Radio,
   RadioGroup,
@@ -57,6 +58,11 @@ const PaymentInfoForm = () => {
                 label="Bankiniu pavedimu"
               />
             </RadioGroup>
+            {error && (
+              <FormHelperText error>
+                {error.message} {/* Display the error message */}
+              </FormHelperText>
+            )}
           </FormControl>
         )}
       />
@@ -88,7 +94,7 @@ const PaymentInfoForm = () => {
           <Controller
             name="paymentDate"
             control={control}
-            render={({ field: { value, onChange }, fieldState: { error } }) => (
+            render={({ field: { value, onChange } }) => (
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
                   format="yyyy/MM/dd"
