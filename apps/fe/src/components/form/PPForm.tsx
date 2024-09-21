@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Paper, Stack } from "@mui/material";
+import { Button, Paper, Stack, Step, StepLabel, Stepper } from "@mui/material";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
 import PaymentInfoForm from "./PaymentInfoForm";
@@ -10,13 +11,11 @@ import { formSchema } from "./validation";
 export type PaymentMethod = "cash" | "bank_transfer";
 
 export type FormValues = {
-  // sellers info
   personalCode: string;
   name: string;
   phone: string;
   sellersEmail: string;
   sellersAddress: string;
-  // vehicle info
   sdk: string;
   make: string;
   registrationNumber: string;
@@ -28,12 +27,17 @@ export type FormValues = {
   knowAboutIncidents: boolean | "";
   defects: string[];
   incidentsInformation: string;
-  // payment info
   price: string;
   paymentMethod: PaymentMethod | "";
   paymentDate: string;
   buyersEmail: string;
 };
+
+const steps = [
+  "Pardavėjo informacija",
+  "Transporto priemonės informacija",
+  "Atsiskaitymo informacija"
+];
 
 export const PPForm = () => {
   const methods = useForm<FormValues>({
@@ -64,11 +68,21 @@ export const PPForm = () => {
   });
 
   const { handleSubmit } = methods;
+  const [activeStep, setActiveStep] = useState(0);
 
-  const onSubmit = handleSubmit((values: FormValues) => {
+  const onSubmit = handleSubmit(async (values: FormValues) => {
     // eslint-disable-next-line no-console
     console.log(values);
   });
+
+  const handleNext = () => {
+    // TODO add step validation
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
 
   return (
     <FormProvider {...methods}>
@@ -78,13 +92,32 @@ export const PPForm = () => {
         sx={{ maxWidth: "21cm", p: 3, mx: "auto", my: 3 }}
         elevation={4}
       >
-        <Stack gap={3}>
-          <SellerInfoForm />
-          <VehicleInfoForm />
-          <PaymentInfoForm />
-          <Button type="submit" variant="contained">
-            What a save!!!
-          </Button>
+        <Stepper activeStep={activeStep}>
+          {steps.map(label => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <Stack gap={5} sx={{ mt: 5 }}>
+          {activeStep === 0 && <SellerInfoForm />}
+          {activeStep === 1 && <VehicleInfoForm />}
+          {activeStep === 2 && <PaymentInfoForm />}
+          <Stack direction="row" justifyContent="space-between">
+            {activeStep > 0 && (
+              <Button onClick={handleBack} sx={{ mr: 1 }}>
+                Grįžti
+              </Button>
+            )}
+            <div />
+            {activeStep < steps.length - 1 ? (
+              <Button onClick={handleNext}>Tęsti</Button>
+            ) : (
+              <Button type="submit" variant="contained">
+                Pateikti
+              </Button>
+            )}
+          </Stack>
         </Stack>
       </Paper>
     </FormProvider>

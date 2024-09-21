@@ -6,8 +6,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
-  TextField,
-  Typography
+  TextField
 } from "@mui/material";
 import { Stack } from "@mui/system";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -23,7 +22,6 @@ const PaymentInfoForm = () => {
 
   return (
     <Stack gap={1}>
-      <Typography variant="h6">Atsiskaitymo informacija</Typography>
       <Controller
         name="price"
         control={control}

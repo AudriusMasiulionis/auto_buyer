@@ -11,8 +11,7 @@ import {
   Radio,
   RadioGroup,
   Stack,
-  TextField,
-  Typography
+  TextField
 } from "@mui/material";
 import { ChangeEvent, useCallback } from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -36,7 +35,6 @@ const VehicleInfoForm = () => {
 
   return (
     <Stack gap={1}>
-      <Typography variant="h6">Transporto priemonės informacija</Typography>
       <Controller
         control={control}
         name="sdk"

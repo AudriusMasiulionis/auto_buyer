@@ -1,4 +1,4 @@
-import { Stack, TextField, Typography } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import { FormValues } from "./PPForm";
 
@@ -7,7 +7,6 @@ export const SellerInfoForm = () => {
 
   return (
     <Stack gap={1}>
-      <Typography variant="h6">Pardavėjo informacija</Typography>
       <Controller
         control={control}
         name="personalCode"
