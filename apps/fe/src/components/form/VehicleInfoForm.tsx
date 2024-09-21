@@ -6,6 +6,7 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
+  FormHelperText,
   FormLabel,
   Radio,
   RadioGroup,
@@ -39,12 +40,19 @@ const VehicleInfoForm = () => {
       <Controller
         control={control}
         name="sdk"
-        render={({ field }) => <TextField {...field} label="SDK" />}
+        render={({ field, fieldState: { error } }) => (
+          <TextField
+            {...field}
+            label="SDK"
+            error={!!error}
+            helperText={error?.message}
+          />
+        )}
       />
       <Controller
         control={control}
         name="make"
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
           <Autocomplete
             disablePortal
             freeSolo
@@ -58,6 +66,8 @@ const VehicleInfoForm = () => {
               <TextField
                 {...params}
                 label="Markė (D.1) ar komercinis pavadinimas (D.3)"
+                error={!!error}
+                helperText={error?.message}
               />
             )}
           />
@@ -66,41 +76,55 @@ const VehicleInfoForm = () => {
       <Controller
         control={control}
         name="registrationNumber"
-        render={({ field }) => (
-          <TextField {...field} label="Valstybinis registracijos numeris (A)" />
+        render={({ field, fieldState: { error } }) => (
+          <TextField
+            {...field}
+            label="Valstybinis registracijos numeris (A)"
+            error={!!error}
+            helperText={error?.message}
+          />
         )}
       />
       <Controller
         control={control}
         name="mileage"
-        render={({ field }) => (
-          <TextField {...field} label="Rida (kilometrais)" />
+        render={({ field, fieldState: { error } }) => (
+          <TextField
+            {...field}
+            label="Rida (kilometrais)"
+            error={!!error}
+            helperText={error?.message}
+          />
         )}
       />
       <Controller
         control={control}
         name="identificationNumber"
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <TextField
             {...field}
             label="Atpažinties (identifikavimo) numeris (E)"
+            error={!!error}
+            helperText={error?.message}
           />
         )}
       />
       <Controller
         control={control}
         name="serialNumber"
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <TextField
             {...field}
             label="Transporto priemonės registracijos liudijimo serija ir numeris"
+            error={!!error}
+            helperText={error?.message}
           />
         )}
       />
       <Controller
         control={control}
         name="technicalInspectionIsValid"
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <FormControl>
             <FormLabel id="technical-inspection">
               Transporto priemonės privalomoji techninė apžiūra:
@@ -121,13 +145,18 @@ const VehicleInfoForm = () => {
                 label="Negalioja"
               />
             </RadioGroup>
+            {error && (
+              <FormHelperText error>
+                {error.message} {/* Display the error message */}
+              </FormHelperText>
+            )}
           </FormControl>
         )}
       />
       <Controller
         control={control}
         name="incidents"
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <FormControl sx={{ display: "flex" }}>
             <FormLabel id="incidents">
               Transporto priemonė eismo ar kitų įvykių metu per laikotarpį, kurį
@@ -145,13 +174,18 @@ const VehicleInfoForm = () => {
                 label="Nebuuvo apgadinta"
               />
             </RadioGroup>
+            {error && (
+              <FormHelperText error>
+                {error.message} {/* Display the error message */}
+              </FormHelperText>
+            )}
           </FormControl>
         )}
       />
       <Controller
         control={control}
         name="knowAboutIncidents"
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <FormControl>
             <FormLabel id="known-incidents">
               Eismo ar kiti įvykiai, kuriose transporto priemonė buvo apgadinti,
@@ -173,6 +207,11 @@ const VehicleInfoForm = () => {
                 label="Nežinomi"
               />
             </RadioGroup>
+            {error && (
+              <FormHelperText error>
+                {error.message} {/* Display the error message */}
+              </FormHelperText>
+            )}
           </FormControl>
         )}
       />

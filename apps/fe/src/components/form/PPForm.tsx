@@ -1,8 +1,10 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Paper, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import PaymentInfoForm from "./PaymentInfoForm";
 import { SellerInfoForm } from "./SellerInfoForm";
 import VehicleInfoForm from "./VehicleInfoForm";
+import { formSchema } from "./validation";
 
 export type PaymentMethod = "cash" | "bank_transfer";
 
@@ -10,7 +12,7 @@ type FormBoolean = "true" | "false" | "";
 
 export type FormValues = {
   // sellers info
-  personalCode: number | "";
+  personalCode: string;
   name: string;
   phone: string;
   sellersEmail: string;
@@ -19,16 +21,16 @@ export type FormValues = {
   sdk: string;
   make: string;
   registrationNumber: string;
-  mileage: number | "";
+  mileage: string;
   identificationNumber: string;
-  serialNumber: number | "";
+  serialNumber: string;
   technicalInspectionIsValid: FormBoolean;
   incidents: FormBoolean;
   knowAboutIncidents: FormBoolean;
   defects: string[];
   incidentsInformation: string;
   // payment info
-  price: number | "";
+  price: string;
   paymentMethod: PaymentMethod | "";
   paymentDate: string;
   buyersEmail: string;
@@ -57,7 +59,8 @@ export const PPForm = () => {
       paymentMethod: "",
       paymentDate: new Date().toISOString(),
       buyersEmail: ""
-    }
+    },
+    resolver: yupResolver(formSchema)
   });
 
   const { handleSubmit } = methods;

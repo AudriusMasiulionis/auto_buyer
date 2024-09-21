@@ -11,42 +11,62 @@ export const SellerInfoForm = () => {
       <Controller
         control={control}
         name="personalCode"
-        render={({ field }) => (
-          <TextField {...field} label="Asmens/įmonės kodas" />
+        render={({ field, fieldState: { error } }) => (
+          <TextField
+            {...field}
+            label="Asmens/įmonės kodas"
+            error={!!error}
+            helperText={error?.message}
+          />
         )}
       />
       <Controller
         control={control}
         name="name"
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <TextField
             {...field}
             label="Vardas Pavardė/Juridinio asmens pavadinimas"
+            error={!!error}
+            helperText={error?.message}
           />
         )}
       />
       <Controller
         control={control}
         name="phone"
-        render={({ field }) => (
-          <TextField {...field} label="Telefono numeris" />
+        render={({ field, fieldState: { error } }) => (
+          <TextField
+            {...field}
+            label="Telefono numeris"
+            error={!!error}
+            helperText={error?.message}
+          />
         )}
       />
       <Controller
         control={control}
         name="sellersEmail"
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <TextField
-            type="email"
             {...field}
             label="Elektroninio pašto adresas"
+            error={!!error}
+            helperText={error?.message}
           />
         )}
       />
       <Controller
         control={control}
         name="sellersAddress"
-        render={({ field }) => <TextField {...field} label="Adresas" />}
+        render={({ field, fieldState: { error } }) => (
+          <TextField
+            {...field}
+            label="Adresas"
+            error={!!error}
+            helperText={error?.message}
+          />
+        )}
       />
     </Stack>
   );

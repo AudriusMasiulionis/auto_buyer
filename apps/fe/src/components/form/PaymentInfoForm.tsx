@@ -26,14 +26,19 @@ const PaymentInfoForm = () => {
       <Controller
         name="price"
         control={control}
-        render={({ field }) => (
-          <TextField {...field} label="Transporto priemonės kaina" />
+        render={({ field, fieldState: { error } }) => (
+          <TextField
+            {...field}
+            label="Transporto priemonės kaina"
+            error={!!error}
+            helperText={error?.message}
+          />
         )}
       />
       <Controller
         name="paymentMethod"
         control={control}
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <FormControl>
             <FormLabel id="payment-method">Atsiskaitymo būdas:</FormLabel>
             <RadioGroup
@@ -61,16 +66,18 @@ const PaymentInfoForm = () => {
         <FormControl sx={{ flex: 1 }}>
           <RadioGroup
             aria-labelledby="payment-date"
-            defaultValue=""
+            defaultValue={1}
             sx={{ flex: 1 }}
           >
             <FormControlLabel
               onChange={() => setIsPaymentToday(true)}
+              value={1}
               control={<Radio />}
               label="Sutarties sudarymo metu"
             />
             <FormControlLabel
               onChange={() => setIsPaymentToday(false)}
+              value={0}
               control={<Radio />}
               label="Kitu metu:"
             />
@@ -81,7 +88,7 @@ const PaymentInfoForm = () => {
           <Controller
             name="paymentDate"
             control={control}
-            render={({ field: { value, onChange } }) => (
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
                   format="yyyy/MM/dd"
@@ -97,11 +104,12 @@ const PaymentInfoForm = () => {
       <Controller
         name="buyersEmail"
         control={control}
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <TextField
-            type="email"
             {...field}
             label="Pirkėjo elektroninis paštas"
+            error={!!error}
+            helperText={error?.message}
           />
         )}
       />
