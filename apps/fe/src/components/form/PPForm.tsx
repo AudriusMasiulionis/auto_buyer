@@ -1,5 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Paper, Stack, Step, StepLabel, Stepper } from "@mui/material";
+import {
+  Button,
+  FormHelperText,
+  Paper,
+  Stack,
+  Step,
+  StepLabel,
+  Stepper
+} from "@mui/material";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -33,6 +41,21 @@ export type FormValues = {
   buyersEmail: string;
 };
 
+const fieldsToValidate: (keyof FormValues)[][] = [
+  ["personalCode", "name", "phone", "sellersEmail", "sellersAddress"],
+  [
+    "sdk",
+    "make",
+    "registrationNumber",
+    "mileage",
+    "identificationNumber",
+    "serialNumber",
+    "technicalInspectionIsValid",
+    "incidents"
+  ],
+  ["price", "paymentMethod", "paymentDate", "buyersEmail"]
+];
+
 const steps = [
   "Pardavėjo informacija",
   "Transporto priemonės informacija",
@@ -40,6 +63,8 @@ const steps = [
 ];
 
 export const PPForm = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [showWarning, setShowWarning] = useState(false);
   const methods = useForm<FormValues>({
     defaultValues: {
       personalCode: "",
@@ -67,17 +92,24 @@ export const PPForm = () => {
     resolver: yupResolver(formSchema as yup.ObjectSchema<FormValues>)
   });
 
-  const { handleSubmit } = methods;
-  const [activeStep, setActiveStep] = useState(0);
+  const { handleSubmit, trigger } = methods;
 
   const onSubmit = handleSubmit(async (values: FormValues) => {
     // eslint-disable-next-line no-console
     console.log(values);
   });
 
-  const handleNext = () => {
-    // TODO add step validation
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  const handleNext = async () => {
+    const isValid = await trigger(fieldsToValidate[activeStep]);
+
+    if (isValid) {
+      setActiveStep(prevActiveStep => prevActiveStep + 1);
+      setShowWarning(false);
+    }
+
+    if (!isValid) {
+      setShowWarning(true);
+    }
   };
 
   const handleBack = () => {
@@ -103,6 +135,11 @@ export const PPForm = () => {
           {activeStep === 0 && <SellerInfoForm />}
           {activeStep === 1 && <VehicleInfoForm />}
           {activeStep === 2 && <PaymentInfoForm />}
+          {showWarning && (
+            <FormHelperText sx={{ textAlign: "end" }} error>
+              Užpildykite privalomus laukus
+            </FormHelperText>
+          )}
           <Stack direction="row" justifyContent="space-between">
             {activeStep > 0 && (
               <Button onClick={handleBack} sx={{ mr: 1 }}>
