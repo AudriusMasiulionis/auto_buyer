@@ -125,9 +125,11 @@ export const PPForm = () => {
         elevation={4}
       >
         <Stepper activeStep={activeStep}>
-          {steps.map(label => (
+          {steps.map((label, i) => (
             <Step key={label}>
-              <StepLabel>{label}</StepLabel>
+              <StepLabel>
+                {i === activeStep ? <strong>{label}</strong> : label}
+              </StepLabel>
             </Step>
           ))}
         </Stepper>
