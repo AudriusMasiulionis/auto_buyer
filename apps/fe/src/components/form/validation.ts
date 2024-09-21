@@ -45,9 +45,9 @@ export const formSchema = yup.object({
       "Identifikacijos numerį turi sudaryti 17 simbolių"
     ),
   serialNumber: yup
-    .number()
-    .typeError("Privalo būti skaičius")
-    .required("Privalomas laukas"),
+    .string()
+    .required("Privalomas laukas")
+    .matches(/\d/, "Registracijos liudijimo numerį turi sudaryti skaičiai"),
   technicalInspectionIsValid: yup
     .boolean()
     .required("Privalomas laukas")
@@ -64,7 +64,7 @@ export const formSchema = yup.object({
   price: yup
     .string()
     .required("Privalomas laukas")
-    .matches(/\d/, "Privalo būti skaičius"),
+    .matches(/\d/, "Kainą turi sudaryti skaičiai"),
   paymentMethod: yup.string().required("Privalomas laukas"),
   buyersEmail: yup
     .string()
