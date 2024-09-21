@@ -1,13 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Button,
-  FormHelperText,
-  Paper,
-  Stack,
-  Step,
-  StepLabel,
-  Stepper
-} from "@mui/material";
+import { Button, Paper, Stack, Step, StepLabel, Stepper } from "@mui/material";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -15,8 +7,6 @@ import PaymentInfoForm from "./PaymentInfoForm";
 import { SellerInfoForm } from "./SellerInfoForm";
 import VehicleInfoForm from "./VehicleInfoForm";
 import { formSchema } from "./validation";
-
-export type PaymentMethod = "cash" | "bank_transfer";
 
 export type FormValues = {
   personalCode: string;
@@ -36,7 +26,7 @@ export type FormValues = {
   defects: string[];
   incidentsInformation: string;
   price: string;
-  paymentMethod: PaymentMethod | "";
+  paymentMethod: "cash" | "bank_transfer" | "";
   paymentDate: string;
   buyersEmail: string;
 };
@@ -64,7 +54,7 @@ const steps = [
 
 export const PPForm = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [showWarning, setShowWarning] = useState(false);
+
   const methods = useForm<FormValues>({
     defaultValues: {
       personalCode: "",
@@ -104,11 +94,6 @@ export const PPForm = () => {
 
     if (isValid) {
       setActiveStep(prevActiveStep => prevActiveStep + 1);
-      setShowWarning(false);
-    }
-
-    if (!isValid) {
-      setShowWarning(true);
     }
   };
 
@@ -137,11 +122,6 @@ export const PPForm = () => {
           {activeStep === 0 && <SellerInfoForm />}
           {activeStep === 1 && <VehicleInfoForm />}
           {activeStep === 2 && <PaymentInfoForm />}
-          {showWarning && (
-            <FormHelperText sx={{ textAlign: "end" }} error>
-              Užpildykite privalomus laukus
-            </FormHelperText>
-          )}
           <Stack direction="row" justifyContent="space-between">
             {activeStep > 0 && (
               <Button onClick={handleBack} sx={{ mr: 1 }}>
