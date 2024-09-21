@@ -1,3 +1,5 @@
+"use client";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Paper, Stack, Step, StepLabel, Stepper } from "@mui/material";
 import { useState } from "react";
@@ -123,11 +125,7 @@ export const PPForm = () => {
           {activeStep === 1 && <VehicleInfoForm />}
           {activeStep === 2 && <PaymentInfoForm />}
           <Stack direction="row" justifyContent="space-between">
-            {activeStep > 0 && (
-              <Button onClick={handleBack} sx={{ mr: 1 }}>
-                Grįžti
-              </Button>
-            )}
+            {activeStep > 0 && <Button onClick={handleBack}>Grįžti</Button>}
             <div />
             {activeStep < steps.length - 1 ? (
               <Button onClick={handleNext}>Tęsti</Button>
