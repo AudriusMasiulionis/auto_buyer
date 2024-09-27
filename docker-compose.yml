@@ -1,12 +1,22 @@
 services:
-  pocketbase:
-    image: pocketbase
-    container_name: pocketbase
-    build: 
-      context: ./apps/api
-      dockerfile: Dockerfile
+  dynamodb-local:
+    image: amazon/dynamodb-local
+    container_name: dynamodb-local
     ports:
-      - "8080:8080"
+      - "8000:8000"
     volumes:
-      - ./apps/api/pb_data:/pb/pb_data
-    restart: unless-stopped
+      - ./data:/home/dynamodblocal/data
+    environment:
+      - AWS_ACCESS_KEY_ID=YOUR_ACCESS_KEY # Placeholder for local
+      - AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY # Placeholder for local
+    command: "-jar DynamoDBLocal.jar -sharedDb"
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    container_name: dynamodb-admin
+    ports:
+      - "8001:8001"
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamodb-local:8000
+    depends_on:
+      - dynamodb-local
