@@ -1,24 +1,22 @@
+using Amazon.DynamoDBv2;
+using Api.Models;
 using FastEndpoints;
 
 namespace Api.Endpoints;
 
-public class ContractPostEndpoint : Endpoint<MyRequest, MyResponse>
+public class ContractPostEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<Contract, Contract>
 {
+    private readonly IAmazonDynamoDB _dynamoDbClient = dynamoDbClient;
+
     public override void Configure()
     {
         Post("/api/user/create");
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(MyRequest req, CancellationToken ct)
+    public override async Task HandleAsync(Contract req, CancellationToken ct)
     {
-        var obj = new MyResponse
-        {
-            FullName = req.FirstName + " " + req.LastName,
-            IsOver18 = req.Age > 18
-        };
-
-        await SendAsync(obj, cancellation: ct);
+        await SendAsync(req, cancellation: ct);
     }
 }
 
