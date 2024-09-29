@@ -20,3 +20,13 @@ services:
       - DYNAMO_ENDPOINT=http://dynamodb-local:8000
     depends_on:
       - dynamodb-local
+
+  api:
+    build: ./apps/api
+    container_name: api
+    ports:
+      - "3000:3000"
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamodb-local:8000
+    depends_on:
+      - dynamodb-local
