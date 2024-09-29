@@ -1,5 +1,5 @@
 using Amazon.DynamoDBv2;
-using Api.Models;
+using Api.Tables;
 using FastEndpoints;
 
 namespace Api.Endpoints;
@@ -10,7 +10,7 @@ public class ContractPostEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<Con
 
     public override void Configure()
     {
-        Post("/api/user/create");
+        Post("/api/contract");
         AllowAnonymous();
     }
 

@@ -1,7 +1,6 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.Model;
-using Api.Models;
+using Api.Tables;
 using FastEndpoints;
 
 namespace Api.Endpoints;
@@ -22,7 +21,7 @@ public class ContractGetEndpoint : Endpoint<GetContractRequest, Contract>
 
     public override void Configure()
     {
-        Get("/api/user/{id}");
+        Get("/api/contract/{id}");
         AllowAnonymous();
     }
 
