@@ -10,7 +10,7 @@ public class ContractPostEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<Con
 
     public override void Configure()
     {
-        Post("/api/contract");
+        Post("/api/contracts");
         AllowAnonymous();
     }
 

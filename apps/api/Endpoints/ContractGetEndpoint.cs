@@ -21,7 +21,7 @@ public class ContractGetEndpoint : Endpoint<GetContractRequest, Contract>
 
     public override void Configure()
     {
-        Get("/api/contract/{id}");
+        Get("/api/contracts/{id}");
         AllowAnonymous();
     }
 

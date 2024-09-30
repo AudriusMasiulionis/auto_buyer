@@ -5,7 +5,8 @@ namespace Api.Tables;
 [DynamoDBTable("Contracts")]
 public class Contract
 {
-    public Guid Id { get; set; }
+    [DynamoDBHashKey]
+    public string Id { get; set; }
     public PartyInfo? Buyer { get; set; } // todo encrypt
     // public PartyInfo Seller { get; set; } // todo encrypt
     // public VehicleInfo Vehicle { get; set; } // todo
