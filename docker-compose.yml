@@ -28,5 +28,6 @@ services:
       - "3000:8080"
     environment:
       - DYNAMO_ENDPOINT=http://dynamodb-local:8000
+      - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - dynamodb-local
