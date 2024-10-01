@@ -10,18 +10,13 @@ public class GetContractRequest
     public string Id { get; set; }
 }
 
-public class ContractGetEndpoint : Endpoint<GetContractRequest, Contract>
+public class ContractGetEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<GetContractRequest, Contract>
 {
-    private readonly DynamoDBContext _context;
-
-    public ContractGetEndpoint(IAmazonDynamoDB dynamoDbClient)
-    {
-        _context = new DynamoDBContext(dynamoDbClient);    
-    }
+    private readonly DynamoDBContext _context = new(dynamoDbClient);
 
     public override void Configure()
     {
-        Get("/api/contracts/{id}");
+        Get("/api/contracts/{Id}");
         AllowAnonymous();
     }
 

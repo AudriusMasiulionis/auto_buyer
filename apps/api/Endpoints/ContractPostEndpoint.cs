@@ -1,4 +1,5 @@
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using Api.Tables;
 using FastEndpoints;
 
@@ -6,7 +7,8 @@ namespace Api.Endpoints;
 
 public class ContractPostEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<Contract, Contract>
 {
-    private readonly IAmazonDynamoDB _dynamoDbClient = dynamoDbClient;
+    private readonly DynamoDBContext _context = new(dynamoDbClient);
+
 
     public override void Configure()
     {
@@ -16,7 +18,13 @@ public class ContractPostEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<Con
 
     public override async Task HandleAsync(Contract req, CancellationToken ct)
     {
-        await SendAsync(req, cancellation: ct);
+        Contract entity = new()
+        {
+            Id = Guid.NewGuid().ToString(),
+        };
+
+        await _context.SaveAsync(entity, ct);
+        await SendAsync(entity, cancellation: ct);
     }
 }
 

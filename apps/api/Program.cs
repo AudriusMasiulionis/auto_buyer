@@ -14,7 +14,6 @@ if (builder.Configuration["DYNAMO_ENDPOINT"] is null || builder.Configuration["D
 }
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var dynamoDbConfig = new AmazonDynamoDBConfig
 {
@@ -35,8 +34,8 @@ await CreateTableIfNotExists(app.Services);
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    // app.UseSwagger();
+    // app.UseSwaggerUI();
 }
 
 app.UseFastEndpoints();
