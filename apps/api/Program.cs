@@ -13,6 +13,9 @@ if (builder.Configuration["DYNAMO_ENDPOINT"] is null || builder.Configuration["D
     throw new Exception("DYNAMO_ENDPOINT environment variable is required");
 }
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var dynamoDbConfig = new AmazonDynamoDBConfig
 {
     ServiceURL = builder.Configuration["DYNAMO_ENDPOINT"]
@@ -28,7 +31,13 @@ builder.Services.AddSingleton<IDynamoDBContext, DynamoDBContext>();
 
 var app = builder.Build();
 
-// await CreateTableIfNotExists(app.Services);
+await CreateTableIfNotExists(app.Services);
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseFastEndpoints();
 
