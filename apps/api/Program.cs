@@ -3,17 +3,14 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
+using FastEndpoints.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
-builder.Services.AddFastEndpoints();
-
-if (builder.Configuration["DYNAMO_ENDPOINT"] is null || builder.Configuration["DYNAMO_ENDPOINT"] ==  string.Empty)
-{
-    throw new Exception("DYNAMO_ENDPOINT environment variable is required");
-}
-
-builder.Services.AddEndpointsApiExplorer();
+builder.Services
+    .AddFastEndpoints()
+    .AddEndpointsApiExplorer()
+    .SwaggerDocument();
 
 var dynamoDbConfig = new AmazonDynamoDBConfig
 {
@@ -32,13 +29,8 @@ var app = builder.Build();
 
 await CreateTableIfNotExists(app.Services);
 
-if (app.Environment.IsDevelopment())
-{
-    // app.UseSwagger();
-    // app.UseSwaggerUI();
-}
-
-app.UseFastEndpoints();
+app.UseFastEndpoints()
+    .UseSwaggerGen();
 
 app.Run();
 

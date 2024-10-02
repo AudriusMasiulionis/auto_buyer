@@ -16,11 +16,12 @@ public class ContractPostEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<Con
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(Contract req, CancellationToken ct)
+    public override async Task HandleAsync(Contract req, CancellationToken ct) // todo to different object
     {
         Contract entity = new()
         {
             Id = Guid.NewGuid().ToString(),
+            Buyer = req.Buyer,
         };
 
         await _context.SaveAsync(entity, ct);

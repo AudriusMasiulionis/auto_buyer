@@ -5,24 +5,24 @@ using FastEndpoints;
 
 namespace Api.Endpoints;
 
-public class GetContractRequest
-{
-    public string Id { get; set; }
-}
-
-public class ContractGetEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<GetContractRequest, Contract>
+public class ContractGetEndpoint(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutRequest<Contract>
 {
     private readonly DynamoDBContext _context = new(dynamoDbClient);
 
     public override void Configure()
     {
-        Get("/api/contracts/{Id}");
+        Get("/api/contracts/{id}");
+        Description(b => b
+            .Produces<Contract>()
+            .WithName("GetContract")
+            .WithSummary("Get a contract by ID"));
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(GetContractRequest req, CancellationToken ct)
+    public override async Task HandleAsync(CancellationToken ct)
     {
-        var contract = await _context.LoadAsync<Contract>(req.Id, ct);
+        var id = Route<string>("id");
+        var contract = await _context.LoadAsync<Contract>(id, ct);
         if (contract == null)
         {
             await SendNotFoundAsync(ct);
