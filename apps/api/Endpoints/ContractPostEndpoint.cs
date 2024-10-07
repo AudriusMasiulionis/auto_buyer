@@ -22,6 +22,8 @@ public class ContractPostEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<Con
         {
             Id = Guid.NewGuid().ToString(),
             Buyer = req.Buyer,
+            Seller = req.Seller,
+            Vehicle = req.Vehicle
         };
 
         await _context.SaveAsync(entity, ct);
