@@ -5,10 +5,9 @@ using FastEndpoints;
 
 namespace Api.Endpoints;
 
-public class ContractPostEndpoint(IAmazonDynamoDB dynamoDbClient) : Endpoint<Contract, Contract>
+public class ContractPost(IAmazonDynamoDB dynamoDbClient) : Endpoint<Contract, Contract>
 {
     private readonly DynamoDBContext _context = new(dynamoDbClient);
-
 
     public override void Configure()
     {

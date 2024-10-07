@@ -5,7 +5,7 @@ using FastEndpoints;
 
 namespace Api.Endpoints;
 
-public class ContractGetEndpoint(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutRequest<Contract>
+public class ContractGet(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutRequest<Contract>
 {
     private readonly DynamoDBContext _context = new(dynamoDbClient);
 
