@@ -26,7 +26,7 @@ public class ContractPost(IAmazonDynamoDB dynamoDbClient) : Endpoint<Contract, C
         };
 
         await _context.SaveAsync(entity, ct);
-        await SendAsync(entity, cancellation: ct);
+        await SendCreatedAtAsync<ContractGet>($"/api/contract/{entity.Id}", entity, cancellation: ct);
     }
 }
 
