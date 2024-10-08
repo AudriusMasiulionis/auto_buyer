@@ -1,11 +1,10 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Api.Tables;
 using FastEndpoints;
 
-namespace Api.Endpoints;
+namespace Api.Contracts;
 
-public class ContractPut(IAmazonDynamoDB dynamoDbClient) : Endpoint<Contract, Contract>
+public class ContractPut(IAmazonDynamoDB dynamoDbClient) : Endpoint<ContractRequest, ContractResponse, ContractMapper>
 {
     private readonly DynamoDBContext _context = new(dynamoDbClient);
 
@@ -15,7 +14,7 @@ public class ContractPut(IAmazonDynamoDB dynamoDbClient) : Endpoint<Contract, Co
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(Contract req, CancellationToken ct)
+    public override async Task HandleAsync(ContractRequest req, CancellationToken ct)
     {
         var id = Route<string>("id");
         var existing = await _context.LoadAsync<Contract>(id, ct);
@@ -25,12 +24,15 @@ public class ContractPut(IAmazonDynamoDB dynamoDbClient) : Endpoint<Contract, Co
             return;
         }
 
-        existing.Buyer = req.Buyer;
-        existing.Seller = req.Seller;
-        existing.Vehicle = req.Vehicle;
+        var updated = Map.ToEntity(req);
+
+        existing.Buyer = updated.Buyer;
+        existing.Seller = updated.Seller;
+        existing.Vehicle = updated.Vehicle;
 
         await _context.SaveAsync(existing, ct);
-        await SendAsync(existing, cancellation: ct);
+        var response = Map.FromEntity(existing);
+        await SendAsync(response, cancellation: ct);
     }
 }
 

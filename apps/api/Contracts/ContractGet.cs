@@ -1,11 +1,10 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Api.Tables;
 using FastEndpoints;
 
-namespace Api.Endpoints;
+namespace Api.Contracts;
 
-public class ContractGet(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutRequest<Contract>
+public class ContractGet(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutRequest<ContractResponse, ContractResponseMapper>
 {
     private readonly DynamoDBContext _context = new(dynamoDbClient);
 
@@ -28,8 +27,9 @@ public class ContractGet(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutReques
             await SendNotFoundAsync(ct);
             return;
         }
-        
-        await SendAsync(contract, cancellation: ct);
+
+        ContractResponse response = Map.FromEntity(contract);
+        await SendAsync(response, cancellation: ct);
     }
 }
 
