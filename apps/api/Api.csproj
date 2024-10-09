@@ -13,8 +13,4 @@
     <PackageReference Include="FastEndpoints.Swagger" Version="5.30.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models/" />
-  </ItemGroup>
-
 </Project>
