@@ -20,7 +20,19 @@ public class Contract
         public required string Email { get; set; }
         public required string PhoneNumber { get; set; }
 
-        // add prop to store signature byte[]
+        // add prop to store signature byte[]?
+
+        public override bool Equals(object? obj)
+        {
+            return obj is PartyInfo info &&
+                   Name == info.Name &&
+                   Address == info.Address &&
+                   Company == info.Company &&
+                   Code == info.Code &&
+                   Email == info.Email &&
+                   PhoneNumber == info.PhoneNumber;
+        }
+
     }
 
     public enum Status

@@ -4,7 +4,7 @@ using FastEndpoints;
 
 namespace Api.Contracts;
 
-public class ContractPut(IAmazonDynamoDB dynamoDbClient) : Endpoint<ContractRequest, ContractResponse, ContractMapper>
+public partial class ContractPut(IAmazonDynamoDB dynamoDbClient) : Endpoint<ContractRequest, ContractResponse, ContractMapper>
 {
     private readonly DynamoDBContext _context = new(dynamoDbClient);
 
