@@ -4,17 +4,21 @@ using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
 using FastEndpoints.Swagger;
+using Api.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddEnvironmentVariables();
+builder.Configuration
+    .AddEnvironmentVariables();
 builder.Services
     .AddFastEndpoints()
+    .AddJobQueues<JobRecord, JobStorageProvider>()
     .AddEndpointsApiExplorer()
     .SwaggerDocument();
 
 var dynamoDbConfig = new AmazonDynamoDBConfig
 {
-    ServiceURL = builder.Configuration["DYNAMO_ENDPOINT"]
+    ServiceURL = "http://localhost:8000"
+    // ServiceURL = builder.Configuration["DYNAMO_ENDPOINT"]
 };
 
 // Use BasicAWSCredentials with fake keys
@@ -27,19 +31,21 @@ builder.Services.AddSingleton<IDynamoDBContext, DynamoDBContext>();
 
 var app = builder.Build();
 
-await CreateTableIfNotExists(app.Services);
+await CreateTableIfNotExists(app.Services, "Contracts");
+await CreateTableIfNotExists(app.Services, "Jobs");
+
 
 app.UseFastEndpoints()
+    .UseJobQueues()
     .UseSwaggerGen();
 
 app.Run();
 
 
-async Task CreateTableIfNotExists(IServiceProvider services)
+async Task CreateTableIfNotExists(IServiceProvider services, string tableName)
 {
     var dynamoDb = services.GetRequiredService<IAmazonDynamoDB>();
     
-    var tableName = "Contracts"; // Name of the table
     var existingTables = await dynamoDb.ListTablesAsync();
 
     // Check if the table already exists
@@ -48,14 +54,14 @@ async Task CreateTableIfNotExists(IServiceProvider services)
         var createTableRequest = new CreateTableRequest
         {
             TableName = tableName,
-            KeySchema = new List<KeySchemaElement>
-            {
+            KeySchema =
+            [
                 new KeySchemaElement("Id", KeyType.HASH) // Partition key
-            },
-            AttributeDefinitions = new List<AttributeDefinition>
-            {
+            ],
+            AttributeDefinitions =
+            [
                 new AttributeDefinition("Id", ScalarAttributeType.S) // String type
-            },
+            ],
             ProvisionedThroughput = new ProvisionedThroughput(5, 5) // Read and write capacity
         };
 

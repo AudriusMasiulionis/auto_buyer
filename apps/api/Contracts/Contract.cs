@@ -1,12 +1,14 @@
 using Amazon.DynamoDBv2.DataModel;
+using Api.Helpers;
 
 namespace Api.Contracts;
 
 [DynamoDBTable("Contracts")]
 public class Contract
 {
+    [DynamoDBProperty(Converter = typeof(GuidConverter))]
     [DynamoDBHashKey]
-    public string Id { get; init; } = Guid.NewGuid().ToString();
+    public Guid Id { get; init; } = Guid.NewGuid();
     public PartyInfo? Buyer { get; set; } // todo encrypt
     public PartyInfo? Seller { get; set; } // todo encrypt
     public VehicleInfo? Vehicle { get; set; }

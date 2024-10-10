@@ -6,7 +6,6 @@ public static class Mappings
 {
     public static Contract ToEntity(ContractRequest req) => new()
     {
-        Id = Guid.NewGuid().ToString(),
         Buyer = req.Buyer is null ? null : ToEntity(req.Buyer),
         Seller = req.Seller is null ? null : ToEntity(req.Seller),
         Vehicle = req.Vehicle is null ? null : ToEntity(req.Vehicle)

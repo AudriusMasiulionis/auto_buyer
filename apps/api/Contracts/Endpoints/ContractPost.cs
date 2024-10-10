@@ -1,8 +1,9 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using Api.Contracts.Commands;
 using FastEndpoints;
 
-namespace Api.Contracts;
+namespace Api.Contracts.Endpoints;
 
 public class ContractPost(IAmazonDynamoDB dynamoDbClient) : Endpoint<ContractRequest, ContractResponse, ContractMapper>
 {
@@ -19,6 +20,7 @@ public class ContractPost(IAmazonDynamoDB dynamoDbClient) : Endpoint<ContractReq
         Contract entity = Map.ToEntity(req);
         await _context.SaveAsync(entity, ct);
         ContractResponse response = Map.FromEntity(entity);
+        await new SellerSigningCompleted(entity.Id).QueueJobAsync(ct: ct);
         await SendCreatedAtAsync<ContractGet>($"/api/contract/{entity.Id}", response, cancellation: ct);
     }
 }

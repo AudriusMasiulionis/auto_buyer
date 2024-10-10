@@ -2,7 +2,7 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using FastEndpoints;
 
-namespace Api.Contracts;
+namespace Api.Contracts.Endpoints;
 
 public class ContractGet(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutRequest<ContractResponse, ContractResponseMapper>
 {
@@ -32,4 +32,3 @@ public class ContractGet(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutReques
         await SendAsync(response, cancellation: ct);
     }
 }
-

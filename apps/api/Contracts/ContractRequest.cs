@@ -10,7 +10,7 @@ public class ContractRequest
 
 public class ContractResponse
 {
-    public required string Id { get; set; }
+    public required Guid Id { get; set; }
     public PartyInfo? Buyer { get; set; }
     public PartyInfo? Seller { get; set; }
     public VehicleInfo? Vehicle { get; set; }

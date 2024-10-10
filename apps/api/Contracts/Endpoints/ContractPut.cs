@@ -2,7 +2,7 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using FastEndpoints;
 
-namespace Api.Contracts;
+namespace Api.Contracts.Endpoints;
 
 public partial class ContractPut(IAmazonDynamoDB dynamoDbClient) : Endpoint<ContractRequest, ContractResponse, ContractMapper>
 {
