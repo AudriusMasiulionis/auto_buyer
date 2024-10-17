@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import ThemeWrapper from "@/theme/ThemeWrapper"; // Import your ThemeWrapper
+import { AppBar, Toolbar, Typography, Button } from '@mui/material'; // Import MUI components
+import Link from 'next/link'; // Import Link for navigation
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +29,28 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <ThemeWrapper>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                MyApp
+              </Typography>
+              <Button color="inherit" component={Link} href="/">
+                Home
+              </Button>
+              <Button color="inherit" component={Link} href="/about">
+                About
+              </Button>
+              <Button color="inherit" component={Link} href="/contact">
+                Contact
+              </Button>
+            </Toolbar>
+          </AppBar>
+          
+          <div style={{ padding: '20px' }}>
+              <main>{children}</main>
+          </div>
+        </ThemeWrapper>
       </body>
     </html>
   );
