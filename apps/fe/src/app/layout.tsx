@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import ThemeWrapper from "@/theme/ThemeWrapper"; // Import your ThemeWrapper
-import { AppBar, Toolbar, Typography, Button } from '@mui/material'; // Import MUI components
-import Link from 'next/link'; // Import Link for navigation
+import ThemeWrapper from "@/theme/ThemeWrapper";
+import { AppBar, Toolbar, Typography, Button, Container } from "@mui/material";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,8 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable}`} style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <ThemeWrapper>
+          {/* AppBar */}
           <AppBar position="static">
             <Toolbar>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -46,10 +47,18 @@ export default function RootLayout({
               </Button>
             </Toolbar>
           </AppBar>
-          
-          <div style={{ padding: '20px' }}>
-              <main>{children}</main>
-          </div>
+
+          {/* Main Content */}
+          <Container component="main" sx={{ flexGrow: 1, paddingY: 5 }}>
+            {children}
+          </Container>
+
+          {/* Sticky Footer */}
+          <footer style={{ padding: "20px", backgroundColor: "#f1f1f1", textAlign: "center", marginTop: "auto" }}>
+            <Typography variant="body2" color="textSecondary">
+              © {new Date().getFullYear()} MyApp. All rights reserved.
+            </Typography>
+          </footer>
         </ThemeWrapper>
       </body>
     </html>

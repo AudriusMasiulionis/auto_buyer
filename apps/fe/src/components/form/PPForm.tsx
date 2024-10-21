@@ -1,7 +1,17 @@
 "use client";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Paper, Stack, Step, StepLabel, Stepper } from "@mui/material";
+import {
+  Button,
+  Paper,
+  Stack,
+  Step,
+  StepLabel,
+  Stepper,
+  MobileStepper,
+  useMediaQuery,
+  useTheme
+} from "@mui/material";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -56,6 +66,8 @@ const steps = [
 
 export const PPForm = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const theme = useTheme();
+  const isMobile =  (theme.breakpoints.down("sm")); // Check if the view is mobile
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -80,20 +92,17 @@ export const PPForm = () => {
       paymentDate: new Date().toISOString(),
       buyersEmail: ""
     },
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     resolver: yupResolver(formSchema as yup.ObjectSchema<FormValues>)
   });
 
   const { handleSubmit, trigger } = methods;
 
   const onSubmit = handleSubmit(async (values: FormValues) => {
-    // eslint-disable-next-line no-console
     console.log(values);
   });
 
   const handleNext = async () => {
     const isValid = await trigger(fieldsToValidate[activeStep]);
-
     if (isValid) {
       setActiveStep(prevActiveStep => prevActiveStep + 1);
     }
@@ -111,30 +120,56 @@ export const PPForm = () => {
         sx={{ maxWidth: "21cm", p: 3, mx: "auto", my: 3 }}
         elevation={4}
       >
-        <Stepper activeStep={activeStep}>
-          {steps.map((label, i) => (
-            <Step key={label}>
-              <StepLabel>
-                {i === activeStep ? <strong>{label}</strong> : label}
-              </StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+        {/* Conditional Stepper: Mobile or Regular */}
+        {!isMobile ? (
+          <Stepper activeStep={activeStep}>
+            {steps.map((label, i) => (
+              <Step key={label}>
+                <StepLabel>
+                  {i === activeStep ? <strong>{label}</strong> : label}
+                </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        ) : (
+          <MobileStepper
+            variant="dots"
+            steps={steps.length}
+            position="static"
+            activeStep={activeStep}
+            nextButton={
+              <Button size="small" onClick={handleNext} disabled={activeStep === steps.length - 1}>
+                Next
+              </Button>
+            }
+            backButton={
+              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                Back
+              </Button>
+            }
+          />
+        )}
+
+        {/* Form Content */}
         <Stack gap={5} sx={{ mt: 5 }}>
           {activeStep === 0 && <SellerInfoForm />}
           {activeStep === 1 && <VehicleInfoForm />}
           {activeStep === 2 && <PaymentInfoForm />}
-          <Stack direction="row" justifyContent="space-between">
-            {activeStep > 0 && <Button onClick={handleBack}>Grįžti</Button>}
-            <div />
-            {activeStep < steps.length - 1 ? (
-              <Button onClick={handleNext}>Tęsti</Button>
-            ) : (
-              <Button type="submit" variant="contained">
-                Pateikti
-              </Button>
-            )}
-          </Stack>
+
+          {/* Button Controls for non-mobile Stepper */}
+          {!isMobile && (
+            <Stack direction="row" justifyContent="space-between">
+              {activeStep > 0 && <Button onClick={handleBack}>Grįžti</Button>}
+              <div />
+              {activeStep < steps.length - 1 ? (
+                <Button onClick={handleNext}>Tęsti</Button>
+              ) : (
+                <Button type="submit" variant="contained">
+                  Pateikti
+                </Button>
+              )}
+            </Stack>
+          )}
         </Stack>
       </Paper>
     </FormProvider>
