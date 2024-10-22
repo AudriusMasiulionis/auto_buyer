@@ -1,4 +1,5 @@
 import { Typography, Button, Container, Card, CardContent, CardActions, Grid2 } from '@mui/material';
+import { textAlign } from '@mui/system';
 
 export default function Home() {
   return (
@@ -16,27 +17,44 @@ export default function Home() {
         </Button>
       </Container>
 
-      <Container sx={{ paddingY: 5 }}>
+      <Container sx={{ paddingY: 5, textAlign: 'center' }}>
         <Grid2 container spacing={4}>
-          {Array.from(Array(3)).map((_, index) => (
-            <Grid2 key={index} display="flex">
-              <Card>
-                <CardContent>
-                  <Typography variant="h5" component="div" gutterBottom>
-                    Feature {index + 1}
-                  </Typography>
-                  <Typography variant="body2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" color="primary" href={`/feature/${index + 1}`}>
-                    Learn More
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid2>
-          ))}
+          <Grid2 size={{ md: 12 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h5" component="div" gutterBottom>
+                  Feature 1
+                </Typography>
+                <Typography variant="body2">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid2>
+          <Grid2 size={{ md: 12 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h5" component="div" gutterBottom>
+                  Feature 2
+                </Typography>
+                <Typography variant="body2">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid2>
+          <Grid2 size={{ md: 12 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h5" component="div" gutterBottom>
+                  Feature 3
+                </Typography>
+                <Typography variant="body2">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid2>
         </Grid2>
       </Container>
     </div>
