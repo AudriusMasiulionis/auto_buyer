@@ -1,18 +1,15 @@
-using Amazon.DynamoDBv2.DataModel;
-using Api.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Contracts;
 
-[DynamoDBTable("Contracts")]
 public class Contract
 {
-    [DynamoDBProperty(Converter = typeof(GuidConverter))]
-    [DynamoDBHashKey]
     public Guid Id { get; init; } = Guid.NewGuid();
     public PartyInfo? Buyer { get; set; } // todo encrypt
     public PartyInfo? Seller { get; set; } // todo encrypt
     public VehicleInfo? Vehicle { get; set; }
 
+    [Owned]
     public class PartyInfo
     {
         public required string Name { get; set; }
@@ -54,6 +51,7 @@ public class Contract
         Other
     }
 
+    [Owned]
     public class VehicleInfo
     {
         public string SDK { get; set; }

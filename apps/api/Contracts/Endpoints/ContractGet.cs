@@ -1,13 +1,10 @@
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
 using FastEndpoints;
 
 namespace Api.Contracts.Endpoints;
 
-public class ContractGet(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutRequest<ContractResponse, ContractResponseMapper>
+public class ContractGet(ApplicationDbContext context)
+    : EndpointWithoutRequest<ContractResponse, ContractResponseMapper>
 {
-    private readonly DynamoDBContext _context = new(dynamoDbClient);
-
     public override void Configure()
     {
         Get("/api/contracts/{id}");
@@ -20,15 +17,15 @@ public class ContractGet(IAmazonDynamoDB dynamoDbClient) : EndpointWithoutReques
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var id = Route<string>("id");
-        var contract = await _context.LoadAsync<Contract>(id, ct);
+        var id = Route<Guid>("id");
+        var contract = await context.FindAsync<Contract>(keyValues: [id], cancellationToken: ct);
         if (contract == null)
         {
             await SendNotFoundAsync(ct);
             return;
         }
 
-        ContractResponse response = Map.FromEntity(contract);
+        var response = Map.FromEntity(contract);
         await SendAsync(response, cancellation: ct);
     }
 }

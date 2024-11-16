@@ -1,87 +1,96 @@
-using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
 using FastEndpoints;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Api.Jobs;
 
-public sealed class JobStorageProvider(IDynamoDBContext context) : IJobStorageProvider<JobRecord>
+sealed class JobStorageProvider : IJobStorageProvider<JobRecord>, IJobResultProvider
 {
-    private readonly IDynamoDBContext _context = context;
+    private readonly PooledDbContextFactory<JobDbContext> _dbPool;
 
-    public Task StoreJobAsync(JobRecord job, CancellationToken ct)
+    public JobStorageProvider()
     {
-        try
-        {
-            return _context.SaveAsync(job, ct);
-        }
-        catch (System.Exception e)
-        {
-            throw;            
-        }
+        var dbFolderPath = Path.Combine(Environment.CurrentDirectory, "Data");
+        if (Directory.Exists(dbFolderPath) == false)
+            Directory.CreateDirectory(dbFolderPath);
+        var dbPath = Path.Combine(dbFolderPath, "JobDatabase.db");
+        var opts = new DbContextOptionsBuilder<JobDbContext>()
+            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+            .UseSqlite($"Data Source={dbPath}").Options;
+        _dbPool = new PooledDbContextFactory<JobDbContext>(opts);
+        using var db = _dbPool.CreateDbContext();
+        db.Database.Migrate();
+    }
+
+    public async Task StoreJobAsync(JobRecord job, CancellationToken ct)
+    {
+        await using var db = await _dbPool.CreateDbContextAsync(ct);
+        await db.AddAsync(job, ct);
+        await db.SaveChangesAsync(ct);
     }
 
     public async Task<IEnumerable<JobRecord>> GetNextBatchAsync(PendingJobSearchParams<JobRecord> p)
     {
-        var conditions = new List<ScanCondition>
-        {
-            new(nameof(JobRecord.QueueID), ScanOperator.Equal, p.QueueID),
-            new(nameof(JobRecord.IsComplete), ScanOperator.Equal, false),
-            new(nameof(JobRecord.ExecuteAfter), ScanOperator.LessThanOrEqual, DateTime.UtcNow),
-            new(nameof(JobRecord.ExpireOn), ScanOperator.GreaterThanOrEqual, DateTime.UtcNow)
-        };
-
-        var search = _context.ScanAsync<JobRecord>(conditions);
-        var batch = await search.GetNextSetAsync(p.CancellationToken);
-        return batch.Take(p.Limit);
+        await using var db = await _dbPool.CreateDbContextAsync();
+        return await db.Jobs
+            .Where(p.Match)
+            .Take(p.Limit)
+            .ToListAsync(p.CancellationToken);
     }
 
-    public async Task MarkJobAsCompleteAsync(JobRecord job, CancellationToken ct)
+    public async Task MarkJobAsCompleteAsync(JobRecord job, CancellationToken c)
     {
-        var existingJob = await _context.LoadAsync<JobRecord>(job.Id, ct);
-        if (existingJob is null) return;
-
-        existingJob.IsComplete = true;
-        await _context.SaveAsync(existingJob, ct);
+        await using var db = await _dbPool.CreateDbContextAsync(c);
+        db.Update(job);
+        await db.SaveChangesAsync(c);
     }
 
-    public async Task CancelJobAsync(Guid trackingId, CancellationToken ct)
+    public async Task CancelJobAsync(Guid trackingId, CancellationToken c)
     {
-        var conditions = new List<ScanCondition>
-        {
-            new(nameof(JobRecord.TrackingID), ScanOperator.Equal, trackingId)
-        };
+        await using var db = await _dbPool.CreateDbContextAsync(c);
+        var job = await db.Jobs.FirstOrDefaultAsync(j => j.TrackingID == trackingId, cancellationToken: c);
 
-        var search = _context.ScanAsync<JobRecord>(conditions);
-        var jobs = await search.GetRemainingAsync(ct);
-        var tasks = jobs.Select(job =>
+        if (job is not null)
         {
-            job.IsCancelled = true;
-            return _context.SaveAsync(job, ct);
-        });
-        await Task.WhenAll(tasks);
+            job.IsComplete = true;
+            db.Update(job);
+            await db.SaveChangesAsync(c);
+        }
     }
 
     public async Task OnHandlerExecutionFailureAsync(JobRecord job, Exception e, CancellationToken c)
     {
-        var existingJob = await _context.LoadAsync<JobRecord>(job.Id, c);
-        if (existingJob is null) return;
-
-        existingJob.ExecuteAfter = DateTime.UtcNow.AddMinutes(1);
-        await _context.SaveAsync(existingJob, c);
+        await using var db = await _dbPool.CreateDbContextAsync(c);
+        job.ExecuteAfter = DateTime.UtcNow.AddMinutes(1);
+        db.Update(job);
+        await db.SaveChangesAsync(c);
     }
 
     public async Task PurgeStaleJobsAsync(StaleJobSearchParams<JobRecord> p)
     {
-        var conditions = new List<ScanCondition>
-        {
-            new(nameof(JobRecord.IsComplete), ScanOperator.Equal, true),
-            new(nameof(JobRecord.ExpireOn), ScanOperator.LessThanOrEqual, DateTime.UtcNow)
-        };
+        await using var db = await _dbPool.CreateDbContextAsync();
+        var staleJobs = db.Jobs.Where(p.Match);
+        db.RemoveRange(staleJobs);
+        await db.SaveChangesAsync(p.CancellationToken);
+    }
 
-        var search = _context.ScanAsync<JobRecord>(conditions);
-        var jobs = await search.GetRemainingAsync(p.CancellationToken);
+    public async Task StoreJobResultAsync<TResult>(Guid trackingId, TResult result, CancellationToken c)
+    {
+        await using var db = await _dbPool.CreateDbContextAsync(c);
+        var job = await db.Jobs.SingleAsync(j => j.TrackingID == trackingId, cancellationToken: c);
 
-        var tasks = jobs.Select(job => _context.DeleteAsync(job, p.CancellationToken));
-        await Task.WhenAll(tasks);
+        ((IJobResultStorage)job).SetResult(result);
+        db.Update(job);
+        await db.SaveChangesAsync(c);
+    }
+
+    public async Task<TResult?> GetJobResultAsync<TResult>(Guid trackingId, CancellationToken c)
+    {
+        await using var db = await _dbPool.CreateDbContextAsync(c);
+        var job = await db.Jobs.FirstOrDefaultAsync(j => j.TrackingID == trackingId, cancellationToken: c);
+
+        return job is not null
+            ? ((IJobResultStorage)job).GetResult<TResult>()
+            : default;
     }
 }
