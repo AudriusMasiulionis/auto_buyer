@@ -1,0 +1,49 @@
+namespace AutoDokas.Data.Models;
+
+public class VehicleContract
+{
+    public Guid Id { get; set; }
+    public PartyInfo? SellerInfo { get; set; }
+    public PartyInfo? BuyerInfo { get; set; }
+    public Vehicle? VehicleInfo { get; set; }
+
+    public class PartyInfo
+    {
+        public string? Code { get; set; }
+        public bool IsCompany { get; set; }
+        public string? Phone { get; set; }
+        public string? Name { get; set; }
+        public string? Address { get; set; }
+        public string? Email { get; set; }
+    }
+
+    public class Vehicle
+    {
+        public string Sdk { get; set; }
+        public string Make { get; set; }
+        public string RegistrationNumber { get; set; }
+        public int Millage { get; set; }
+        public string IdentificationNumber { get; set; }
+        public bool IsInspected { get; set; }
+        public bool HasBeenDamaged { get; set; }
+        public bool PriorDamagesKnown { get; set; }
+        public List<Defect> Defects { get; set; }
+        public string? AdditionalInformation { get; set; }
+
+        public enum Defect
+        {
+            Brakes,
+            Engine,
+            Transmission,
+            Suspension,
+            Steering,
+            ElectricalSystem,
+            Bodywork,
+            Interior,
+            PassengerSafetySystems,
+            Lights,
+            ExhaustSystem,
+            Other
+        }
+    }
+}

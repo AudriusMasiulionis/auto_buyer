@@ -1,0 +1,85 @@
+@page "/VehicleForm/{ContractId:guid}"
+@using AutoDokas.Data.Models
+<h3>VehicleForm</h3>
+
+<EditForm FormName="Hello" Model="Model" OnSubmit="Submit">
+    <div class="form-group">
+        <label for="Model.VehicleInfo.Sdk">Sdk</label>
+        <InputText class="form-control" @bind-Value="Model.Sdk"/>
+    </div>
+    <div class="form-group">
+        <label for="Model.VehicleInfo.Make">Make</label>
+        <InputText class="form-control" @bind-Value="Model.Make"/>
+    </div>
+    @* registraion number form gourp *@
+    <div class="form-group">
+        <label for="Model.VehicleInfo.RegistrationNumber">Registration Number</label>
+        <InputText class="form-control" @bind-Value="Model.RegistrationNumber"/>
+    </div>
+    @* millage form group *@
+    <div class="form-group">
+        <label for="Model.VehicleInfo.Millage">Millage</label>
+        <InputNumber class="form-control" @bind-Value="Model.Millage"/>
+    </div>
+    @* identification numberf form group *@
+    <div class="form-group">
+        <label for="Model.VehicleInfo.IdentificationNumber">Identification Number</label>
+        <InputText class="form-control" @bind-Value="Model.IdentificationNumber"/>
+    </div>
+
+    @* radio for inspection *@
+    <div class="form-group">
+        <label for="Model.VehicleInfo.Inspection">Inspection</label>
+        <InputRadioGroup class="form-control" @bind-Value="Model.IsInspected">
+            <InputRadio Value="true"/>
+            Yes
+            <InputRadio Value="false"/>
+            No
+        </InputRadioGroup>
+    </div>
+
+    @* radio has been damaged *@
+    <div class="form-group">
+        <label for="Model.VehicleInfo.HasBeenDamaged">Has been damaged</label>
+        <InputRadioGroup class="form-control" @bind-Value="Model.HasBeenDamaged">
+            <InputRadio Value="true"/>
+            Yes
+            <InputRadio Value="false"/>
+            No
+        </InputRadioGroup>
+    </div>
+
+    @* radio prior damage *@
+    <div class="form-group">
+        <label for="Model.VehicleInfo.PriorDamage">Prior Damage known</label>
+        <InputRadioGroup class="form-control" @bind-Value="Model.PriorDamagesKnown">
+            <InputRadio Value="true"/>
+            Yes
+            <InputRadio Value="false"/>
+            No
+        </InputRadioGroup>
+    </div>
+
+    <div class="form-group">
+        <label for="Model.VehicleInfo.Defects">Defects</label>
+        @foreach (var value in _defectValues)
+        {
+            <div>
+                <input type="checkbox" id="@value" value="@value" @onchange="(e => ToggleSelection(value, e))" 
+                       checked="@_selectedDefects.Contains(value)" />
+                <label for="@value">@value</label>
+            </div>
+        }
+    </div>
+
+    @* text input for additional information *@
+    <div class="form-group">
+        <label for="Model.VehicleInfo.AdditionalInformation">Additional Information</label>
+        <InputTextArea class="form-control" @bind-Value="Model.AdditionalInformation"/>
+    </div>
+
+    <button class="btn btn-primary mt-2" type="submit">Next</button>
+
+</EditForm>
+
+
