@@ -16,13 +16,15 @@ public partial class SellerForm : ComponentBase
     {
         Model ??= new();
     }
-    
+
 
     private async Task Submit()
     {
         try
         {
-            _loading = true;
+            // _loading = true;
+
+            // Create the entity and save it to the database
             var entity = new VehicleContract
             {
                 SellerInfo = Model
@@ -33,11 +35,8 @@ public partial class SellerForm : ComponentBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
-        }
-        finally
-        {
-            _loading = false;
+            Console.WriteLine($"Error: {ex.Message}");
+            //_loading = false; // Handle loading state on exception
         }
     }
 }

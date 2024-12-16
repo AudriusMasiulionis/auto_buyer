@@ -3,6 +3,7 @@
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<Text> Localizer
 @attribute [StreamRendering]
+@rendermode InteractiveServer
 
 
 <PageTitle>Form</PageTitle>
@@ -21,7 +22,7 @@ else
         </div>
     }
 
-    <EditForm FormName="Hello" Model="Model" OnSubmit="Submit">
+    <EditForm FormName="Hello" Model="Model" OnValidSubmit="Submit">
         <div class="form-group">
             <label for="Model.BuyerInfo.Name">@Localizer["Name"]</label>
             <InputText class="form-control" @bind-Value="Model.Name"/>
