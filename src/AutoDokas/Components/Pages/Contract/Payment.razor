@@ -1,0 +1,80 @@
+@page "/Payment/{ContractId:guid}"
+@using AutoDokas.Data.Models
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+<PageTitle>Price</PageTitle>
+
+
+<div class="container mt-4">
+    <h3>Price</h3>
+    @if (_loading)
+    {
+        <div class="spinner-border" role="status"></div>
+    }
+
+    <EditForm FormName="SellerForm" Model="Model" OnValidSubmit="Submit">
+        <DataAnnotationsValidator/>
+        <div class="mb-3">
+            <label class="form-label" for="Price">Price</label>
+            <InputNumber class="form-control" @bind-Value="Model.Price" id="Price"/>
+            <ValidationMessage For="() => Model.Price"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="PaymentMethod">Payment Method</label>
+            <InputRadioGroup class="form-control" @bind-Value="Model.PaymentMethod" id="PaymentMethod">
+                <InputRadio Value="@VehicleContract.Payment.PaymentType.Cash" class="form-check-input"
+                            id="PaymentMethodCash"/>
+                <label class="form-check-label"
+                       for="PaymentMethodCash">@VehicleContract.Payment.PaymentType.Cash</label>
+                <InputRadio Value="@VehicleContract.Payment.PaymentType.BankTransfer" class="form-check-input"
+                            id="PaymentMethodTransfer"/>
+                <label class="form-check-label"
+                       for="PaymentMethodTransfer">@VehicleContract.Payment.PaymentType.BankTransfer</label>
+            </InputRadioGroup>
+        </div>
+
+        <div class="mb-3">
+            <label for="PaymentAtContractFormation">Payment moment</label>
+            <InputRadioGroup class="form-control" @bind-Value="Model.PaymentAtContractFormation"
+                             id="PaymentAtContractFormation">
+                <InputRadio Value="true" class="form-check-input" id="PaymentAtContractFormationTrue"/>
+                <label class="form-check-label" for="PaymentAtContractFormationTrue">At contract formation</label>
+                <InputRadio Value="false" class="form-check-input" id="PaymentAtContractFormationFalse"/>
+                <label class="form-check-label" for="PaymentAtContractFormationTrue">Other Time</label>
+            </InputRadioGroup>
+        </div>
+
+        @if (Model.PaymentAtContractFormation == false)
+        {
+            <div class="mb-3">
+                <label for="PaymentAtContractFormation">Payment Date</label>
+                <InputDate class="form-control" @bind-Value="Model.PaymentDate" id="PaymentDate"/>
+            </div>
+        }
+
+        <div class="mb-3">
+            <InputCheckbox class="form-check-input" @bind-Value="Model.TransferInsurance" id="TransferInsurance"/>
+            <label class="form-check-label" for="TransferInsurance">Transfer Insurance</label>
+        </div>
+
+        @* input for additional information     *@
+        <div class="mb-3">
+            <label for="AdditionalInformation">Additional Information</label>
+            <InputTextArea class="form-control" @bind-Value="Model.AdditionalInformation" id="AdditionalInformation"/>
+        </div>
+
+        @* <div class="mb-3"> *@
+        @*     <label class="form-label" for="Email">Email</label> *@
+        @*     <InputText class="form-control" type="email" @bind-Value="Model.Email" id="Email"/> *@
+        @*     <ValidationMessage For="() => Model.Email"/> *@
+        @* </div> *@
+
+        <button class="btn btn-primary mt-2" type="submit">Next</button>
+
+    </EditForm>
+    
+
+</div>
+

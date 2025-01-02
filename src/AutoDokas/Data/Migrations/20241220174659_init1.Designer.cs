@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoDokas.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241215123200_party_info_update4")]
-    partial class party_info_update4
+    [Migration("20241220174659_init1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,6 +99,7 @@ namespace AutoDokas.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("Name")
+                                .IsRequired()
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("Phone")
@@ -130,6 +131,7 @@ namespace AutoDokas.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("Name")
+                                .IsRequired()
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("Phone")

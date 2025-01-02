@@ -11,9 +11,10 @@ public class VehicleContractConfiguration : IEntityTypeConfiguration<VehicleCont
         builder.HasKey(x => x.Id);
         builder.OwnsOne(x => x.BuyerInfo);
         builder.OwnsOne(x => x.SellerInfo);
-        builder.OwnsOne(x => x.VehicleInfo, vehicle =>
+        builder.OwnsOne(x => x.VehicleInfo, entity =>
         {
-            vehicle.Property(p => p.Defects).HasConversion<string>();
+            entity.Property(p => p.Defects).HasConversion<string>();
         });
+        builder.OwnsOne(x => x.PaymentInfo);
     }
 }

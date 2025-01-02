@@ -1,0 +1,60 @@
+
+@page "/SellerReview/{ContractId:guid}"
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+<div class="container mt-4">
+    <h3>Buyer Review</h3>
+
+    <h4>Seller's Information</h4>
+    <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@contract.SellerInfo.Name</dd>
+        <dt class="col-sm-3">Is Company</dt>
+        <dd class="col-sm-9">@contract.SellerInfo.IsCompany</dd>
+        <dt class="col-sm-3">Code</dt>
+        <dd class="col-sm-9">@contract.SellerInfo.Code</dd>
+        <dt class="col-sm-3">Phone</dt>
+        <dd class="col-sm-9">@contract.SellerInfo.Phone</dd>
+        <dt class="col-sm-3">Address</dt>
+        <dd class="col-sm-9">@contract.SellerInfo.Address</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@contract.SellerInfo.Email</dd>
+    </dl>
+    
+    <h4>Vehicle Information</h4>
+    <dl class="row">
+        <dt class="col-sm-3">SDK</dt>
+        <dd class="col-sm-9">@contract.VehicleInfo.Sdk</dd>
+        <dt class="col-sm-3">Make</dt>
+        <dd class="col-sm-9">@contract.VehicleInfo.Make</dd>
+        <dt class="col-sm-3">Registration Number</dt>
+        <dd class="col-sm-9">@contract.VehicleInfo.RegistrationNumber</dd>
+        <dt class="col-sm-3">Millage</dt>
+        <dd class="col-sm-9">@contract.VehicleInfo.Millage</dd>
+        <dt class="col-sm-3">Identification Number</dt>
+        <dd class="col-sm-9">@contract.VehicleInfo.IdentificationNumber</dd>
+        <dt class="col-sm-3">Is Inspected</dt>
+        <dd class="col-sm-9">@contract.VehicleInfo.IsInspected</dd>
+        <dt class="col-sm-3">Has been damaged</dt>
+        <dd class="col-sm-9">@contract.VehicleInfo.HasBeenDamaged</dd>
+        <dt class="col-sm-3">Prior Damage known</dt>
+        <dd class="col-sm-9">@contract.VehicleInfo.PriorDamagesKnown</dd>
+    </dl>
+
+    <h4>Price</h4>
+    <dl class="row">
+        <dt class="col-sm-3">Price</dt>
+        <dd class="col-sm-9">@contract.PaymentInfo.Price</dd>
+        <dt class="col-sm-3">Payment Method</dt>
+        <dd class="col-sm-9">@contract.PaymentInfo.PaymentMethod</dd>
+        <dt class="col-sm-3">Payment At Contract Formation</dt>
+        <dd class="col-sm-9">@contract.PaymentInfo.PaymentAtContractFormation</dd>
+        <dt class="col-sm-3">Payment Date</dt>
+        <dd class="col-sm-9">@contract.PaymentInfo.PaymentDate</dd>
+        <dt class="col-sm-3">Transfer Insurance</dt>
+        <dd class="col-sm-9">@contract.PaymentInfo.TransferInsurance</dd>
+        <dt class="col-sm-3">Additional Information</dt>
+        <dd class="col-sm-9">@contract.PaymentInfo.AdditionalInformation</dd>
+    </dl>
+</div>

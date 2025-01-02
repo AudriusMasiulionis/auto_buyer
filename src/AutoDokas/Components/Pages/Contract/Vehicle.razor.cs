@@ -1,14 +1,20 @@
 using AutoDokas.Data;
 using AutoDokas.Data.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.EntityFrameworkCore;
 
-namespace AutoDokas.Components.Pages;
+namespace AutoDokas.Components.Pages.Contract;
 
-public partial class VehicleForm : ComponentBase
+public partial class Vehicle : ComponentBase
 {
     [Inject] private AppDbContext _context { get; set; }
-    [Parameter] public Guid ContractId { get; set; }
-    [SupplyParameterFromForm] private VehicleContract.Vehicle Model { get; set; } = new();
+    [Parameter] public Guid? ContractId { get; set; }
+    private EditContext _editContext = null!;
+
+    [SupplyParameterFromForm(FormName = "VehicleForm")]
+    private VehicleContract.Vehicle Model { get; set; } = new();
+
     private List<VehicleContract.Vehicle.Defect> _selectedDefects = [];
     private bool _submitted = false;
     private bool _loading = false;
@@ -18,8 +24,17 @@ public partial class VehicleForm : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         _loading = true;
-        _contract = await _context.VehicleContracts.FindAsync(ContractId);
-        // handle null
+        if (ContractId.HasValue)
+        {
+            _contract = await _context.VehicleContracts.FindAsync(ContractId);
+            if (_contract?.VehicleInfo != null)
+            {
+                Model = _contract.VehicleInfo;
+                _selectedDefects = Model.Defects;
+            }
+        }
+
+        _editContext = new EditContext(Model);
     }
 
     private void ToggleSelection(VehicleContract.Vehicle.Defect value, ChangeEventArgs e)
@@ -43,7 +58,8 @@ public partial class VehicleForm : ComponentBase
         {
             _loading = true;
             _contract.VehicleInfo = Model;
-            _context.Update(_contract);
+            _contract.VehicleInfo.Defects = _selectedDefects;
+            _context.VehicleContracts.Update(_contract);
             await _context.SaveChangesAsync();
         }
         catch (Exception e)

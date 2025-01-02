@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace AutoDokas.Data.Models;
 
 public class VehicleContract
@@ -7,12 +9,14 @@ public class VehicleContract
     public PartyInfo? BuyerInfo { get; set; }
     public Vehicle? VehicleInfo { get; set; }
 
+    public Payment? PaymentInfo { get; set; }
+
     public class PartyInfo
     {
         public string? Code { get; set; }
         public bool IsCompany { get; set; }
         public string? Phone { get; set; }
-        public string? Name { get; set; }
+        [Required] public string? Name { get; set; }
         public string? Address { get; set; }
         public string? Email { get; set; }
     }
@@ -27,7 +31,7 @@ public class VehicleContract
         public bool IsInspected { get; set; }
         public bool HasBeenDamaged { get; set; }
         public bool PriorDamagesKnown { get; set; }
-        public List<Defect> Defects { get; set; }
+        public List<Defect> Defects { get; set; } = [];
         public string? AdditionalInformation { get; set; }
 
         public enum Defect
@@ -44,6 +48,22 @@ public class VehicleContract
             Lights,
             ExhaustSystem,
             Other
+        }
+    }
+
+    public class Payment
+    {
+        public decimal Price { get; set; }
+        public PaymentType? PaymentMethod { get; set; }
+        public bool PaymentAtContractFormation { get; set; }
+        public DateOnly? PaymentDate { get; set; }
+        public bool TransferInsurance { get; set; }
+        public string? AdditionalInformation { get; set; }
+
+        public enum PaymentType
+        {
+            Cash,
+            BankTransfer
         }
     }
 }

@@ -30,6 +30,37 @@ namespace AutoDokas.Data.Migrations
 
             modelBuilder.Entity("AutoDokas.Data.Models.VehicleContract", b =>
                 {
+                    b.OwnsOne("AutoDokas.Data.Models.VehicleContract+Payment", "PaymentInfo", b1 =>
+                        {
+                            b1.Property<Guid>("VehicleContractId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("AdditionalInformation")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<bool>("PaymentAtContractFormation")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<DateOnly?>("PaymentDate")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int?>("PaymentMethod")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<decimal>("Price")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<bool>("TransferInsurance")
+                                .HasColumnType("INTEGER");
+
+                            b1.HasKey("VehicleContractId");
+
+                            b1.ToTable("VehicleContracts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("VehicleContractId");
+                        });
+
                     b.OwnsOne("AutoDokas.Data.Models.VehicleContract+Vehicle", "VehicleInfo", b1 =>
                         {
                             b1.Property<Guid>("VehicleContractId")
@@ -96,6 +127,7 @@ namespace AutoDokas.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("Name")
+                                .IsRequired()
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("Phone")
@@ -127,6 +159,7 @@ namespace AutoDokas.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("Name")
+                                .IsRequired()
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("Phone")
@@ -141,6 +174,8 @@ namespace AutoDokas.Data.Migrations
                         });
 
                     b.Navigation("BuyerInfo");
+
+                    b.Navigation("PaymentInfo");
 
                     b.Navigation("SellerInfo");
 
