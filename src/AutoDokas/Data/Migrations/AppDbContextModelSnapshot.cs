@@ -127,11 +127,13 @@ namespace AutoDokas.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("Name")
-                                .IsRequired()
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("Phone")
                                 .HasColumnType("TEXT");
+
+                            b1.Property<byte[]>("SignatureData")
+                                .HasColumnType("BLOB");
 
                             b1.HasKey("VehicleContractId");
 
@@ -159,11 +161,13 @@ namespace AutoDokas.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("Name")
-                                .IsRequired()
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("Phone")
                                 .HasColumnType("TEXT");
+
+                            b1.Property<byte[]>("SignatureData")
+                                .HasColumnType("BLOB");
 
                             b1.HasKey("VehicleContractId");
 

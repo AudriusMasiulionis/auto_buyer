@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace AutoDokas.Data.Models;
 
 public class VehicleContract
@@ -8,7 +6,6 @@ public class VehicleContract
     public PartyInfo? SellerInfo { get; set; }
     public PartyInfo? BuyerInfo { get; set; }
     public Vehicle? VehicleInfo { get; set; }
-
     public Payment? PaymentInfo { get; set; }
 
     public class PartyInfo
@@ -16,9 +13,10 @@ public class VehicleContract
         public string? Code { get; set; }
         public bool IsCompany { get; set; }
         public string? Phone { get; set; }
-        [Required] public string? Name { get; set; }
+        public string? Name { get; set; }
         public string? Address { get; set; }
         public string? Email { get; set; }
+        public byte[]? SignatureData { get; set; }
     }
 
     public class Vehicle

@@ -1,8 +1,10 @@
 @page "/Vehicle/{ContractId:guid}"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
+@using AutoDokas.Components.Shared
 
-<div class="container mt-4">
+<div class="container my-4">
+    <Stepper Steps="4" CurrentStep="2" />
     <h3>VehicleForm</h3>
 
     <EditForm FormName="VehicleForm" Model="Model" OnValidSubmit="Submit">

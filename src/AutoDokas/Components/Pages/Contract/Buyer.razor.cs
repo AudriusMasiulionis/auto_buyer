@@ -12,21 +12,22 @@ public partial class Buyer : ComponentBase
 
     private EditContext _editContext = null!;
 
-    [SupplyParameterFromForm(FormName = "SellerForm")]
+    [SupplyParameterFromForm(FormName = "BuyerForm")]
     private VehicleContract.PartyInfo Model { get; set; } = new();
 
     [Parameter] public Guid? ContractId { get; set; }
 
     private bool _loading = false;
+    private VehicleContract? _entity;
 
     protected override async Task OnInitializedAsync()
     {
         if (ContractId.HasValue)
         {
-            var entity = await Context.VehicleContracts.FindAsync(ContractId);
-            if (entity is not null)
+            _entity = await Context.VehicleContracts.FindAsync(ContractId);
+            if (_entity is not null)
             {
-                Model = entity.BuyerInfo;
+                Model = _entity.BuyerInfo;
             }
         }
 
@@ -41,13 +42,15 @@ public partial class Buyer : ComponentBase
             _loading = true;
 
             // Create the entity and save it to the database
-            var entity = new VehicleContract
-            {
-                BuyerInfo = Model
-            };
-            await Context.AddAsync(entity);
+            _entity.BuyerInfo.Code = Model.Code;
+            _entity.BuyerInfo.IsCompany = Model.IsCompany;
+            _entity.BuyerInfo.Phone = Model.Phone;
+            _entity.BuyerInfo.Name = Model.Name;
+            _entity.BuyerInfo.Address = Model.Address;
+
+            Context.Update(_entity);
             await Context.SaveChangesAsync();
-            Navigation.NavigateTo($"/Vehicle/{entity.Id}");
+            Navigation.NavigateTo($"/BuyerReview/{_entity.Id}");
         }
         catch (Exception ex)
         {

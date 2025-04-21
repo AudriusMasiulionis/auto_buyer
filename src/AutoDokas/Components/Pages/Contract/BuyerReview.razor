@@ -1,76 +1,141 @@
-
 @page "/BuyerReview/{ContractId:guid}"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
+@using AutoDokas.Components.Shared
 
-<div class="container mt-4">
+<div class="container my-4">
+
+    <Stepper Steps="2" CurrentStep="2" />
+
     <h3>Buyer Review</h3>
 
     <h4>Seller's Information</h4>
-    <dl class="row">
-        <dt class="col-sm-3">Name</dt>
-        <dd class="col-sm-9">@contract.SellerInfo.Name</dd>
-        <dt class="col-sm-3">Is Company</dt>
-        <dd class="col-sm-9">@contract.SellerInfo.IsCompany</dd>
-        <dt class="col-sm-3">Code</dt>
-        <dd class="col-sm-9">@contract.SellerInfo.Code</dd>
-        <dt class="col-sm-3">Phone</dt>
-        <dd class="col-sm-9">@contract.SellerInfo.Phone</dd>
-        <dt class="col-sm-3">Address</dt>
-        <dd class="col-sm-9">@contract.SellerInfo.Address</dd>
-        <dt class="col-sm-3">Email</dt>
-        <dd class="col-sm-9">@contract.SellerInfo.Email</dd>
-    </dl>
-    
-    <h4>Buyer's Information</h4>
-    <dl class="row">
-        <dt class="col-sm-3">Name</dt>
-        <dd class="col-sm-9">@contract.BuyerInfo.Name</dd>
-        <dt class="col-sm-3">Is Company</dt>
-        <dd class="col-sm-9">@contract.BuyerInfo.IsCompany</dd>
-        <dt class="col-sm-3">Code</dt>
-        <dd class="col-sm-9">@contract.BuyerInfo.Code</dd>
-        <dt class="col-sm-3">Phone</dt>
-        <dd class="col-sm-9">@contract.BuyerInfo.Phone</dd>
-        <dt class="col-sm-3">Address</dt>
-        <dd class="col-sm-9">@contract.BuyerInfo.Address</dd>
-        <dt class="col-sm-3">Email</dt>
-        <dd class="col-sm-9">@contract.BuyerInfo.Email</dd>
-    </dl>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row" class="w-25">Name</th>
+                    <td>@(contract.SellerInfo?.Name ?? "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Is Company</th>
+                    <td>@(contract.SellerInfo?.IsCompany ?? false)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Code</th>
+                    <td>@(contract.SellerInfo?.Code ?? "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Phone</th>
+                    <td>@(contract.SellerInfo?.Phone ?? "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Address</th>
+                    <td>@(contract.SellerInfo?.Address ?? "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td>@(contract.SellerInfo?.Email ?? "-")</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <h4>Vehicle Information</h4>
-    <dl class="row">
-        <dt class="col-sm-3">SDK</dt>
-        <dd class="col-sm-9">@contract.VehicleInfo.Sdk</dd>
-        <dt class="col-sm-3">Make</dt>
-        <dd class="col-sm-9">@contract.VehicleInfo.Make</dd>
-        <dt class="col-sm-3">Registration Number</dt>
-        <dd class="col-sm-9">@contract.VehicleInfo.RegistrationNumber</dd>
-        <dt class="col-sm-3">Millage</dt>
-        <dd class="col-sm-9">@contract.VehicleInfo.Millage</dd>
-        <dt class="col-sm-3">Identification Number</dt>
-        <dd class="col-sm-9">@contract.VehicleInfo.IdentificationNumber</dd>
-        <dt class="col-sm-3">Is Inspected</dt>
-        <dd class="col-sm-9">@contract.VehicleInfo.IsInspected</dd>
-        <dt class="col-sm-3">Has been damaged</dt>
-        <dd class="col-sm-9">@contract.VehicleInfo.HasBeenDamaged</dd>
-        <dt class="col-sm-3">Prior Damage known</dt>
-        <dd class="col-sm-9">@contract.VehicleInfo.PriorDamagesKnown</dd>
-    </dl>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row" class="w-25">SDK</th>
+                    <td>@(contract.VehicleInfo?.Sdk ?? "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Make</th>
+                    <td>@(contract.VehicleInfo?.Make ?? "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Registration Number</th>
+                    <td>@(contract.VehicleInfo?.RegistrationNumber ?? "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Millage</th>
+                    <td>@(contract.VehicleInfo?.Millage ?? 0)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Identification Number</th>
+                    <td>@(contract.VehicleInfo?.IdentificationNumber ?? "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Is Inspected</th>
+                    <td>@(contract.VehicleInfo?.IsInspected ?? false)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Has been damaged</th>
+                    <td>@(contract.VehicleInfo?.HasBeenDamaged ?? false)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Prior Damage known</th>
+                    <td>@(contract.VehicleInfo?.PriorDamagesKnown ?? false)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Selected Damages</th>
+                    <td>
+                        @if (contract.VehicleInfo?.Defects != null && contract.VehicleInfo.Defects.Any())
+                        {
+                            <ul class="list-unstyled mb-0">
+                                @foreach (var defect in contract.VehicleInfo.Defects)
+                                {
+                                    <li>@defect</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span>None</span>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <h4>Price</h4>
-    <dl class="row">
-        <dt class="col-sm-3">Price</dt>
-        <dd class="col-sm-9">@contract.PaymentInfo.Price</dd>
-        <dt class="col-sm-3">Payment Method</dt>
-        <dd class="col-sm-9">@contract.PaymentInfo.PaymentMethod</dd>
-        <dt class="col-sm-3">Payment At Contract Formation</dt>
-        <dd class="col-sm-9">@contract.PaymentInfo.PaymentAtContractFormation</dd>
-        <dt class="col-sm-3">Payment Date</dt>
-        <dd class="col-sm-9">@contract.PaymentInfo.PaymentDate</dd>
-        <dt class="col-sm-3">Transfer Insurance</dt>
-        <dd class="col-sm-9">@contract.PaymentInfo.TransferInsurance</dd>
-        <dt class="col-sm-3">Additional Information</dt>
-        <dd class="col-sm-9">@contract.PaymentInfo.AdditionalInformation</dd>
-    </dl>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row" class="w-25">Price</th>
+                    <td>@(contract.PaymentInfo?.Price ?? 0)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Payment Method</th>
+                    <td>@(contract.PaymentInfo?.PaymentMethod != null ?
+                        contract.PaymentInfo.PaymentMethod.ToString() : "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Payment At Contract Formation</th>
+                    <td>@(contract.PaymentInfo?.PaymentAtContractFormation ?? false)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Payment Date</th>
+                    <td>@(contract.PaymentInfo?.PaymentDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Transfer Insurance</th>
+                    <td>@(contract.PaymentInfo?.TransferInsurance ?? false)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Additional Information</th>
+                    <td>@(contract.PaymentInfo?.AdditionalInformation ?? "-")</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <SignatureField @bind-SignatureData="signatureData" Title="Signature" />
+    
+    <EditForm FormName="Form" Model="Model" OnValidSubmit="Submit">
+    <DataAnnotationsValidator/>
+        <button class="btn btn-primary mt-2" type="submit">Submit</button>
+    </EditForm>
 </div>

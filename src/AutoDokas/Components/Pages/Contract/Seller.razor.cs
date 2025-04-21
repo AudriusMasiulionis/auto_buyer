@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using AutoDokas.Data;
 using AutoDokas.Data.Models;
 using Microsoft.AspNetCore.Components;
@@ -13,7 +14,7 @@ public partial class Seller : ComponentBase
     private EditContext _editContext = null!;
 
     [SupplyParameterFromForm(FormName = "SellerForm")]
-    private VehicleContract.PartyInfo Model { get; set; } = new();
+    private SellerFormModel Model { get; set; } = new();
 
     [Parameter] public Guid? ContractId { get; set; }
 
@@ -24,9 +25,10 @@ public partial class Seller : ComponentBase
         if (ContractId.HasValue)
         {
             var entity = await Context.VehicleContracts.FindAsync(ContractId);
-            if (entity is not null)
+            if (entity is not null && entity.SellerInfo is not null)
             {
-                Model = entity.SellerInfo;
+                // Map entity to form model
+                Model = MapToFormModel(entity.SellerInfo);
             }
         }
 
@@ -34,6 +36,31 @@ public partial class Seller : ComponentBase
         _editContext.SetFieldCssClassProvider(new BootstrapValidationFieldClassProvider());
     }
 
+    private SellerFormModel MapToFormModel(VehicleContract.PartyInfo partyInfo)
+    {
+        return new SellerFormModel
+        {
+            Name = partyInfo.Name ?? string.Empty,
+            Email = partyInfo.Email ?? string.Empty,
+            Code = partyInfo.Code ?? string.Empty,
+            IsCompany = partyInfo.IsCompany,
+            Phone = partyInfo.Phone ?? string.Empty,
+            Address = partyInfo.Address ?? string.Empty
+        };
+    }
+
+    private VehicleContract.PartyInfo MapToPartyInfo(SellerFormModel model)
+    {
+        return new VehicleContract.PartyInfo
+        {
+            Name = model.Name,
+            Email = model.Email,
+            Code = model.Code,
+            IsCompany = model.IsCompany,
+            Phone = model.Phone,
+            Address = model.Address
+        };
+    }
 
     private async Task Submit()
     {
@@ -41,12 +68,26 @@ public partial class Seller : ComponentBase
         {
             _loading = true;
 
-            // Create the entity and save it to the database
-            var entity = new VehicleContract
+            VehicleContract entity;
+            
+            if (ContractId.HasValue)
             {
-                SellerInfo = Model
-            };
-            await Context.AddAsync(entity);
+                // Update existing entity
+                entity = await Context.VehicleContracts.FindAsync(ContractId.Value) 
+                    ?? new VehicleContract { Id = ContractId.Value };
+                entity.SellerInfo = MapToPartyInfo(Model);
+                Context.Update(entity);
+            }
+            else
+            {
+                // Create new entity
+                entity = new VehicleContract
+                {
+                    SellerInfo = MapToPartyInfo(Model)
+                };
+                await Context.AddAsync(entity);
+            }
+            
             await Context.SaveChangesAsync();
             Navigation.NavigateTo($"/Vehicle/{entity.Id}");
         }
@@ -59,6 +100,31 @@ public partial class Seller : ComponentBase
             _loading = false;
         }
     }
+
+    class SellerFormModel
+    {
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        [StringLength(100, ErrorMessage = "Email cannot exceed 100 characters")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Code is required")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Code must contain only digits")]
+        public string Code { get; set; } = string.Empty;
+        public bool IsCompany { get; set; } = false;
+
+        [Required(ErrorMessage = "Phone is required")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Phone number must contain only digits")]
+        public string Phone { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Address is required")]
+        [StringLength(300, ErrorMessage = "Address cannot exceed 300 characters")]
+        public string Address { get; set; } = string.Empty;
+    }
 }
 
 public class BootstrapValidationFieldClassProvider : FieldCssClassProvider
@@ -68,10 +134,6 @@ public class BootstrapValidationFieldClassProvider : FieldCssClassProvider
         var isValid = editContext.IsValid(fieldIdentifier);
         var isModified = editContext.IsModified(fieldIdentifier);
 
-        // Blazor vs. Bootstrap:
-        // isvalid = is-valid
-        // isinvalid = is-invalid
-
-        return $"{(isModified ? "modified " : "")}{(isValid ? "is-valid123" : "is-invalid123")}";
+        return $"{(isModified ? "modified " : "")}{(isValid ? "is-valid" : "is-invalid")}";
     }
 }

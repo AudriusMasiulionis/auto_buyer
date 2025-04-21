@@ -1,22 +1,24 @@
 ﻿@page "/"
+@using AutoDokas.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Text> Localizer
 
-<PageTitle>Home</PageTitle>
+<PageTitle>@Localizer["HomeTitle"]</PageTitle>
 
 <!-- Hero Section -->
 <div class="container-fluid bg-primary text-white text-center py-5">
-    <h1 class="display-4 fw-bold">Welcome to Our Platform</h1>
-    <p class="lead">Discover innovative solutions to make your life easier and more productive.</p>
-    <a href="/about" class="btn btn-light btn-lg mt-3">Learn More</a>
+    <h1 class="display-4 fw-bold">@Localizer["HeroTitle"]</h1>
+    <p class="lead">@Localizer["HeroSubtitle"]</p>
+    <a href="/seller" class="btn btn-light btn-lg mt-3">@Localizer["SellNowButton"]</a>
 </div>
 
 <!-- About Section -->
 <div class="container py-5">
     <div class="row justify-content-center text-center">
         <div class="col-md-8">
-            <h2 class="fw-bold">About Us</h2>
+            <h2 class="fw-bold">@Localizer["AboutSectionTitle"]</h2>
             <p class="text-muted">
-                We are passionate about creating tools that empower individuals and businesses to achieve their goals.
-                Our mission is to deliver intuitive and powerful solutions that make a difference in your daily life.
+                @Localizer["AboutSectionText"]
             </p>
         </div>
     </div>
@@ -25,7 +27,7 @@
 <!-- Features Section -->
 <div class="container-fluid bg-light py-5">
     <div class="container">
-        <h2 class="text-center fw-bold mb-4">Features</h2>
+        <h2 class="text-center fw-bold mb-4">@Localizer["FeaturesTitle"]</h2>
         <div class="row text-center">
             <div class="col-md-4 mb-4">
                 <div class="card shadow border-0">
@@ -33,9 +35,9 @@
                         <div class="icon mb-3">
                             <i class="bi bi-lightning-fill text-primary fs-1"></i>
                         </div>
-                        <h5 class="card-title fw-bold">Fast Performance</h5>
+                        <h5 class="card-title fw-bold">@Localizer["Feature1Title"]</h5>
                         <p class="card-text text-muted">
-                            Enjoy blazing-fast performance with our cutting-edge technology.
+                            @Localizer["Feature1Text"]
                         </p>
                     </div>
                 </div>
@@ -46,9 +48,9 @@
                         <div class="icon mb-3">
                             <i class="bi bi-lock-fill text-primary fs-1"></i>
                         </div>
-                        <h5 class="card-title fw-bold">Secure and Reliable</h5>
+                        <h5 class="card-title fw-bold">@Localizer["Feature2Title"]</h5>
                         <p class="card-text text-muted">
-                            We prioritize your security with top-notch protection and reliability.
+                            @Localizer["Feature2Text"]
                         </p>
                     </div>
                 </div>
@@ -59,9 +61,9 @@
                         <div class="icon mb-3">
                             <i class="bi bi-gear-fill text-primary fs-1"></i>
                         </div>
-                        <h5 class="card-title fw-bold">Customizable Tools</h5>
+                        <h5 class="card-title fw-bold">@Localizer["Feature3Title"]</h5>
                         <p class="card-text text-muted">
-                            Tailor our platform to fit your unique needs with flexible options.
+                            @Localizer["Feature3Text"]
                         </p>
                     </div>
                 </div>

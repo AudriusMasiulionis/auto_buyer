@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AutoDokas.Data.ModelConfigurations;
 
-public class VehicleContractConfiguration : IEntityTypeConfiguration<VehicleContract>
+public class VehicleContractEntityConfiguration : IEntityTypeConfiguration<VehicleContract>
 {
     public void Configure(EntityTypeBuilder<VehicleContract> builder)
     {

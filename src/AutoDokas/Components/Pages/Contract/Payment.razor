@@ -1,12 +1,16 @@
 @page "/Payment/{ContractId:guid}"
 @using AutoDokas.Data.Models
+@using AutoDokas.Components.Shared
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 
 <PageTitle>Price</PageTitle>
 
 
-<div class="container mt-4">
+<div class="container my-4">
+
+    <Stepper Steps="4" CurrentStep="3" />
+    
     <h3>Price</h3>
     @if (_loading)
     {
@@ -74,7 +78,7 @@
         <button class="btn btn-primary mt-2" type="submit">Next</button>
 
     </EditForm>
-    
+
 
 </div>
 

@@ -9,6 +9,7 @@ namespace AutoDokas.Components.Pages.Contract;
 public partial class Vehicle : ComponentBase
 {
     [Inject] private AppDbContext _context { get; set; }
+    [Inject] private NavigationManager Navigation { get; set; } = null!;
     [Parameter] public Guid? ContractId { get; set; }
     private EditContext _editContext = null!;
 
@@ -61,6 +62,7 @@ public partial class Vehicle : ComponentBase
             _contract.VehicleInfo.Defects = _selectedDefects;
             _context.VehicleContracts.Update(_contract);
             await _context.SaveChangesAsync();
+            Navigation.NavigateTo($"/Payment/{ContractId.Value}");
         }
         catch (Exception e)
         {

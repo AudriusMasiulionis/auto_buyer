@@ -1,0 +1,16 @@
+services:
+  autodokasapp:
+    build:
+      context: ./src/AutoDokas
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+    volumes:
+      - app-data:/app/data
+
+volumes:
+  app-data:

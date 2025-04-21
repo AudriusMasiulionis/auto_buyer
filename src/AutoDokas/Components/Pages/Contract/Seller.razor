@@ -1,5 +1,6 @@
 @page "/Seller/{ContractId:guid?}"
 @using AutoDokas.Resources
+@using AutoDokas.Components.Shared
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<Text> Localizer
 @attribute [StreamRendering]
@@ -8,7 +9,7 @@
 
 <PageTitle>Form</PageTitle>
 
-<div class="container mt-4">
+<div class="container my-4">
 
     <Stepper Steps="4" CurrentStep="1" />
     
@@ -51,7 +52,15 @@
                 <InputText class="form-control" type="email" @bind-Value="Model.Email" id="Email"/>
                 <ValidationMessage For="() => Model.Email"/>
             </div>
-            <button class="btn btn-primary mt-2" type="submit">Next</button>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="Consent" @bind="isConsentChecked" />
+                <label class="form-check-label" for="Consent">I consent to the terms and conditions</label>
+            </div>
+            <button class="btn btn-primary mt-2" type="submit" disabled="@(!isConsentChecked)">Next</button>
         </EditForm>
     }
 </div>
+
+@code {
+    private bool isConsentChecked = false;
+}

@@ -22,12 +22,14 @@ namespace AutoDokas.Data.Migrations
                     SellerInfo_Name = table.Column<string>(type: "TEXT", nullable: true),
                     SellerInfo_Address = table.Column<string>(type: "TEXT", nullable: true),
                     SellerInfo_Email = table.Column<string>(type: "TEXT", nullable: true),
+                    SellerInfo_SignatureData = table.Column<byte[]>(type: "BLOB", nullable: true),
                     BuyerInfo_Code = table.Column<string>(type: "TEXT", nullable: true),
                     BuyerInfo_IsCompany = table.Column<bool>(type: "INTEGER", nullable: true),
                     BuyerInfo_Phone = table.Column<string>(type: "TEXT", nullable: true),
                     BuyerInfo_Name = table.Column<string>(type: "TEXT", nullable: true),
                     BuyerInfo_Address = table.Column<string>(type: "TEXT", nullable: true),
                     BuyerInfo_Email = table.Column<string>(type: "TEXT", nullable: true),
+                    BuyerInfo_SignatureData = table.Column<byte[]>(type: "BLOB", nullable: true),
                     VehicleInfo_Sdk = table.Column<string>(type: "TEXT", nullable: true),
                     VehicleInfo_Make = table.Column<string>(type: "TEXT", nullable: true),
                     VehicleInfo_RegistrationNumber = table.Column<string>(type: "TEXT", nullable: true),
@@ -36,7 +38,14 @@ namespace AutoDokas.Data.Migrations
                     VehicleInfo_IsInspected = table.Column<bool>(type: "INTEGER", nullable: true),
                     VehicleInfo_HasBeenDamaged = table.Column<bool>(type: "INTEGER", nullable: true),
                     VehicleInfo_PriorDamagesKnown = table.Column<bool>(type: "INTEGER", nullable: true),
-                    VehicleInfo_AdditionalInformation = table.Column<string>(type: "TEXT", nullable: true)
+                    VehicleInfo_Defects = table.Column<string>(type: "TEXT", nullable: true),
+                    VehicleInfo_AdditionalInformation = table.Column<string>(type: "TEXT", nullable: true),
+                    PaymentInfo_Price = table.Column<decimal>(type: "TEXT", nullable: true),
+                    PaymentInfo_PaymentMethod = table.Column<int>(type: "INTEGER", nullable: true),
+                    PaymentInfo_PaymentAtContractFormation = table.Column<bool>(type: "INTEGER", nullable: true),
+                    PaymentInfo_PaymentDate = table.Column<DateOnly>(type: "TEXT", nullable: true),
+                    PaymentInfo_TransferInsurance = table.Column<bool>(type: "INTEGER", nullable: true),
+                    PaymentInfo_AdditionalInformation = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

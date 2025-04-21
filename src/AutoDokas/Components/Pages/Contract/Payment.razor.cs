@@ -38,6 +38,7 @@ public partial class Payment : ComponentBase
             _contract.PaymentInfo = Model;
             Context.VehicleContracts.Update(_contract);
             await Context.SaveChangesAsync();
+            Navigation.NavigateTo($"/SellerReview/{_contract.Id}");
         }
         catch (Exception ex)
         {

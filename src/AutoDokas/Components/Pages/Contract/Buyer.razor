@@ -1,6 +1,7 @@
 @page "/Buyer/{ContractId:guid?}"
 @using AutoDokas.Resources
 @using Microsoft.Extensions.Localization
+@using AutoDokas.Components.Shared
 @inject IStringLocalizer<Text> Localizer
 @attribute [StreamRendering]
 @rendermode InteractiveServer
@@ -8,9 +9,11 @@
 
 <PageTitle>Form</PageTitle>
 
-<div class="container mt-4">
+<div class="container my-4">
 
-    <h3>Seller Information</h3>
+    <Stepper Steps="2" CurrentStep="1" />
+
+    <h3>Buyer Information</h3>
 
     @if (_loading)
     {
@@ -18,7 +21,7 @@
     }
     else
     {
-        <EditForm FormName="SellerForm" Model="Model" OnValidSubmit="Submit">
+        <EditForm FormName="BuyerForm" Model="Model" OnValidSubmit="Submit">
             <DataAnnotationsValidator/>
             <div class="mb-3">
                 <label class="form-label" for="Name">@Localizer["Name"]</label>
@@ -27,29 +30,32 @@
             </div>
             <div class="mb-3">
                 <InputCheckbox class="form-check-input" @bind-Value="Model.IsCompany" id="IsCompany"/>
-                <label class="form-check-label" for="IsCompany">Is Company</label>
+                <label class="form-check-label" for="IsCompany">@Localizer["IsCompany"]</label>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="Code">Code</label>
+                <label class="form-label" for="Code">@Localizer["Code"]</label>
                 <InputText class="form-control" @bind-Value="Model.Code" id="Code"/>
                 <ValidationMessage For="() => Model.Code"/>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="Phone">Phone Number</label>
+                <label class="form-label" for="Phone">@Localizer["PhoneNumber"]</label>
                 <InputText class="form-control" type="tel" @bind-Value="Model.Phone" id="Phone"/>
                 <ValidationMessage For="() => Model.Phone"/>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="Address">Address</label>
+                <label class="form-label" for="Address">@Localizer["Address"]</label>
                 <InputText class="form-control" @bind-Value="Model.Address" id="Address"/>
                 <ValidationMessage For="() => Model.Address"/>
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="Email">Email</label>
-                <InputText class="form-control" type="email" @bind-Value="Model.Email" id="Email"/>
-                <ValidationMessage For="() => Model.Email"/>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="Consent" @bind="isConsentChecked" />
+                <label class="form-check-label" for="Consent">I consent to the terms and conditions</label>
             </div>
-            <button class="btn btn-primary mt-2" type="submit">Next</button>
+            <button class="btn btn-primary mt-2" type="submit" disabled="@(!isConsentChecked)">@Localizer["Next"]</button>
         </EditForm>
     }
 </div>
+
+@code {
+    private bool isConsentChecked = false;
+}
