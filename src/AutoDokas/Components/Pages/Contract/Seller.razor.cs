@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using AutoDokas.Components.Shared;
 using AutoDokas.Data;
 using AutoDokas.Data.Models;
 using Microsoft.AspNetCore.Components;
@@ -6,22 +7,24 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace AutoDokas.Components.Pages.Contract;
 
-public partial class Seller : ComponentBase
+public partial class Seller : FormComponentBase<Seller.SellerFormModel>
 {
     [Inject] private AppDbContext Context { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
 
-    private EditContext _editContext = null!;
-
     [SupplyParameterFromForm(FormName = "SellerForm")]
-    private SellerFormModel Model { get; set; } = new();
+    // Override the base Model property correctly
+    protected override SellerFormModel Model { get => base.Model; set => base.Model = value; }
 
     [Parameter] public Guid? ContractId { get; set; }
 
-    private bool _loading = false;
+    private bool isConsentChecked = false;
 
     protected override async Task OnInitializedAsync()
     {
+        // Start by creating a new model instance
+        Model = new SellerFormModel();
+
         if (ContractId.HasValue)
         {
             var entity = await Context.VehicleContracts.FindAsync(ContractId);
@@ -32,8 +35,8 @@ public partial class Seller : ComponentBase
             }
         }
 
-        _editContext = new EditContext(Model);
-        _editContext.SetFieldCssClassProvider(new BootstrapValidationFieldClassProvider());
+        // Initialize the EditContext from the base class
+        InitializeEditContext();
     }
 
     private SellerFormModel MapToFormModel(VehicleContract.PartyInfo partyInfo)
@@ -66,30 +69,36 @@ public partial class Seller : ComponentBase
     {
         try
         {
-            _loading = true;
+            Loading = true;
 
             VehicleContract entity;
-            
-            if (ContractId.HasValue)
+
+            if (ValidateForm())
             {
-                // Update existing entity
-                entity = await Context.VehicleContracts.FindAsync(ContractId.Value) 
-                    ?? new VehicleContract { Id = ContractId.Value };
-                entity.SellerInfo = MapToPartyInfo(Model);
-                Context.Update(entity);
+                if (ContractId.HasValue)
+                {
+                    // Update existing entity
+                    entity = await Context.VehicleContracts.FindAsync(ContractId.Value)
+                        ?? new VehicleContract { Id = ContractId.Value };
+                    entity.SellerInfo = MapToPartyInfo(Model);
+                    Context.Update(entity);
+                }
+                else
+                {
+                    // Create new entity
+                    entity = new VehicleContract
+                    {
+                        SellerInfo = MapToPartyInfo(Model)
+                    };
+                    await Context.AddAsync(entity);
+                    await Context.SaveChangesAsync();
+                    Navigation.NavigateTo($"/Vehicle/{entity.Id}");
+                }
             }
             else
             {
-                // Create new entity
-                entity = new VehicleContract
-                {
-                    SellerInfo = MapToPartyInfo(Model)
-                };
-                await Context.AddAsync(entity);
+                Loading = false;
             }
-            
-            await Context.SaveChangesAsync();
-            Navigation.NavigateTo($"/Vehicle/{entity.Id}");
         }
         catch (Exception ex)
         {
@@ -97,11 +106,11 @@ public partial class Seller : ComponentBase
         }
         finally
         {
-            _loading = false;
+            Loading = false;
         }
     }
 
-    class SellerFormModel
+    public class SellerFormModel
     {
         [Required(ErrorMessage = "Name is required")]
         [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters")]
@@ -124,16 +133,5 @@ public partial class Seller : ComponentBase
         [Required(ErrorMessage = "Address is required")]
         [StringLength(300, ErrorMessage = "Address cannot exceed 300 characters")]
         public string Address { get; set; } = string.Empty;
-    }
-}
-
-public class BootstrapValidationFieldClassProvider : FieldCssClassProvider
-{
-    public override string GetFieldCssClass(EditContext editContext, in FieldIdentifier fieldIdentifier)
-    {
-        var isValid = editContext.IsValid(fieldIdentifier);
-        var isModified = editContext.IsModified(fieldIdentifier);
-
-        return $"{(isModified ? "modified " : "")}{(isValid ? "is-valid" : "is-invalid")}";
     }
 }

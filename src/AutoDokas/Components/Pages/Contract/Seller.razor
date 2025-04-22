@@ -1,11 +1,8 @@
 @page "/Seller/{ContractId:guid?}"
-@using AutoDokas.Resources
-@using AutoDokas.Components.Shared
-@using Microsoft.Extensions.Localization
 @inject IStringLocalizer<Text> Localizer
 @attribute [StreamRendering]
 @rendermode InteractiveServer
-
+@inherits FormComponentBase<Seller.SellerFormModel>
 
 <PageTitle>Form</PageTitle>
 
@@ -15,13 +12,13 @@
     
     <h3>Seller Information</h3>
 
-    @if (_loading)
+    @if (Loading)
     {
         <div class="spinner-border" role="status"></div>
     }
     else
     {
-        <EditForm FormName="SellerForm" Model="Model" OnValidSubmit="Submit">
+        <EditForm FormName="SellerForm" EditContext="EditContext" OnValidSubmit="Submit">
             <DataAnnotationsValidator/>
             <div class="mb-3">
                 <label class="form-label" for="Name">@Localizer["Name"]</label>
@@ -34,22 +31,22 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" for="Code">Code</label>
-                <InputText class="form-control" @bind-Value="Model.Code" id="Code"/>
+                <InputText @bind-Value="Model.Code" id="Code"/>
                 <ValidationMessage For="() => Model.Code"/>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="Phone">Phone Number</label>
-                <InputText class="form-control" type="tel" @bind-Value="Model.Phone" id="Phone"/>
+                <InputText type="tel" @bind-Value="Model.Phone" id="Phone"/>
                 <ValidationMessage For="() => Model.Phone"/>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="Address">Address</label>
-                <InputText class="form-control" @bind-Value="Model.Address" id="Address"/>
+                <InputText @bind-Value="Model.Address" id="Address"/>
                 <ValidationMessage For="() => Model.Address"/>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="Email">Email</label>
-                <InputText class="form-control" type="email" @bind-Value="Model.Email" id="Email"/>
+                <InputText type="email" @bind-Value="Model.Email" id="Email"/>
                 <ValidationMessage For="() => Model.Email"/>
             </div>
             <div class="mb-3 form-check">
@@ -60,7 +57,3 @@
         </EditForm>
     }
 </div>
-
-@code {
-    private bool isConsentChecked = false;
-}

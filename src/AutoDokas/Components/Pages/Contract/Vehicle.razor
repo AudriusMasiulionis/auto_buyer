@@ -1,85 +1,99 @@
 @page "/Vehicle/{ContractId:guid}"
+@using AutoDokas.Components.Pages.Contract.ViewModels
 @attribute [StreamRendering]
 @rendermode InteractiveServer
-@using AutoDokas.Components.Shared
+@inherits FormComponentBase<VehicleViewModel>
 
 <div class="container my-4">
     <Stepper Steps="4" CurrentStep="2" />
-    <h3>VehicleForm</h3>
+    <h3>Vehicle Information</h3>
 
-    <EditForm FormName="VehicleForm" Model="Model" OnValidSubmit="Submit">
-        <div class="mb-3">
-            <label for="Sdk">Sdk</label>
-            <InputText class="form-control" @bind-Value="Model.Sdk" id="Sdk"/>
-        </div>
-        <div class="mb-3">
-            <label for="Make">Make</label>
-            <InputText class="form-control" @bind-Value="Model.Make" id="Make"/>
-        </div>
-        <div class="mb-3">
-            <label for="RegistrationNumber">Registration Number</label>
-            <InputText class="form-control" @bind-Value="Model.RegistrationNumber" id="RegistrationNumber"/>
-        </div>
-        <div class="mb-3">
-            <label for="Millage">Millage</label>
-            <InputNumber class="form-control" @bind-Value="Model.Millage" id="Millage"/>
-        </div>
-        <div class="mb-3">
-            <label for="IdentificationNumber">Identification Number</label>
-            <InputText class="form-control" @bind-Value="Model.IdentificationNumber" id="IdentificationNumber"/>
-        </div>
+    @if (Loading)
+    {
+        <div class="spinner-border" role="status"></div>
+    }
+    else
+    {
+        <EditForm FormName="VehicleForm" Model="Model" OnValidSubmit="Submit">
+            <DataAnnotationsValidator/>
+            <div class="mb-3">
+                <label for="Sdk">Sdk</label>
+                <InputText class="form-control" @bind-Value="Model.Sdk" id="Sdk"/>
+                <ValidationMessage For="() => Model.Sdk"/>
+            </div>
+            <div class="mb-3">
+                <label for="Make">Make</label>
+                <InputText class="form-control" @bind-Value="Model.Make" id="Make"/>
+                <ValidationMessage For="() => Model.Make"/>
+            </div>
+            <div class="mb-3">
+                <label for="RegistrationNumber">Registration Number</label>
+                <InputText class="form-control" @bind-Value="Model.RegistrationNumber" id="RegistrationNumber"/>
+                <ValidationMessage For="() => Model.RegistrationNumber"/>
+            </div>
+            <div class="mb-3">
+                <label for="Millage">Millage</label>
+                <InputNumber class="form-control" @bind-Value="Model.Millage" id="Millage"/>
+                <ValidationMessage For="() => Model.Millage"/>
+            </div>
+            <div class="mb-3">
+                <label for="IdentificationNumber">Identification Number</label>
+                <InputText class="form-control" @bind-Value="Model.IdentificationNumber" id="IdentificationNumber"/>
+                <ValidationMessage For="() => Model.IdentificationNumber"/>
+            </div>
 
-        <div class="mb-3">
-            <label for="HasBeenDamaged">Is Inspected</label>
-            <InputRadioGroup class="form-control" @bind-Value="Model.IsInspected" id="IsInspected">
-                <InputRadio Value="true" class="form-check-input" id="IsInspectedTrue"/>
-                <label class="form-check-label" for="IsInspectedTrue">Yes</label>
-                <InputRadio Value="false" class="form-check-input" id="IsInspectedFalse"/>
-                <label class="form-check-label" for="IsInspectedFalse">No</label>
-            </InputRadioGroup>
-        </div>
+            <div class="mb-3">
+                <label for="HasBeenDamaged">Is Inspected</label>
+                <InputRadioGroup class="form-control" @bind-Value="Model.IsInspected" id="IsInspected">
+                    <InputRadio Value="true" class="form-check-input" id="IsInspectedTrue"/>
+                    <label class="form-check-label" for="IsInspectedTrue">Yes</label>
+                    <InputRadio Value="false" class="form-check-input" id="IsInspectedFalse"/>
+                    <label class="form-check-label" for="IsInspectedFalse">No</label>
+                </InputRadioGroup>
+            </div>
 
-        <div class="mb-3">
-            <label for="HasBeenDamaged">Has been damaged</label>
-            <InputRadioGroup class="form-control" @bind-Value="Model.HasBeenDamaged" id="HasBeenDamaged">
-                <InputRadio Value="true" class="form-check-input" id="HasBeenDamagedTrue"/>
-                <label class="form-check-label" for="HasBeenDamagedTrue">Yes</label>
-                <InputRadio Value="false" class="form-check-input" id="HasBeenDamagedFalse"/>
-                <label class="form-check-label" for="HasBeenDamagedFalse">No</label>
-            </InputRadioGroup>
-        </div>
+            <div class="mb-3">
+                <label for="HasBeenDamaged">Has been damaged</label>
+                <InputRadioGroup class="form-control" @bind-Value="Model.HasBeenDamaged" id="HasBeenDamaged">
+                    <InputRadio Value="true" class="form-check-input" id="HasBeenDamagedTrue"/>
+                    <label class="form-check-label" for="HasBeenDamagedTrue">Yes</label>
+                    <InputRadio Value="false" class="form-check-input" id="HasBeenDamagedFalse"/>
+                    <label class="form-check-label" for="HasBeenDamagedFalse">No</label>
+                </InputRadioGroup>
+            </div>
 
-        <div class="mb-3">
-            <label for="PriorDamagesKnown">Prior Damage known</label>
-            <InputRadioGroup @bind-Value="Model.PriorDamagesKnown" id="PriorDamagesKnown">
-                <InputRadio Value="true" class="form-check-input" id="PriorDamagesKnownTrue"/>
-                <label class="form-check-label" for="PriorDamagesKnownTrue">Yes</label>
-                <InputRadio Value="false" class="form-check-input" id="PriorDamagesKnownFalse"/>
-                <label class="form-check-label" for="PriorDamagesKnownFalse">No</label>
-            </InputRadioGroup>
-        </div>
+            <div class="mb-3">
+                <label for="PriorDamagesKnown">Prior Damage known</label>
+                <InputRadioGroup @bind-Value="Model.PriorDamagesKnown" id="PriorDamagesKnown">
+                    <InputRadio Value="true" class="form-check-input" id="PriorDamagesKnownTrue"/>
+                    <label class="form-check-label" for="PriorDamagesKnownTrue">Yes</label>
+                    <InputRadio Value="false" class="form-check-input" id="PriorDamagesKnownFalse"/>
+                    <label class="form-check-label" for="PriorDamagesKnownFalse">No</label>
+                </InputRadioGroup>
+            </div>
 
-        <div class="mb-3">
-            <label for="Model.VehicleInfo.Defects">Defects</label>
+            <div class="mb-3">
+                <label for="Defects">Defects</label>
 
-            @foreach (var defect in _defectValues)
-            {
-                <div>
-                    <input type="checkbox" id="@defect" value="@defect"
-                           @onchange="(e => ToggleSelection(defect, e))"
-                           checked="@_selectedDefects.Contains(defect)"
-                           class="form-check-input"/>
-                    <label class="form-check-label" for="@defect">@defect</label>
-                </div>
-            }
-        </div>
+                @foreach (var defect in _defectValues)
+                {
+                    <div>
+                        <input type="checkbox" id="@defect" value="@defect"
+                               @onchange="(e => ToggleSelection(defect, e))"
+                               checked="@_selectedDefects.Contains(defect)"
+                               class="form-check-input"/>
+                        <label class="form-check-label" for="@defect">@defect</label>
+                    </div>
+                }
+            </div>
 
-        <div class="mb-3">
-            <label for="AdditionalInformation">Additional Information</label>
-            <InputTextArea class="form-control" @bind-Value="Model.AdditionalInformation"
-                           id="AdditionalInformation"/>
-        </div>
+            <div class="mb-3">
+                <label for="AdditionalInformation">Additional Information</label>
+                <InputTextArea class="form-control" @bind-Value="Model.AdditionalInformation"
+                               id="AdditionalInformation"/>
+            </div>
 
-        <button class="btn btn-primary mt-2" type="submit">Next</button>
-    </EditForm>
+            <button class="btn btn-primary mt-2" type="submit">Next</button>
+        </EditForm>
+    }
 </div>

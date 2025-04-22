@@ -10,29 +10,38 @@ public partial class Buyer : ComponentBase
     [Inject] private AppDbContext Context { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
 
-    private EditContext _editContext = null!;
-
     [SupplyParameterFromForm(FormName = "BuyerForm")]
     private VehicleContract.PartyInfo Model { get; set; } = new();
 
     [Parameter] public Guid? ContractId { get; set; }
 
-    private bool _loading = false;
     private VehicleContract? _entity;
+    private bool _loading = false;
+    private EditContext _editContext = null!;
 
     protected override async Task OnInitializedAsync()
     {
+        _loading = true;
+        
         if (ContractId.HasValue)
         {
             _entity = await Context.VehicleContracts.FindAsync(ContractId);
-            if (_entity is not null)
+            if (_entity is not null && _entity.BuyerInfo is not null)
             {
                 Model = _entity.BuyerInfo;
             }
         }
+        else
+        {
+            _entity = new VehicleContract
+            {
+                Id = Guid.NewGuid(),
+                BuyerInfo = new VehicleContract.PartyInfo()
+            };
+        }
 
         _editContext = new EditContext(Model);
-        _editContext.SetFieldCssClassProvider(new BootstrapValidationFieldClassProvider());
+        _loading = false;
     }
 
     private async Task Submit()
@@ -40,15 +49,18 @@ public partial class Buyer : ComponentBase
         try
         {
             _loading = true;
+            
+            _entity.BuyerInfo = Model;
 
-            // Create the entity and save it to the database
-            _entity.BuyerInfo.Code = Model.Code;
-            _entity.BuyerInfo.IsCompany = Model.IsCompany;
-            _entity.BuyerInfo.Phone = Model.Phone;
-            _entity.BuyerInfo.Name = Model.Name;
-            _entity.BuyerInfo.Address = Model.Address;
-
-            Context.Update(_entity);
+            if (ContractId.HasValue)
+            {
+                Context.Update(_entity);
+            }
+            else
+            {
+                await Context.AddAsync(_entity);
+            }
+            
             await Context.SaveChangesAsync();
             Navigation.NavigateTo($"/BuyerReview/{_entity.Id}");
         }

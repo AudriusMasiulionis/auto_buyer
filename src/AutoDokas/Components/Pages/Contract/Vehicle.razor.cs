@@ -1,46 +1,46 @@
+using AutoDokas.Components.Pages.Contract.ViewModels;
+using AutoDokas.Components.Shared;
 using AutoDokas.Data;
 using AutoDokas.Data.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.EntityFrameworkCore;
 
 namespace AutoDokas.Components.Pages.Contract;
 
-public partial class Vehicle : ComponentBase
+public partial class Vehicle : FormComponentBase<VehicleViewModel>
 {
-    [Inject] private AppDbContext _context { get; set; }
+    [Inject] private AppDbContext _context { get; set; } = default!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
     [Parameter] public Guid? ContractId { get; set; }
-    private EditContext _editContext = null!;
 
     [SupplyParameterFromForm(FormName = "VehicleForm")]
-    private VehicleContract.Vehicle Model { get; set; } = new();
+    protected override VehicleViewModel Model { get => base.Model; set => base.Model = value; }
 
     private List<VehicleContract.Vehicle.Defect> _selectedDefects = [];
-    private bool _submitted = false;
-    private bool _loading = false;
-    private VehicleContract _contract;
+    private VehicleContract? _contract;
     private VehicleContract.Vehicle.Defect[] _defectValues => Enum.GetValues<VehicleContract.Vehicle.Defect>();
 
     protected override async Task OnInitializedAsync()
     {
-        _loading = true;
+        Model = new VehicleViewModel();
+
+        // Loading = true;
         if (ContractId.HasValue)
         {
             _contract = await _context.VehicleContracts.FindAsync(ContractId);
             if (_contract?.VehicleInfo != null)
             {
-                Model = _contract.VehicleInfo;
+                Model = VehicleViewModel.FromEntity(_contract.VehicleInfo);
                 _selectedDefects = Model.Defects;
             }
         }
 
-        _editContext = new EditContext(Model);
+        InitializeEditContext();
     }
 
     private void ToggleSelection(VehicleContract.Vehicle.Defect value, ChangeEventArgs e)
     {
-        if ((bool)e.Value == true)
+        if (e.Value is bool isChecked && isChecked)
         {
             if (!_selectedDefects.Contains(value))
             {
@@ -57,20 +57,34 @@ public partial class Vehicle : ComponentBase
     {
         try
         {
-            _loading = true;
-            _contract.VehicleInfo = Model;
-            _contract.VehicleInfo.Defects = _selectedDefects;
-            _context.VehicleContracts.Update(_contract);
-            await _context.SaveChangesAsync();
-            Navigation.NavigateTo($"/Payment/{ContractId.Value}");
+            Loading = true;
+            
+            // Use the ValidateForm method to mark all fields as modified and perform validation
+            if (ValidateForm())
+            {
+                Model.Defects = _selectedDefects;
+                
+                if (_contract != null && ContractId.HasValue)
+                {
+                    // Convert ViewModel to Entity
+                    var vehicleEntity = Model.ToEntity();
+                    _contract.VehicleInfo = vehicleEntity;
+                    
+                    _context.VehicleContracts.Update(_contract);
+                    await _context.SaveChangesAsync();
+                    Navigation.NavigateTo($"/Payment/{ContractId.Value}");
+                }
+            }
+            else
+            {
+                // Form is invalid, stop loading state
+                Loading = false;
+            }
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-        }
-        finally
-        {
-            _loading = false;
+            Loading = false;
         }
     }
 }
