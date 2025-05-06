@@ -4,15 +4,6 @@ namespace AutoDokas.Components.Shared;
 
 public class BootstrapValidationFieldClassProvider : FieldCssClassProvider
 {
-    // Flag to indicate form was submitted
-    private bool _formSubmitted;
-    
-    // Method to mark the form as submitted, called from components
-    public void MarkAsSubmitted()
-    {
-        _formSubmitted = true;
-    }
-    
     public override string GetFieldCssClass(EditContext editContext, in FieldIdentifier fieldIdentifier)
     {
         // Check if the field is a checkbox based on property type
@@ -21,10 +12,7 @@ public class BootstrapValidationFieldClassProvider : FieldCssClassProvider
         // Use the appropriate base class depending on the input type
         var cssClass = isCheckbox ? "form-check-input" : "form-control";
         
-
-        // todo form is not marked as submited so thats why no bootstrap validation classes are applied
-        // After form submission, always show validation state regardless of whether field was modified
-        if (_formSubmitted || editContext.IsModified(fieldIdentifier))
+        if (editContext.IsModified(fieldIdentifier))
         {
             var isValid = !editContext.GetValidationMessages(fieldIdentifier).Any();
             cssClass += isValid ? " is-valid" : " is-invalid";

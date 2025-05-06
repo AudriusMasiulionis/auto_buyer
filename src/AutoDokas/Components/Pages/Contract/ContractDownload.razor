@@ -1,0 +1,80 @@
+@page "/contract/download/{ContractId:guid}"
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@using System.ComponentModel.DataAnnotations
+@using AutoDokas.Data.Models
+@inherits ComponentBase
+
+<PageTitle>Download Contract</PageTitle>
+
+<div class="container my-4">
+    <h2>Download Contract Document</h2>
+    
+    @if (loading)
+    {
+        <div class="spinner-border" role="status"></div>
+        <p>Loading contract details...</p>
+    }
+    else if (contract == null)
+    {
+        <div class="alert alert-danger">
+            <h4 class="alert-heading">Contract Not Found</h4>
+            <p>Sorry, we couldn't find the contract you're looking for. Please check the contract ID and try again.</p>
+        </div>
+    }
+    else
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title">Contract Details</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Vehicle:</strong> @(contract.VehicleInfo?.Make ?? "-") @(contract.VehicleInfo?.RegistrationNumber ?? "-")</p>
+                <p><strong>Seller:</strong> @(contract.SellerInfo?.Name ?? "-")</p>
+                <p><strong>Price:</strong> @(contract.PaymentInfo?.Price.ToString("C") ?? "-")</p>
+            </div>
+        </div>
+
+        @if (!isVerified)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Email Verification</h5>
+                </div>
+                <div class="card-body">
+                    <p>Please enter your email address to verify your identity before downloading the contract.</p>
+                    
+                    <EditForm Model="verificationModel" OnValidSubmit="VerifyEmail">
+                        <DataAnnotationsValidator />
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <InputText id="email" @bind-Value="verificationModel.Email" class="form-control" />
+                            <ValidationMessage For="@(() => verificationModel.Email)" />
+                            
+                            @if (showEmailError)
+                            {
+                                <div class="text-danger mt-1">
+                                    The email address you entered doesn't match our records. Please try again.
+                                </div>
+                            }
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Verify</button>
+                    </EditForm>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-success">
+                <h4 class="alert-heading">Email Verified!</h4>
+                <p>Your email has been verified. You can now download the contract document.</p>
+            </div>
+            
+            <a href="@GetDownloadUrl()" class="btn btn-success" target="_blank">
+                <i class="bi bi-file-earmark-pdf"></i> Download Contract PDF
+            </a>
+        }
+    }
+</div>

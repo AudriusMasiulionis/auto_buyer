@@ -1,0 +1,41 @@
+@using AutoDokas.Services.EmailTemplates
+@using System.Globalization
+@inject IStringLocalizer<AutoDokas.Resources.Text> Localizer
+
+@* Add any necessary using directives above *@
+
+<h1>Vehicle Purchase Contract</h1>
+<p>A new vehicle purchase contract has been created for you to review.</p>
+
+<h2>Vehicle Details</h2>
+<ul>
+    <li><strong>Make:</strong> @Model.Contract.VehicleInfo?.Make</li>
+    <li><strong>Registration Number:</strong> @Model.Contract.VehicleInfo?.RegistrationNumber</li>
+    <li><strong>Identification Number:</strong> @Model.Contract.VehicleInfo?.IdentificationNumber</li>
+    <li><strong>Mileage:</strong> @Model.Contract.VehicleInfo?.Millage km</li>
+</ul>
+
+<h2>Seller Information</h2>
+<ul>
+    <li><strong>Name:</strong> @Model.Contract.SellerInfo?.Name</li>
+    <li><strong>Email:</strong> @Model.Contract.SellerInfo?.Email</li>
+    <li><strong>Phone:</strong> @Model.Contract.SellerInfo?.Phone</li>
+</ul>
+
+<h2>Payment Details</h2>
+<ul>
+    <li><strong>Price:</strong> @Model.Contract.PaymentInfo?.Price EUR</li>
+    <li><strong>Payment Method:</strong> @Model.Contract.PaymentInfo?.PaymentMethod</li>
+</ul>
+
+<p>
+    To view the full contract and complete the purchase, please follow this link:
+    <a href="@($"{Model.BaseUrl}/seller/{Model.Contract.Id}")">View Contract</a>
+</p>
+
+<p>Thank you for using AutoDokas!</p>
+
+@code {
+    [Parameter]
+    public ContractCompletedEmailModel Model { get; set; } = null!;
+}

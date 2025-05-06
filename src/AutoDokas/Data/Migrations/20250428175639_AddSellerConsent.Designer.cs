@@ -3,6 +3,7 @@ using System;
 using AutoDokas.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoDokas.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250428175639_AddSellerConsent")]
+    partial class AddSellerConsent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -23,9 +26,6 @@ namespace AutoDokas.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.ToTable("VehicleContracts");
@@ -33,27 +33,6 @@ namespace AutoDokas.Data.Migrations
 
             modelBuilder.Entity("AutoDokas.Data.Models.VehicleContract", b =>
                 {
-                    b.OwnsOne("AutoDokas.Data.Models.Country", "Origin", b1 =>
-                        {
-                            b1.Property<Guid>("VehicleContractId")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("Code")
-                                .IsRequired()
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasColumnType("TEXT");
-
-                            b1.HasKey("VehicleContractId");
-
-                            b1.ToTable("VehicleContracts");
-
-                            b1.WithOwner()
-                                .HasForeignKey("VehicleContractId");
-                        });
-
                     b.OwnsOne("AutoDokas.Data.Models.VehicleContract+Payment", "PaymentInfo", b1 =>
                         {
                             b1.Property<Guid>("VehicleContractId")
@@ -208,8 +187,6 @@ namespace AutoDokas.Data.Migrations
                         });
 
                     b.Navigation("BuyerInfo");
-
-                    b.Navigation("Origin");
 
                     b.Navigation("PaymentInfo");
 

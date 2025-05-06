@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System.Linq.Expressions;
 
 namespace AutoDokas.Components.Shared;
 
@@ -46,23 +45,6 @@ public abstract class FormComponentBase<TModel> : ComponentBase, IDisposable whe
         StateHasChanged();
     }
     
-    /// <summary>
-    /// Validates the form and applies validation styling to all fields.
-    /// </summary>
-    /// <returns>True if the form is valid, false otherwise.</returns>
-    protected bool ValidateForm()
-    {
-        // Mark the form as submitted in the CSS provider
-        CssProvider.MarkAsSubmitted();
-        
-        // Validate the form
-        bool isValid = EditContext.Validate();
-        
-        // Force UI refresh to show validation feedback
-        StateHasChanged();
-        
-        return isValid;
-    }
 
     /// <summary>
     /// Cleanup resources when the component is disposed.

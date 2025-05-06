@@ -1,0 +1,237 @@
+@using AutoDokas.Data.Models
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Purchase Contract</title>
+    <style>
+        /* PDF-specific styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1,
+        h2 {
+            color: #1b6ec2;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            width: 30%;
+        }
+
+        .signature-section {
+            margin-top: 50px;
+        }
+
+        .signature-box {
+            border-top: 1px solid #000;
+            margin-top: 70px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+        }
+
+        .signature-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        footer {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <header style="text-align: center;">
+            <h1>TRANSPORTO PRIEMONĖS PIRKIMO–PARDAVIMO SUTARTIS</h1>
+            <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                <div><strong>Data:</strong> @Contract.CreatedAt.ToShortDateString()</div>
+                <div><strong>Laikas:</strong> @Contract.CreatedAt.ToShortTimeString()</div>
+                <div><strong>Sutarties sudarymo valstybė:</strong> @(Contract.Origin?.Name ?? "-")</div>
+            </div>
+        </header>
+
+        <section>
+            <h2>Pardavėjas (transporto priemonės savininkas)</h2>
+            <table>
+                <tr>
+                    <th>asmens kodas / įmonės kodas</th>
+                    <td>@(Contract.SellerInfo?.Name ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>vardas, pavardė arba juridinio asmens pavadinimas</th>
+                    <td>@(Contract.SellerInfo?.Code ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Telefono numeris</th>
+                    <td>@(Contract.SellerInfo?.Phone ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Elektroninis pašto adresas</th>
+                    <td>@(Contract.SellerInfo?.Email ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Pardavėjo adresas</th>
+                    <td>@(Contract.SellerInfo?.Address ?? "-")</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>Pirkėjas (transporto priemonės įgijėjas)</h2>
+            <table>
+                <tr>
+                    <th>asmens kodas / įmonės kodas</th>
+                    <td>@(Contract.BuyerInfo?.Name ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>vardas, pavardė arba juridinio asmens pavadinimas</th>
+                    <td>@(Contract.BuyerInfo?.Code ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Telefono numeris</th>
+                    <td>@(Contract.BuyerInfo?.Phone ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Elektroninis pašto adresas</th>
+                    <td>@(Contract.BuyerInfo?.Email ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Pirkėjo adresas</th>
+                    <td>@(Contract.BuyerInfo?.Address ?? "-")</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>Transporto priemonės informacija</h2>
+            <p>Pardavėjas parduoda, o pirkėjas perka pardavėjui nuosavybės teise priklausančią transporto priemonę:</p>
+            <table>
+                <tr>
+                    <th>Transporto priemonės savininko deklaravimo kodas (SDK):</th>
+                    <td>@(Contract.VehicleInfo?.Sdk ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Gamybinė markė (D.1) ir komercinis pavadinimas (D.3):</th>
+                    <td>@(Contract.VehicleInfo?.Make ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Valstybinis registracijos numeris (A):</th>
+                    <td>@(Contract.VehicleInfo?.RegistrationNumber ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Rida</th>
+                    <td>@(Contract.VehicleInfo?.Millage.ToString() ?? "0") km</td>
+                </tr>
+                <tr>
+                    <th>Atpažinties (identifikavimo) numeris (E):</th>
+                    <td>@(Contract.VehicleInfo?.IdentificationNumber ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Is Inspected</th>
+                    <td>@(Contract.VehicleInfo?.IsInspected ?? false ? "Yes" : "No")</td>
+                </tr>
+                <tr>
+                    <th>Has Been Damaged</th>
+                    <td>@(Contract.VehicleInfo?.HasBeenDamaged ?? false ? "Yes" : "No")</td>
+                </tr>
+                <tr>
+                    <th>Prior Damages Known</th>
+                    <td>@(Contract.VehicleInfo?.PriorDamagesKnown ?? false ? "Yes" : "No")</td>
+                </tr>
+
+                <tr>
+                    <th>Defects</th>
+                    <td>
+                        @if (Contract.VehicleInfo?.Defects != null && Contract.VehicleInfo.Defects.Any())
+                        {
+                            <ul>
+                                @foreach (var defect in Contract.VehicleInfo.Defects)
+                                {
+                                    <li>@defect</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span>None</span>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Additional Information</th>
+                    <td>@(Contract.VehicleInfo?.AdditionalInformation ?? "-")</td>
+                </tr>
+            </table>
+        </section>
+
+       
+        
+        <section class="signature-section">
+            <h2>Signatures</h2>
+            <p>By signing below, both parties agree to the terms and conditions of this contract.</p>
+            
+            <div class="signature-container">
+                <div>
+                    @if (Contract.SellerInfo?.SignatureData != null)
+                    {
+                        <img src="data:image/png;base64,@Convert.ToBase64String(Contract.SellerInfo.SignatureData)" alt="Seller Signature" style="max-height: 100px;"/>
+                    }
+                    <div class="signature-box">Seller Signature</div>
+                </div>
+                
+                <div>
+                    @if (Contract.BuyerInfo?.SignatureData != null)
+                    {
+                        <img src="data:image/png;base64,@Convert.ToBase64String(Contract.BuyerInfo.SignatureData)" alt="Buyer Signature" style="max-height: 100px;"/>
+                    }
+                    <div class="signature-box">Buyer Signature</div>
+                </div>
+            </div>
+        </section>
+</body>
+
+</html>
+
+@code {
+    [Parameter]
+    public VehicleContract Contract { get; set; } = default!;
+}

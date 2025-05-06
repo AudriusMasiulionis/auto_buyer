@@ -14,6 +14,9 @@ public partial class Payment : ComponentBase
     [Parameter] public Guid ContractId { get; set; }
     private VehicleContract _contract;
     private bool _loading = false;
+    
+    // Property to bind with the CreatedAt datepicker
+    private DateTime ContractCreatedAt { get; set; } = DateTime.UtcNow;
 
     protected override async Task OnInitializedAsync()
     {
@@ -23,6 +26,12 @@ public partial class Payment : ComponentBase
         if (_contract?.PaymentInfo != null)
         {
             Model = _contract.PaymentInfo;
+        }
+        
+        // Initialize the datepicker with the current contract creation date
+        if (_contract != null)
+        {
+            ContractCreatedAt = _contract.CreatedAt;
         }
 
         _editContext = new EditContext(Model);
@@ -36,6 +45,10 @@ public partial class Payment : ComponentBase
         {
             _loading = true;
             _contract.PaymentInfo = Model;
+            
+            // Update the contract's CreatedAt property with the selected date
+            _contract.CreatedAt = ContractCreatedAt;
+            
             Context.VehicleContracts.Update(_contract);
             await Context.SaveChangesAsync();
             Navigation.NavigateTo($"/SellerReview/{_contract.Id}");

@@ -39,6 +39,8 @@
             </InputRadioGroup>
         </div>
 
+        @* todo show warning if payment method is cash and ammount is more thatn 5000 *@
+
         <div class="mb-3">
             <label for="PaymentAtContractFormation">Payment moment</label>
             <InputRadioGroup class="form-control" @bind-Value="Model.PaymentAtContractFormation"
@@ -68,12 +70,6 @@
             <label for="AdditionalInformation">Additional Information</label>
             <InputTextArea class="form-control" @bind-Value="Model.AdditionalInformation" id="AdditionalInformation"/>
         </div>
-
-        @* <div class="mb-3"> *@
-        @*     <label class="form-label" for="Email">Email</label> *@
-        @*     <InputText class="form-control" type="email" @bind-Value="Model.Email" id="Email"/> *@
-        @*     <ValidationMessage For="() => Model.Email"/> *@
-        @* </div> *@
 
         <button class="btn btn-primary mt-2" type="submit">Next</button>
 

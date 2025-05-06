@@ -57,29 +57,19 @@ public partial class Vehicle : FormComponentBase<VehicleViewModel>
     {
         try
         {
-            Loading = true;
-            
-            // Use the ValidateForm method to mark all fields as modified and perform validation
-            if (ValidateForm())
+            Model.Defects = _selectedDefects;
+
+            if (_contract != null && ContractId.HasValue)
             {
-                Model.Defects = _selectedDefects;
-                
-                if (_contract != null && ContractId.HasValue)
-                {
-                    // Convert ViewModel to Entity
-                    var vehicleEntity = Model.ToEntity();
-                    _contract.VehicleInfo = vehicleEntity;
-                    
-                    _context.VehicleContracts.Update(_contract);
-                    await _context.SaveChangesAsync();
-                    Navigation.NavigateTo($"/Payment/{ContractId.Value}");
-                }
+                // Convert ViewModel to Entity
+                var vehicleEntity = Model.ToEntity();
+                _contract.VehicleInfo = vehicleEntity;
+
+                _context.VehicleContracts.Update(_contract);
+                await _context.SaveChangesAsync();
+                Navigation.NavigateTo($"/Payment/{ContractId.Value}");
             }
-            else
-            {
-                // Form is invalid, stop loading state
-                Loading = false;
-            }
+
         }
         catch (Exception e)
         {

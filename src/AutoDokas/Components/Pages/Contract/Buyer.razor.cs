@@ -1,27 +1,26 @@
+using AutoDokas.Components.Shared;
 using AutoDokas.Data;
 using AutoDokas.Data.Models;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace AutoDokas.Components.Pages.Contract;
 
-public partial class Buyer : ComponentBase
+public partial class Buyer : FormComponentBase<VehicleContract.PartyInfo>
 {
     [Inject] private AppDbContext Context { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
 
     [SupplyParameterFromForm(FormName = "BuyerForm")]
-    private VehicleContract.PartyInfo Model { get; set; } = new();
+    protected override VehicleContract.PartyInfo Model { get => base.Model; set => base.Model = value; }
 
     [Parameter] public Guid? ContractId { get; set; }
 
     private VehicleContract? _entity;
-    private bool _loading = false;
-    private EditContext _editContext = null!;
 
     protected override async Task OnInitializedAsync()
     {
-        _loading = true;
+        // Start by creating a new model instance
+        Model = new VehicleContract.PartyInfo();
         
         if (ContractId.HasValue)
         {
@@ -36,19 +35,19 @@ public partial class Buyer : ComponentBase
             _entity = new VehicleContract
             {
                 Id = Guid.NewGuid(),
-                BuyerInfo = new VehicleContract.PartyInfo()
+                BuyerInfo = Model
             };
         }
 
-        _editContext = new EditContext(Model);
-        _loading = false;
+        // Initialize the EditContext from the base class
+        InitializeEditContext();
     }
 
     private async Task Submit()
     {
         try
         {
-            _loading = true;
+            Loading = true;
             
             _entity.BuyerInfo = Model;
 
@@ -70,7 +69,7 @@ public partial class Buyer : ComponentBase
         }
         finally
         {
-            _loading = false;
+            Loading = false;
         }
     }
 }

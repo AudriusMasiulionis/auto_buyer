@@ -16,5 +16,6 @@ public class VehicleContractEntityConfiguration : IEntityTypeConfiguration<Vehic
             entity.Property(p => p.Defects).HasConversion<string>();
         });
         builder.OwnsOne(x => x.PaymentInfo);
+        builder.OwnsOne(x => x.Origin);
     }
 }

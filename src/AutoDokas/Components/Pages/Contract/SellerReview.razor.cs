@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using AutoDokas.Data;
 using AutoDokas.Data.Models;
 using AutoDokas.Services;
+using AutoDokas.Services.EmailTemplates;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -12,13 +13,16 @@ public partial class SellerReview : ComponentBase
     [Inject] private AppDbContext Context { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
     [Inject] private IEmailService EmailService { get; set; } = null!;
+    [Inject] private IEmailTemplateFactory EmailTemplateFactory { get; set; } = null!;
+
+
     [Parameter] public Guid? ContractId { get; set; }
     private VehicleContract contract = new();
     private bool _loading = false;
-    
+
     [SupplyParameterFromForm(FormName = "Form")]
     private SellerReviewForm Model { get; set; } = new();
-    
+
     protected override async Task OnInitializedAsync()
     {
         if (ContractId.HasValue)
@@ -33,7 +37,7 @@ public partial class SellerReview : ComponentBase
             }
         }
     }
-    
+
     private async Task Submit()
     {
         try
@@ -44,23 +48,30 @@ public partial class SellerReview : ComponentBase
             if (ContractId.HasValue)
             {
                 contract.BuyerInfo ??= new VehicleContract.PartyInfo();
-                
+
                 contract.BuyerInfo.Email = Model.BuyerEmail;
-                
+
                 // Store the signature data if available
                 if (Model.SignatureData != null && contract.SellerInfo != null)
                 {
                     // Save signature to the seller's info
                     contract.SellerInfo.SignatureData = Model.SignatureData;
                 }
-                
+
                 // Save changes to the database
                 Context.VehicleContracts.Update(contract);
                 await Context.SaveChangesAsync();
-                
+
                 // Send the email with contract details
-                await EmailService.SendContractNotificationAsync(Model.BuyerEmail, contract);
-                
+
+                var emailHtml = await EmailTemplateFactory.RenderAsync(new ContractCompletedEmailModel
+                {
+                    Contract = contract,
+                    BaseUrl = Navigation.BaseUri
+                });
+
+                await EmailService.SendEmailAsync("noreply@autodokas.lt" ,Model.BuyerEmail, "subject", emailHtml);
+
                 // Navigate to confirmation page
                 Navigation.NavigateTo($"/BuyerNotificationSent");
             }
@@ -85,7 +96,7 @@ public partial class SellerReview : ComponentBase
         [Required(ErrorMessage = "Buyer email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string BuyerEmail { get; set; } = string.Empty;
-        
+
         public byte[]? SignatureData { get; internal set; }
     }
 }

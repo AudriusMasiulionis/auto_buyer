@@ -2,10 +2,11 @@
 @using AutoDokas.Resources
 @using Microsoft.Extensions.Localization
 @using AutoDokas.Components.Shared
+@using AutoDokas.Data.Models
 @inject IStringLocalizer<Text> Localizer
 @attribute [StreamRendering]
 @rendermode InteractiveServer
-
+@inherits FormComponentBase<VehicleContract.PartyInfo>
 
 <PageTitle>Form</PageTitle>
 
@@ -15,13 +16,13 @@
 
     <h3>Buyer Information</h3>
 
-    @if (_loading)
+    @if (Loading)
     {
         <div class="spinner-border" role="status"></div>
     }
     else
     {
-        <EditForm FormName="BuyerForm" Model="Model" OnValidSubmit="Submit">
+        <EditForm FormName="BuyerForm" EditContext="EditContext" OnValidSubmit="Submit">
             <DataAnnotationsValidator/>
             <div class="mb-3">
                 <label class="form-label" for="Name">@Localizer["Name"]</label>
@@ -48,14 +49,10 @@
                 <ValidationMessage For="() => Model.Address"/>
             </div>
             <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="Consent" @bind="isConsentChecked" />
+                <InputCheckbox class="form-check-input" id="Consent" @bind-Value="Model.HasConsented" />
                 <label class="form-check-label" for="Consent">I consent to the terms and conditions</label>
             </div>
-            <button class="btn btn-primary mt-2" type="submit" disabled="@(!isConsentChecked)">@Localizer["Next"]</button>
+            <button class="btn btn-primary mt-2" type="submit" disabled="@(!Model.HasConsented)">@Localizer["Next"]</button>
         </EditForm>
     }
 </div>
-
-@code {
-    private bool isConsentChecked = false;
-}

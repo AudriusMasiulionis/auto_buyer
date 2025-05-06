@@ -7,6 +7,8 @@ public class VehicleContract
     public PartyInfo? BuyerInfo { get; set; }
     public Vehicle? VehicleInfo { get; set; }
     public Payment? PaymentInfo { get; set; }
+    public Country? Origin { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public class PartyInfo
     {
@@ -17,6 +19,7 @@ public class VehicleContract
         public string? Address { get; set; }
         public string? Email { get; set; }
         public byte[]? SignatureData { get; set; }
+        public bool HasConsented { get; set; }
     }
 
     public class Vehicle
