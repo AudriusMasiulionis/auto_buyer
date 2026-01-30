@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AutoDokas.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,19 +17,19 @@ namespace AutoDokas.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     SellerInfo_Code = table.Column<string>(type: "TEXT", nullable: true),
-                    SellerInfo_IsCompany = table.Column<bool>(type: "INTEGER", nullable: true),
                     SellerInfo_Phone = table.Column<string>(type: "TEXT", nullable: true),
                     SellerInfo_Name = table.Column<string>(type: "TEXT", nullable: true),
                     SellerInfo_Address = table.Column<string>(type: "TEXT", nullable: true),
                     SellerInfo_Email = table.Column<string>(type: "TEXT", nullable: true),
                     SellerInfo_SignatureData = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    SellerInfo_HasConsented = table.Column<bool>(type: "INTEGER", nullable: true),
                     BuyerInfo_Code = table.Column<string>(type: "TEXT", nullable: true),
-                    BuyerInfo_IsCompany = table.Column<bool>(type: "INTEGER", nullable: true),
                     BuyerInfo_Phone = table.Column<string>(type: "TEXT", nullable: true),
                     BuyerInfo_Name = table.Column<string>(type: "TEXT", nullable: true),
                     BuyerInfo_Address = table.Column<string>(type: "TEXT", nullable: true),
                     BuyerInfo_Email = table.Column<string>(type: "TEXT", nullable: true),
                     BuyerInfo_SignatureData = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    BuyerInfo_HasConsented = table.Column<bool>(type: "INTEGER", nullable: true),
                     VehicleInfo_Sdk = table.Column<string>(type: "TEXT", nullable: true),
                     VehicleInfo_Make = table.Column<string>(type: "TEXT", nullable: true),
                     VehicleInfo_RegistrationNumber = table.Column<string>(type: "TEXT", nullable: true),
@@ -45,7 +45,16 @@ namespace AutoDokas.Data.Migrations
                     PaymentInfo_PaymentAtContractFormation = table.Column<bool>(type: "INTEGER", nullable: true),
                     PaymentInfo_PaymentDate = table.Column<DateOnly>(type: "TEXT", nullable: true),
                     PaymentInfo_TransferInsurance = table.Column<bool>(type: "INTEGER", nullable: true),
-                    PaymentInfo_AdditionalInformation = table.Column<string>(type: "TEXT", nullable: true)
+                    PaymentInfo_AdditionalInformation = table.Column<string>(type: "TEXT", nullable: true),
+                    Origin_Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Origin_Code = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    VehicleStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    PaymentStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    SellerStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    BuyerMethodStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    BuyerInfoStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    FinalStatus = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

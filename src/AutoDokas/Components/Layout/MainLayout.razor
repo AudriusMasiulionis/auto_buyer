@@ -1,12 +1,11 @@
 ﻿@inherits LayoutComponentBase
 @using AutoDokas.Resources
 @using Microsoft.Extensions.Localization
-@inject IStringLocalizer<Text> Localizer
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4">
     <div class="container-fluid">
         <!-- Brand -->
-        <a class="navbar-brand fw-bold" href="">@Localizer["NavBrand"]</a>
+        <a class="navbar-brand fw-bold" href="">@Text.NavBrand</a>
     </div>
 </nav>
 
@@ -14,3 +13,18 @@
 <main>
     @Body
 </main>
+
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="fw-bold">@Text.NavBrand</h5>
+                <p class="text-muted small mb-0">&copy; @DateTime.Now.Year AutoDokas. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <a href="/terms-and-conditions" class="text-white text-decoration-none me-3">@Text.TermsAndConditions</a>
+                <a href="/privacy-policy" class="text-white text-decoration-none">@Text.PrivacyPolicy</a>
+            </div>
+        </div>
+    </div>
+</footer>

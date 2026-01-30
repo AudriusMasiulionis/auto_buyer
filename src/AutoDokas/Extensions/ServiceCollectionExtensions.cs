@@ -39,7 +39,7 @@ public static class ServiceCollectionExtensions
     /// <returns>The service collection for chaining</returns>
     public static IServiceCollection AddEmailServices(this IServiceCollection services, IHostEnvironment environment)
     {
-        if (environment.IsDevelopment())
+        if (!environment.IsDevelopment())
         {
             // Use Amazon SES in production environment
             services.AddScoped<IEmailService, AmazonSesEmailService>();

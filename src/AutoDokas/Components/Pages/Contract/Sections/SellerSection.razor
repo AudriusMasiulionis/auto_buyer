@@ -1,0 +1,196 @@
+@using AutoDokas.Components.Pages.Contract
+@using AutoDokas.Components.Shared
+@using AutoDokas.Data.Models
+
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center @(State != SectionState.Disabled ? "collapse-toggle" : "") @(State == SectionState.Completed ? "bg-success text-white" : "") @(State == SectionState.Disabled ? "bg-light text-muted" : "")"
+        data-bs-toggle="@(State != SectionState.Disabled ? "collapse" : null)"
+        data-bs-target="@(State != SectionState.Disabled ? "#sellerCollapse" : null)"
+        role="@(State != SectionState.Disabled ? "button" : null)"
+        aria-expanded="@(State == SectionState.Active ? "true" : "false")"
+        aria-controls="@(State != SectionState.Disabled ? "sellerCollapse" : null)">
+        <span>
+            <strong>3.</strong> @Text.SellersInformation
+            @if (State == SectionState.Completed)
+            {
+                <i class="bi bi-check-circle-fill ms-2"></i>
+            }
+        </span>
+        @if (State != SectionState.Disabled)
+        {
+            <span class="d-flex align-items-center gap-2">
+                @if (State == SectionState.Completed)
+                {
+                    <button type="button" class="btn btn-outline-light btn-sm" @onclick="EditAsync"
+                        @onclick:stopPropagation="true">
+                        <i class="bi bi-pencil"></i> @Text.Edit
+                    </button>
+                }
+                <i class="bi bi-chevron-down collapse-chevron"></i>
+            </span>
+        }
+    </div>
+    @if (State != SectionState.Disabled)
+    {
+        <div id="sellerCollapse" class="collapse @(State == SectionState.Active ? "show" : "")">
+            <div class="card-body">
+                @if (ValidationErrors.Any())
+                {
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach (var error in ValidationErrors)
+                            {
+                                <li>@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="SellerName">@Text.Name *</label>
+                        <input class="form-control" @bind="Model.SellerName" id="SellerName"
+                            disabled="@_formDisabled" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="SellerCode">@Text.Code *</label>
+                        <input class="form-control" @bind="Model.SellerCode" id="SellerCode"
+                            disabled="@_formDisabled" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="SellerPhone">@Text.Phone *</label>
+                        <input class="form-control" @bind="Model.SellerPhone" id="SellerPhone"
+                            disabled="@_formDisabled" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="SellerAddress">@Text.Address *</label>
+                        <input class="form-control" @bind="Model.SellerAddress" id="SellerAddress"
+                            disabled="@_formDisabled" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="SellerEmail">@Text.Email *</label>
+                        <input class="form-control" type="email" @bind="Model.SellerEmail" id="SellerEmail"
+                            disabled="@_formDisabled" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="Origin">@Text.Origin *</label>
+                        <select class="form-control" @bind="SelectedCountryCode" id="Origin"
+                            disabled="@_formDisabled">
+                            <option value="">@Text.SelectCountry</option>
+                            @foreach (var country in Countries)
+                            {
+                                <option value="@country.Code">@country.Name - @country.Code</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="CreatedAt">@Text.ContractCreationDate</label>
+                        <input class="form-control" type="datetime-local" @bind="Model.CreatedAt"
+                            id="CreatedAt" disabled="@_formDisabled" />
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <SignatureField @bind-SignatureData="Model.SignatureData" Title="@Text.Signature" Disabled="_formDisabled" />
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" @bind="Model.HasConsented" id="SellerConsent"
+                        disabled="@_formDisabled" />
+                    <label class="form-check-label" for="SellerConsent">@((MarkupString)Text.TermsAndConditionsConsent)</label>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" disabled="@(!Model.HasConsented || _formDisabled)" @onclick="SubmitAsync">
+                        @if (_isLoading)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+                        }
+                        @Text.Next <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public ContractViewModel Model { get; set; } = new();
+    [Parameter] public List<Country> Countries { get; set; } = [];
+    [Parameter] public SectionState State { get; set; }
+    [Parameter] public EventCallback<SectionState> StateChanged { get; set; }
+    [Parameter] public EventCallback OnSubmit { get; set; }
+    [Parameter] public EventCallback OnEdit { get; set; }
+
+    private bool _isLoading;
+    private List<string> ValidationErrors { get; set; } = [];
+
+    private async Task SetStateAsync(SectionState newState)
+    {
+        State = newState;
+        await StateChanged.InvokeAsync(newState);
+    }
+
+    private string _selectedCountryCode = string.Empty;
+    private string SelectedCountryCode
+    {
+        get => Model.Origin?.Code ?? _selectedCountryCode;
+        set
+        {
+            _selectedCountryCode = value;
+            Model.Origin = Countries.FirstOrDefault(c => c.Code == value);
+        }
+    }
+
+    private bool _formDisabled => _isLoading || State == SectionState.Completed;
+
+    protected override void OnParametersSet()
+    {
+        _selectedCountryCode = Model.Origin?.Code ?? string.Empty;
+    }
+
+    private async Task SubmitAsync()
+    {
+        if (!Validate()) return;
+
+        _isLoading = true;
+        ValidationErrors.Clear();
+
+        await SetStateAsync(SectionState.Completed);
+        await OnSubmit.InvokeAsync();
+
+        _isLoading = false;
+    }
+
+    private async Task EditAsync()
+    {
+        ValidationErrors.Clear();
+        await SetStateAsync(SectionState.Active);
+        await OnEdit.InvokeAsync();
+    }
+
+    private bool Validate()
+    {
+        ValidationErrors.Clear();
+
+        if (string.IsNullOrWhiteSpace(Model.SellerName))
+            ValidationErrors.Add(Text.NameRequired);
+        if (string.IsNullOrWhiteSpace(Model.SellerCode))
+            ValidationErrors.Add(Text.CodeRequired);
+        if (string.IsNullOrWhiteSpace(Model.SellerPhone))
+            ValidationErrors.Add(Text.PhoneRequired);
+        if (string.IsNullOrWhiteSpace(Model.SellerAddress))
+            ValidationErrors.Add(Text.AddressRequired);
+        if (string.IsNullOrWhiteSpace(Model.SellerEmail))
+            ValidationErrors.Add(Text.EmailRequired);
+        if (Model.Origin == null)
+            ValidationErrors.Add(Text.CountryRequired);
+        if (Model.SignatureData == null || Model.SignatureData.Length == 0)
+            ValidationErrors.Add(Text.SignatureRequired);
+        if (!Model.HasConsented)
+            ValidationErrors.Add(Text.ConsentRequired);
+
+        return ValidationErrors.Count == 0;
+    }
+}

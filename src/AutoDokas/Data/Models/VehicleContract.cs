@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using AutoDokas.Resources;
+
 namespace AutoDokas.Data.Models;
 
 public class VehicleContract
@@ -10,10 +13,24 @@ public class VehicleContract
     public Country? Origin { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    // Form section progress
+    public FormSectionStatus VehicleStatus { get; set; }
+    public FormSectionStatus PaymentStatus { get; set; }
+    public FormSectionStatus SellerStatus { get; set; }
+    public FormSectionStatus BuyerMethodStatus { get; set; }
+    public FormSectionStatus BuyerInfoStatus { get; set; }
+    public FormSectionStatus FinalStatus { get; set; }
+
+    public enum FormSectionStatus
+    {
+        NotStarted,
+        InProgress,
+        Completed
+    }
+
     public class PartyInfo
     {
         public string? Code { get; set; }
-        public bool IsCompany { get; set; }
         public string? Phone { get; set; }
         public string? Name { get; set; }
         public string? Address { get; set; }
@@ -37,18 +54,16 @@ public class VehicleContract
 
         public enum Defect
         {
-            Brakes,
-            Engine,
-            Transmission,
-            Suspension,
-            Steering,
-            ElectricalSystem,
-            Bodywork,
-            Interior,
-            PassengerSafetySystems,
-            Lights,
-            ExhaustSystem,
-            Other
+            [Display(Name = "Defect_BrakeSystem", ResourceType = typeof(Text))]
+            BrakeSystem,
+            [Display(Name = "Defect_SteeringSuspension", ResourceType = typeof(Text))]
+            SteeringSuspension,
+            [Display(Name = "Defect_Lighting", ResourceType = typeof(Text))]
+            Lighting,
+            [Display(Name = "Defect_SafetySystems", ResourceType = typeof(Text))]
+            SafetySystems,
+            [Display(Name = "Defect_ExhaustSystem", ResourceType = typeof(Text))]
+            ExhaustSystem
         }
     }
 
@@ -63,7 +78,9 @@ public class VehicleContract
 
         public enum PaymentType
         {
+            [Display(Name = "PaymentType_Cash", ResourceType = typeof(Text))]
             Cash,
+            [Display(Name = "PaymentType_BankTransfer", ResourceType = typeof(Text))]
             BankTransfer
         }
     }

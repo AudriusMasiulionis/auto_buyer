@@ -5,6 +5,7 @@ using AutoDokas.Extensions;
 using AutoDokas.Services;
 using AutoDokas.Services.Options;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using PuppeteerSharp;
 
@@ -18,6 +19,25 @@ builder.Services
     .AddDbContextFactory<AppDbContext>(opt =>
         opt.UseSqlite(builder.Configuration.GetConnectionString("AppDbContext")))
     .AddLocalization(options => { options.ResourcesPath = "Resources"; });
+
+// Configure supported cultures
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[] { "lt", "en" };
+    options.SetDefaultCulture("lt")
+           .AddSupportedCultures(supportedCultures)
+           .AddSupportedUICultures(supportedCultures);
+    
+    options.RequestCultureProviders.Clear();
+    options.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
+    options.RequestCultureProviders.Add(new CookieRequestCultureProvider());
+    // Remove AcceptLanguageHeaderRequestCultureProvider to prevent browser language override
+    // options.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
+    
+    // Set fallback behavior - if no culture provider matches, use "lt"
+    options.FallBackToParentCultures = false;
+    options.FallBackToParentUICultures = false;
+});
 
 // Configure AWS SSM options
 builder.Services.Configure<AwsSsmOptions>(
@@ -58,6 +78,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Apply pending EF Core migrations on startup
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await db.Database.MigrateAsync();
+}
+
 // Download the Chromium browser if needed during application startup
 await new BrowserFetcher().DownloadAsync();
 
@@ -66,6 +93,8 @@ app.InitializeStaticData();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseRequestLocalization();
 app.UseAntiforgery();
 
 // Map contract API endpoints from the ContractEndpoints class

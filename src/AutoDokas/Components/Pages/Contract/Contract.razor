@@ -1,0 +1,51 @@
+@page "/contract"
+@page "/contract/{ContractId:guid}"
+@page "/buyer/{ContractId:guid}"
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@using AutoDokas.Components.Pages.Contract.Sections
+@using AutoDokas.Components.Shared
+@using AutoDokas.Data.Models
+@using AutoDokas.Extensions
+
+<PageTitle>@Text.NewContract</PageTitle>
+
+<div class="container my-4">
+
+    <VehicleSection
+        @bind-State="_vehicleState"
+        Model="Model"
+        OnSubmit="HandleVehicleNext"
+        OnEdit="@(_isBuyerMode ? EventCallback.Empty : new EventCallback(null, () => EditSection(FormSection.Vehicle)))" />
+
+    <PaymentSection
+        @bind-State="_paymentState"
+        Model="Model"
+        OnSubmit="HandlePaymentNext"
+        OnEdit="@(_isBuyerMode ? EventCallback.Empty : new EventCallback(null, () => EditSection(FormSection.Payment)))" />
+
+    <SellerSection
+        @bind-State="_sellerState"
+        Model="Model"
+        Countries="Countries"
+        OnSubmit="HandleSellerNext"
+        OnEdit="@(_isBuyerMode ? EventCallback.Empty : new EventCallback(null, () => EditSection(FormSection.Seller)))" />
+
+    @if (!_isBuyerMode)
+    {
+        <BuyerMethodSection
+            @bind-State="_buyerMethodState"
+            Model="Model"
+            OnSubmit="HandleBuyerMethodNext"
+            OnEdit="() => EditSection(FormSection.BuyerMethod)" />
+    }
+
+    <BuyerInformationSection
+        @bind-State="_buyerInfoState"
+        Model="Model"
+        ReadOnlyEmail="_isBuyerMode"
+        OnSubmit="HandleBuyerInfoNext"
+        OnEdit="@(_isBuyerMode ? EventCallback.Empty : new EventCallback(null, () => EditSection(FormSection.BuyerInfo)))" />
+
+
+</div>

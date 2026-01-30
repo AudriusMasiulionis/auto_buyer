@@ -29,8 +29,18 @@
 
     <ItemGroup>
       <EmbeddedResource Update="Resources\Text.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
+        <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>Text.Designer.cs</LastGenOutput>
+        <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+        <StronglyTypedClassName>Text</StronglyTypedClassName>
+        <StronglyTypedNamespace>AutoDokas.Resources</StronglyTypedNamespace>
+        <StronglyTypedFileName>Resources\Text.Designer.cs</StronglyTypedFileName>
+        <PublicClass>true</PublicClass>
+        <LogicalName>AutoDokas.Resources.Text.resources</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Text.en.resx">
+        <DependentUpon>Text.resx</DependentUpon>
+        <LogicalName>AutoDokas.Resources.Text.en.resources</LogicalName>
       </EmbeddedResource>
     </ItemGroup>
 

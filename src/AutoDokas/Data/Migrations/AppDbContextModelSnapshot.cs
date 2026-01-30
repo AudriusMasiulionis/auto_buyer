@@ -23,8 +23,26 @@ namespace AutoDokas.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("BuyerInfoStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BuyerMethodStatus")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("FinalStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PaymentStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SellerStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("VehicleStatus")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -150,9 +168,6 @@ namespace AutoDokas.Data.Migrations
                             b1.Property<bool>("HasConsented")
                                 .HasColumnType("INTEGER");
 
-                            b1.Property<bool>("IsCompany")
-                                .HasColumnType("INTEGER");
-
                             b1.Property<string>("Name")
                                 .HasColumnType("TEXT");
 
@@ -185,9 +200,6 @@ namespace AutoDokas.Data.Migrations
                                 .HasColumnType("TEXT");
 
                             b1.Property<bool>("HasConsented")
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<bool>("IsCompany")
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("Name")

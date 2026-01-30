@@ -1,92 +1,568 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
-            
-        </xsd:element>
-    </xsd:schema>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>1.3</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <data name="Name" xml:space="preserve">
-        <value>Vardas</value>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
-    <data name="NavBrand" xml:space="preserve">
-        <value>AutoDokas.lt</value>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
     </data>
-    <data name="NavToggle" xml:space="preserve">
-        <value>Toggle navigation</value>
-    </data>
-    <data name="NavHome" xml:space="preserve">
-        <value>Home</value>
-    </data>
-    <data name="NavForm" xml:space="preserve">
-        <value>Form</value>
-    </data>
-    <data name="NavVehicleForm" xml:space="preserve">
-        <value>Vehicle Form</value>
-    </data>
-    <data name="NavCounter" xml:space="preserve">
-        <value>Counter</value>
-    </data>
-    <data name="NavWeather" xml:space="preserve">
-        <value>Weather</value>
-    </data>
-    <data name="NavAbout" xml:space="preserve">
-        <value>About</value>
-    </data>
-    <!-- Home Page Strings -->
-    <data name="HomeTitle" xml:space="preserve">
-        <value>Home</value>
-    </data>
-    <data name="HeroTitle" xml:space="preserve">
-        <value>Welcome to Our Platform</value>
-    </data>
-    <data name="HeroSubtitle" xml:space="preserve">
-        <value>Sell Your Vehicle with our platform faster.</value>
-    </data>
-    <data name="SellNowButton" xml:space="preserve">
-        <value>Sell Now</value>
-    </data>
-    <data name="AboutSectionTitle" xml:space="preserve">
-        <value>About the Project 🤠</value>
-    </data>
-    <data name="AboutSectionText" xml:space="preserve">
-        <value>We are passionate about creating tools that empower individuals and businesses to achieve their goals. Our mission is to deliver intuitive and powerful solutions that make a difference in your daily life.</value>
-    </data>
-    <data name="FeaturesTitle" xml:space="preserve">
-        <value>Features</value>
-    </data>
-    <data name="Feature1Title" xml:space="preserve">
-        <value>Fast Performance</value>
-    </data>
-    <data name="Feature1Text" xml:space="preserve">
-        <value>Enjoy blazing-fast performance with our cutting-edge technology.</value>
-    </data>
-    <data name="Feature2Title" xml:space="preserve">
-        <value>Secure and Reliable</value>
-    </data>
-    <data name="Feature2Text" xml:space="preserve">
-        <value>We prioritize your security with top-notch protection and reliability.</value>
-    </data>
-    <data name="Feature3Title" xml:space="preserve">
-        <value>Customizable Tools</value>
-    </data>
-    <data name="Feature3Text" xml:space="preserve">
-        <value>Tailor our platform to fit your unique needs with flexible options.</value>
-    </data>
-    <!-- Stepper Component Strings -->
-    <data name="StepText" xml:space="preserve">
-        <value>Step</value>
-    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Name" xml:space="preserve">
+    <value>vardas, pavardė arba juridinio asmens pavadinimas</value>
+    <comment/>
+  </data>
+  <data name="NavBrand" xml:space="preserve">
+    <value>AutoDokas.lt</value>
+    <comment/>
+  </data>
+  <data name="NavToggle" xml:space="preserve">
+    <value>Perjungti navigaciją</value>
+    <comment/>
+  </data>
+  <data name="NavHome" xml:space="preserve">
+    <value>Pagrindinis</value>
+    <comment/>
+  </data>
+  <data name="NavForm" xml:space="preserve">
+    <value>Forma</value>
+    <comment/>
+  </data>
+  <data name="NavVehicleForm" xml:space="preserve">
+    <value>Transporto forma</value>
+    <comment/>
+  </data>
+  <data name="NavAbout" xml:space="preserve">
+    <value>Apie</value>
+    <comment/>
+  </data>
+  <data name="HomeTitle" xml:space="preserve">
+    <value>Pagrindinis</value>
+    <comment/>
+  </data>
+  <data name="HeroTitle" xml:space="preserve">
+    <value>Automobilio pirkimo pardavimo sutartis internetu</value>
+    <comment/>
+  </data>
+  <data name="HeroSubtitle" xml:space="preserve">
+    <value>Pildyk sutartį internetu</value>
+    <comment/>
+  </data>
+  <data name="SellNowButton" xml:space="preserve">
+    <value>Parduoti dabar</value>
+    <comment/>
+  </data>
+  <data name="AboutSectionTitle" xml:space="preserve">
+    <value>Apie projektą 🤠</value>
+    <comment/>
+  </data>
+  <data name="AboutSectionText" xml:space="preserve">
+    <value>Mes esame aistringi kurti įrankius, kurie įgalina asmenis ir įmones pasiekti savo tikslus. Mūsų misija - teikti intuityvius ir galingus sprendimus, kurie daro poveikį jūsų kasdieniam gyvenimui.</value>
+    <comment/>
+  </data>
+  <data name="FeaturesTitle" xml:space="preserve">
+    <value>Funkcijos</value>
+    <comment/>
+  </data>
+  <data name="Feature1Title" xml:space="preserve">
+    <value>Greitas veikimas</value>
+    <comment/>
+  </data>
+  <data name="Feature1Text" xml:space="preserve">
+    <value>Mėgaukitės žaibiškai greitu veikimu su mūsų pažangia technologija.</value>
+    <comment/>
+  </data>
+  <data name="Feature2Title" xml:space="preserve">
+    <value>Saugus ir patikimas</value>
+    <comment/>
+  </data>
+  <data name="Feature2Text" xml:space="preserve">
+    <value>Mes teikiame pirmenybę jūsų saugumui su aukščiausios klasės apsauga ir patikimumu.</value>
+    <comment/>
+  </data>
+  <data name="Feature3Title" xml:space="preserve">
+    <value>Pritaikomi įrankiai</value>
+    <comment/>
+  </data>
+  <data name="Feature3Text" xml:space="preserve">
+    <value>Pritaikykite mūsų platformą pagal savo unikalius poreikius su lanksčiais variantais.</value>
+    <comment/>
+  </data>
+  <data name="StepText" xml:space="preserve">
+    <value>Žingsnis</value>
+    <comment/>
+  </data>
+  <data name="IsCompany" xml:space="preserve">
+    <value>Perka/Parduoda Įmonė</value>
+    <comment/>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>asmens kodas / įmonės kodas / gimimo data, kai asmens kodas nesuteiktas</value>
+    <comment/>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>telefono numeris</value>
+    <comment/>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresas</value>
+    <comment/>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>elektroninio pašto adresas</value>
+    <comment/>
+  </data>
+  <data name="TermsAndConditionsConsent" xml:space="preserve">
+    <value>Sutinku su &lt;a href="/terms-and-conditions"&gt;naudojimo sąlygomis&lt;/a&gt; ir &lt;a href="/privacy-policy"&gt;privatumo politika&lt;/a&gt;</value>
+    <comment/>
+  </data>
+  <data name="Origin" xml:space="preserve">
+    <value>Sutarties sudarymo valstybė</value>
+    <comment/>
+  </data>
+  <data name="ContractCreationDate" xml:space="preserve">
+    <value>Sutarties sudarymo data</value>
+    <comment/>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Toliau</value>
+    <comment/>
+  </data>
+  <data name="SellerInformation" xml:space="preserve">
+    <value>Pardavėjo Duomenys</value>
+    <comment/>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Papildoma Informacija</value>
+    <comment/>
+  </data>
+  <data name="Defects" xml:space="preserve">
+    <value>Transporto priemonės trūkumai</value>
+    <comment/>
+  </data>
+  <data name="PriorDamageKnown" xml:space="preserve">
+    <value>Transporto priemonė eismo ar kitų įvykių metu per laikotarpį, kurį buvau parduodamos transporto priemonės savininkas</value>
+    <comment/>
+  </data>
+  <data name="HasBeenDamaged" xml:space="preserve">
+    <value>Eismo ar kiti įvykiai, kuriuose transporto priemonė buvoapgadinta, man žinomi</value>
+    <comment/>
+  </data>
+  <data name="IsInspected" xml:space="preserve">
+    <value>Transporto priemonės privalomoji techninė apžiūra</value>
+    <comment/>
+  </data>
+  <data name="IdentificationNumber" xml:space="preserve">
+    <value>Identifikavimo numeris (E)</value>
+    <comment/>
+  </data>
+  <data name="Millage" xml:space="preserve">
+    <value>Rida</value>
+    <comment/>
+  </data>
+  <data name="RegistrationNumber" xml:space="preserve">
+    <value>Valstybinis registracijos numeris (A)</value>
+    <comment/>
+  </data>
+  <data name="Make" xml:space="preserve">
+    <value>Gamybinė markė (D.1) ir komercinis pavadinimas (D.3):</value>
+    <comment/>
+  </data>
+  <data name="Sdk" xml:space="preserve">
+    <value>Transporto priemonės savininko deklaravimo kodas (SDK)</value>
+    <comment/>
+  </data>
+  <data name="VehicleInformation" xml:space="preserve">
+    <value>Transporto priemonės duomenys</value>
+    <comment/>
+  </data>
+  <data name="PaymentInformation" xml:space="preserve">
+    <value>Mokėjimo duomenys</value>
+    <comment/>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Transporto priemonės kaina</value>
+    <comment/>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Atsiskaitymo būdas</value>
+    <comment/>
+  </data>
+  <data name="PaymentMoment" xml:space="preserve">
+    <value>Atsiskaitymo momentas</value>
+    <comment/>
+  </data>
+  <data name="AtContractFormation" xml:space="preserve">
+    <value>sutarties sudarymo metu</value>
+    <comment/>
+  </data>
+  <data name="OtherTime" xml:space="preserve">
+    <value>kitu metu</value>
+    <comment/>
+  </data>
+  <data name="PaymentDate" xml:space="preserve">
+    <value>Atsiskaitymo momentas</value>
+    <comment/>
+  </data>
+  <data name="TransferInsurance" xml:space="preserve">
+    <value>Perduoti draudimą pirkėjui</value>
+    <comment/>
+  </data>
+  <data name="SellerReview" xml:space="preserve">
+    <value>Apžvalga</value>
+    <comment/>
+  </data>
+  <data name="SellersInformation" xml:space="preserve">
+    <value>Pardavėjo duomenys</value>
+    <comment/>
+  </data>
+  <data name="SelectedDamages" xml:space="preserve">
+    <value>Transporto priemonės trūkumai</value>
+    <comment/>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nėra</value>
+    <comment/>
+  </data>
+  <data name="Sign" xml:space="preserve">
+    <value>Pasirašyti</value>
+    <comment/>
+  </data>
+  <data name="Signature" xml:space="preserve">
+    <value>Parašas</value>
+    <comment/>
+  </data>
+  <data name="BuyerEmail" xml:space="preserve">
+    <value>Pirkėjo El. Paštas</value>
+    <comment/>
+  </data>
+  <data name="BuyerInformation" xml:space="preserve">
+    <value>Pirkėjo duomenys</value>
+    <comment/>
+  </data>
+  <data name="BuyerReview" xml:space="preserve">
+    <value>Apžvalga</value>
+    <comment/>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Pateikti</value>
+    <comment/>
+  </data>
+  <data name="NameRequired" xml:space="preserve">
+    <value>Vardas yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="NameMaxLength" xml:space="preserve">
+    <value>Vardas negali viršyti 100 simbolių</value>
+    <comment/>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>El. paštas yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="EmailInvalid" xml:space="preserve">
+    <value>Neteisingas el. pašto adresas</value>
+    <comment/>
+  </data>
+  <data name="EmailMaxLength" xml:space="preserve">
+    <value>El. paštas negali viršyti 100 simbolių</value>
+    <comment/>
+  </data>
+  <data name="CodeRequired" xml:space="preserve">
+    <value>Kodas yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="CodeDigitsOnly" xml:space="preserve">
+    <value>Kodas turi sudaryti tik skaičiai</value>
+    <comment/>
+  </data>
+  <data name="PhoneRequired" xml:space="preserve">
+    <value>Telefono numeris yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="PhoneDigitsOnly" xml:space="preserve">
+    <value>Telefono numeris turi sudaryti tik skaičiai</value>
+    <comment/>
+  </data>
+  <data name="AddressRequired" xml:space="preserve">
+    <value>Adresas yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="AddressMaxLength" xml:space="preserve">
+    <value>Adresas negali viršyti 300 simbolių</value>
+    <comment/>
+  </data>
+  <data name="CountryRequired" xml:space="preserve">
+    <value>Šalis yra privaloma</value>
+    <comment/>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>Naudojimo sąlygos</value>
+    <comment/>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privatumo politika</value>
+    <comment/>
+  </data>
+  <data name="Defect_BrakeSystem" xml:space="preserve">
+    <value>stabdžių sistemos</value>
+    <comment/>
+  </data>
+  <data name="Defect_SteeringSuspension" xml:space="preserve">
+    <value>vairo mechanizmo ir pakabos elementų</value>
+    <comment/>
+  </data>
+  <data name="Defect_Lighting" xml:space="preserve">
+    <value>apšvietimo ir šviesos signalizavimo įtaisų</value>
+    <comment/>
+  </data>
+  <data name="Defect_SafetySystems" xml:space="preserve">
+    <value>vairuotojų ir keleivių saugos sistemų</value>
+    <comment/>
+  </data>
+  <data name="Defect_ExhaustSystem" xml:space="preserve">
+    <value>dujų išmetimo sistemos</value>
+    <comment/>
+  </data>
+  <data name="Valid" xml:space="preserve">
+    <value>galioja</value>
+    <comment/>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>negalioja</value>
+    <comment/>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Taip</value>
+    <comment/>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ne</value>
+    <comment/>
+  </data>
+  <data name="VehicleAdditionalInfo" xml:space="preserve">
+    <value>Informacija apie įvykius ir trūkumus</value>
+    <comment/>
+  </data>
+  <data name="PaymentType_Cash" xml:space="preserve">
+    <value>grynaisiais pinigais</value>
+    <comment/>
+  </data>
+  <data name="PaymentType_BankTransfer" xml:space="preserve">
+    <value>bankiniu pavedimu</value>
+    <comment/>
+  </data>
+  <data name="PaymentAdditionalInfo" xml:space="preserve">
+    <value>Papildoma informacija apie atsiskaitymo būdą ir (ar) kitas sąlygas:</value>
+    <comment/>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Redaguoti</value>
+    <comment/>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Atšaukti</value>
+    <comment/>
+  </data>
+  <data name="NewContract" xml:space="preserve">
+    <value>Nauja sutartis</value>
+    <comment/>
+  </data>
+  <data name="BuyerMethod" xml:space="preserve">
+    <value>Pirkėjo pasirašymo būdas</value>
+    <comment/>
+  </data>
+  <data name="BuyerMethodDescription" xml:space="preserve">
+    <value>Pasirinkite, kaip pirkėjas užpildys savo informaciją ir pasirašys sutartį.</value>
+    <comment/>
+  </data>
+  <data name="SignOnThisDevice" xml:space="preserve">
+    <value>Pasirašyti šiame įrenginyje</value>
+    <comment/>
+  </data>
+  <data name="SignOnThisDeviceDescription" xml:space="preserve">
+    <value>Pirkėjas užpildys informaciją ir pasirašys sutartį šiame įrenginyje.</value>
+    <comment/>
+  </data>
+  <data name="SendNotificationToBuyer" xml:space="preserve">
+    <value>Siųsti pranešimą pirkėjui</value>
+    <comment/>
+  </data>
+  <data name="SendNotificationToBuyerDescription" xml:space="preserve">
+    <value>Pirkėjas gaus el. laišką su nuoroda užpildyti informaciją ir pasirašyti sutartį.</value>
+    <comment/>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Išvalyti</value>
+    <comment/>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Patvirtinti</value>
+    <comment/>
+  </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>-- Pasirinkite šalį --</value>
+    <comment/>
+  </data>
+  <data name="ConsentRequired" xml:space="preserve">
+    <value>Turite sutikti su sąlygomis</value>
+    <comment/>
+  </data>
+  <data name="PriceRequired" xml:space="preserve">
+    <value>Kaina turi būti didesnė nei 0</value>
+    <comment/>
+  </data>
+  <data name="PaymentMethodRequired" xml:space="preserve">
+    <value>Pasirinkite mokėjimo būdą</value>
+    <comment/>
+  </data>
+  <data name="SdkRequired" xml:space="preserve">
+    <value>SDK yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="MakeRequired" xml:space="preserve">
+    <value>Markė yra privaloma</value>
+    <comment/>
+  </data>
+  <data name="RegistrationNumberRequired" xml:space="preserve">
+    <value>Registracijos numeris yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="IdentificationNumberRequired" xml:space="preserve">
+    <value>Identifikavimo numeris yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="BuyerNameRequired" xml:space="preserve">
+    <value>Pirkėjo vardas yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="BuyerCodeRequired" xml:space="preserve">
+    <value>Pirkėjo kodas yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="BuyerPhoneRequired" xml:space="preserve">
+    <value>Pirkėjo telefono numeris yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="BuyerAddressRequired" xml:space="preserve">
+    <value>Pirkėjo adresas yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="BuyerEmailRequired" xml:space="preserve">
+    <value>Pirkėjo el. paštas yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="SignatureRequired" xml:space="preserve">
+    <value>Parašas yra privalomas</value>
+    <comment/>
+  </data>
 </root>

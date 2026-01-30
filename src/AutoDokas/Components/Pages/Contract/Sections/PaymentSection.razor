@@ -1,0 +1,175 @@
+@using AutoDokas.Components.Pages.Contract
+@using AutoDokas.Data.Models
+@using AutoDokas.Extensions
+
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center @(State != SectionState.Disabled ? "collapse-toggle" : "") @(State == SectionState.Completed ? "bg-success text-white" : "") @(State == SectionState.Disabled ? "bg-light text-muted" : "")"
+        data-bs-toggle="@(State != SectionState.Disabled ? "collapse" : null)"
+        data-bs-target="@(State != SectionState.Disabled ? "#paymentCollapse" : null)"
+        role="@(State != SectionState.Disabled ? "button" : null)"
+        aria-expanded="@(State == SectionState.Active ? "true" : "false")"
+        aria-controls="@(State != SectionState.Disabled ? "paymentCollapse" : null)">
+        <span>
+            <strong>2.</strong> @Text.PaymentInformation
+            @if (State == SectionState.Completed)
+            {
+                <i class="bi bi-check-circle-fill ms-2"></i>
+            }
+        </span>
+        @if (State != SectionState.Disabled)
+        {
+            <span class="d-flex align-items-center gap-2">
+                @if (State == SectionState.Completed)
+                {
+                    <button type="button" class="btn btn-outline-light btn-sm" @onclick="EditAsync"
+                        @onclick:stopPropagation="true">
+                        <i class="bi bi-pencil"></i> @Text.Edit
+                    </button>
+                }
+                <i class="bi bi-chevron-down collapse-chevron"></i>
+            </span>
+        }
+    </div>
+    @if (State != SectionState.Disabled)
+    {
+        <div id="paymentCollapse" class="collapse @(State == SectionState.Active ? "show" : "")">
+            <div class="card-body">
+                @if (ValidationErrors.Any())
+                {
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach (var error in ValidationErrors)
+                            {
+                                <li>@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="PaymentPrice">@Text.Price *</label>
+                        <div class="input-group">
+                            <input class="form-control" type="number" step="0.01" @bind="Model.PaymentPrice" id="PaymentPrice" disabled="@_formDisabled" />
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label>@Text.PaymentMethod *</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="PaymentMethod" id="PaymentMethodCash"
+                                   checked="@(Model.PaymentMethod == VehicleContract.Payment.PaymentType.Cash)"
+                                   @onchange="() => Model.PaymentMethod = VehicleContract.Payment.PaymentType.Cash" disabled="@_formDisabled" />
+                            <label class="form-check-label" for="PaymentMethodCash">@VehicleContract.Payment.PaymentType.Cash.GetDisplayName()</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="PaymentMethod" id="PaymentMethodTransfer"
+                                   checked="@(Model.PaymentMethod == VehicleContract.Payment.PaymentType.BankTransfer)"
+                                   @onchange="() => Model.PaymentMethod = VehicleContract.Payment.PaymentType.BankTransfer" disabled="@_formDisabled" />
+                            <label class="form-check-label" for="PaymentMethodTransfer">@VehicleContract.Payment.PaymentType.BankTransfer.GetDisplayName()</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label>@Text.PaymentMoment</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="PaymentAtContractFormation" id="PaymentAtContractFormationTrue"
+                                   checked="@Model.PaymentAtContractFormation" @onchange="() => Model.PaymentAtContractFormation = true" disabled="@_formDisabled" />
+                            <label class="form-check-label" for="PaymentAtContractFormationTrue">@Text.AtContractFormation</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="PaymentAtContractFormation" id="PaymentAtContractFormationFalse"
+                                   checked="@(!Model.PaymentAtContractFormation)" @onchange="() => Model.PaymentAtContractFormation = false" disabled="@_formDisabled" />
+                            <label class="form-check-label" for="PaymentAtContractFormationFalse">@Text.OtherTime</label>
+                        </div>
+                    </div>
+                </div>
+
+                @if (!Model.PaymentAtContractFormation)
+                {
+                    <div class="mb-3">
+                        <label class="form-label" for="PaymentDate">@Text.PaymentDate</label>
+                        <input class="form-control" type="date" @bind="Model.PaymentDate" id="PaymentDate" disabled="@_formDisabled" />
+                    </div>
+                }
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" @bind="Model.TransferInsurance" id="TransferInsurance" disabled="@_formDisabled" />
+                    <label class="form-check-label" for="TransferInsurance">@Text.TransferInsurance</label>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="PaymentAdditionalInformation">@Text.PaymentAdditionalInfo</label>
+                    <textarea class="form-control" @bind="Model.PaymentAdditionalInformation" id="PaymentAdditionalInformation" rows="3" disabled="@_formDisabled"></textarea>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" disabled="@_formDisabled" @onclick="SubmitAsync">
+                        @if (_isLoading)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+                        }
+                        @Text.Next <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public ContractViewModel Model { get; set; } = new();
+    [Parameter] public SectionState State { get; set; }
+    [Parameter] public EventCallback<SectionState> StateChanged { get; set; }
+    [Parameter] public EventCallback OnSubmit { get; set; }
+    [Parameter] public EventCallback OnEdit { get; set; }
+
+    private bool _isLoading;
+    private List<string> ValidationErrors { get; set; } = [];
+
+    private bool _formDisabled => _isLoading || State == SectionState.Completed;
+
+    private async Task SetStateAsync(SectionState newState)
+    {
+        State = newState;
+        await StateChanged.InvokeAsync(newState);
+    }
+
+    private async Task SubmitAsync()
+    {
+        if (!Validate()) return;
+
+        _isLoading = true;
+        ValidationErrors.Clear();
+
+        await SetStateAsync(SectionState.Completed);
+        await OnSubmit.InvokeAsync();
+
+        _isLoading = false;
+    }
+
+    private async Task EditAsync()
+    {
+        ValidationErrors.Clear();
+        await SetStateAsync(SectionState.Active);
+        await OnEdit.InvokeAsync();
+    }
+
+    private bool Validate()
+    {
+        ValidationErrors.Clear();
+
+        if (Model.PaymentPrice <= 0)
+            ValidationErrors.Add(Text.PriceRequired);
+        if (Model.PaymentMethod == null)
+            ValidationErrors.Add(Text.PaymentMethodRequired);
+
+        return ValidationErrors.Count == 0;
+    }
+}

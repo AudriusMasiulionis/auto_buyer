@@ -1,0 +1,109 @@
+@using AutoDokas.Components.Pages.Contract
+@using AutoDokas.Components.Shared
+
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center @(State != SectionState.Disabled ? "collapse-toggle" : "") @(State == SectionState.Completed ? "bg-success text-white" : "") @(State == SectionState.Disabled ? "bg-light text-muted" : "")"
+        data-bs-toggle="@(State != SectionState.Disabled ? "collapse" : null)"
+        data-bs-target="@(State != SectionState.Disabled ? "#finalCollapse" : null)"
+        role="@(State != SectionState.Disabled ? "button" : null)"
+        aria-expanded="@(State == SectionState.Active ? "true" : "false")"
+        aria-controls="@(State != SectionState.Disabled ? "finalCollapse" : null)">
+        <span>
+            <strong>6.</strong> @Text.Signature & @Text.Submit
+            @if (State == SectionState.Completed)
+            {
+                <i class="bi bi-check-circle-fill ms-2"></i>
+            }
+        </span>
+        @if (State != SectionState.Disabled)
+        {
+            <span class="d-flex align-items-center gap-2">
+                <i class="bi bi-chevron-down collapse-chevron"></i>
+            </span>
+        }
+    </div>
+    @if (State != SectionState.Disabled)
+    {
+        <div id="finalCollapse" class="collapse @(State == SectionState.Active ? "show" : "")">
+            <div class="card-body">
+                @if (ValidationErrors.Any())
+                {
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach (var error in ValidationErrors)
+                            {
+                                <li>@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                <SignatureField @bind-SignatureData="Model.SignatureData" Title="@Text.Signature" />
+
+                <div class="mb-3">
+                    <label class="form-label" for="BuyerEmail">@Text.BuyerEmail *</label>
+                    <input class="form-control" type="email" @bind="Model.BuyerEmail" id="BuyerEmail" disabled="@_formDisabled" />
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" @bind="Model.HasConsented" id="Consent" disabled="@_formDisabled" />
+                    <label class="form-check-label" for="Consent">@((MarkupString)Text.TermsAndConditionsConsent)</label>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-success btn-lg" disabled="@(!Model.HasConsented || _isLoading)" @onclick="SubmitAsync">
+                        @if (_isLoading)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+                        }
+                        <i class="bi bi-check-circle"></i> @Text.Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public ContractViewModel Model { get; set; } = new();
+    [Parameter] public SectionState State { get; set; }
+    [Parameter] public EventCallback<SectionState> StateChanged { get; set; }
+    [Parameter] public EventCallback OnSubmit { get; set; }
+
+    private bool _isLoading;
+    private List<string> ValidationErrors { get; set; } = [];
+
+    private bool _formDisabled => _isLoading || State == SectionState.Completed;
+
+    private async Task SetStateAsync(SectionState newState)
+    {
+        State = newState;
+        await StateChanged.InvokeAsync(newState);
+    }
+
+    private async Task SubmitAsync()
+    {
+        if (!Validate()) return;
+
+        _isLoading = true;
+        ValidationErrors.Clear();
+
+        await SetStateAsync(SectionState.Completed);
+        await OnSubmit.InvokeAsync();
+
+        _isLoading = false;
+    }
+
+    private bool Validate()
+    {
+        ValidationErrors.Clear();
+
+        if (string.IsNullOrWhiteSpace(Model.BuyerEmail))
+            ValidationErrors.Add(Text.BuyerEmailRequired);
+        if (!Model.HasConsented)
+            ValidationErrors.Add(Text.ConsentRequired);
+
+        return ValidationErrors.Count == 0;
+    }
+}

@@ -2,60 +2,56 @@
 @using Microsoft.JSInterop
 @rendermode InteractiveServer
 
-<div class="mb-4">
-    <h4>@Title</h4>
-    @if (SignatureData == null)
+<div class="mb-3">
+    <label class="form-label">@Title</label>
+
+    @if (SignatureData != null && (Disabled || !_isEditing))
     {
-        <button type="button" class="btn btn-outline-primary me-2" @onclick="OpenSignatureModal">
-            <i class="bi bi-pen"></i> Add Signature
-        </button>
+        <div class="signature-box border rounded bg-light position-relative">
+            <div class="d-flex align-items-center justify-content-center" style="height: 150px;">
+                <img src="data:image/png;base64,@Convert.ToBase64String(SignatureData)" alt="Signature" style="max-height: 140px;" />
+            </div>
+            @if (!Disabled)
+            {
+                <button type="button" class="btn btn-outline-secondary btn-sm position-absolute top-0 end-0 m-2" @onclick="StartEditing">
+                    <i class="bi bi-pencil"></i>
+                </button>
+            }
+        </div>
+    }
+    else if (Disabled)
+    {
+        <div class="signature-box border rounded bg-light d-flex align-items-center justify-content-center"
+             style="height: 150px;">
+            <div class="text-center text-muted">
+                <i class="bi bi-pen fs-2"></i>
+            </div>
+        </div>
+    }
+    else if (!_isSigning)
+    {
+        <div class="signature-box border border-dashed rounded bg-white d-flex align-items-center justify-content-center"
+             style="height: 150px; cursor: pointer;" @onclick="StartSigning">
+            <div class="text-center text-muted">
+                <i class="bi bi-pen fs-2"></i>
+                <div class="mt-1 small">@Text.Sign</div>
+            </div>
+        </div>
     }
     else
     {
-        <button type="button" class="btn btn-outline-danger me-2" @onclick="ClearSignatureData">
-            <i class="bi bi-x-circle"></i> Clear Signature
-        </button>
-        
-        <div class="mt-2">
-            <div class="border rounded p-2 bg-light d-inline-block">
-                <img src="data:image/png;base64,@Convert.ToBase64String(SignatureData)" alt="Signature" style="max-height: 100px;" />
+        <div class="signature-box position-relative">
+            <canvas @ref="canvasElement"
+                    class="border rounded bg-white w-100"
+                    style="border-style: dashed !important; touch-action: none; height: 150px; cursor: crosshair;"></canvas>
+            <div class="signature-actions d-flex gap-2 position-absolute bottom-0 end-0 m-2">
+                <button type="button" class="btn btn-light signature-action-btn shadow-sm" @onclick="ClearCanvas" title="@Text.Clear">
+                    <i class="bi bi-eraser"></i>
+                </button>
+                <button type="button" class="btn btn-primary signature-action-btn shadow-sm" @onclick="SaveSignature" title="@Text.Confirm">
+                    <i class="bi bi-check-lg"></i>
+                </button>
             </div>
         </div>
     }
 </div>
-
-@* Signature Modal *@
-@if (showSignatureModal)
-{
-    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Sign Here</h5>
-                    <button type="button" class="btn-close" @onclick="CloseSignatureModal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center mb-3">
-                        <div class="signature-container border rounded p-3">
-                            <canvas @ref="canvasElement" id="signatureCanvas" 
-                                    style="border: 1px solid #ccc; touch-action: none; width: 100%; max-width: 100%; height: 200px;"
-                                    @onmousedown="StartDrawing"
-                                    @onmousemove="Draw"
-                                    @onmouseup="StopDrawing"
-                                    @onmouseleave="StopDrawing"
-                                    @ontouchstart="StartDrawingTouch"
-                                    @ontouchmove="DrawTouch"
-                                    @ontouchend="StopDrawing"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" @onclick="ClearCanvas">Clear</button>
-                    <button type="button" class="btn btn-secondary" @onclick="CloseSignatureModal">Cancel</button>
-                    <button type="button" class="btn btn-primary" @onclick="SaveSignature">Save Signature</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-backdrop show" style="display: block;"></div>
-}

@@ -1,0 +1,157 @@
+@using AutoDokas.Components.Pages.Contract
+
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center @(State != SectionState.Disabled ? "collapse-toggle" : "") @(State == SectionState.Completed ? "bg-success text-white" : "") @(State == SectionState.Disabled ? "bg-light text-muted" : "")"
+        data-bs-toggle="@(State != SectionState.Disabled ? "collapse" : null)"
+        data-bs-target="@(State != SectionState.Disabled ? "#buyerMethodCollapse" : null)"
+        role="@(State != SectionState.Disabled ? "button" : null)"
+        aria-expanded="@(State == SectionState.Active ? "true" : "false")"
+        aria-controls="@(State != SectionState.Disabled ? "buyerMethodCollapse" : null)">
+        <span>
+            <strong>4.</strong> @Text.BuyerMethod
+            @if (State == SectionState.Completed)
+            {
+                <i class="bi bi-check-circle-fill ms-2"></i>
+            }
+        </span>
+        @if (State != SectionState.Disabled)
+        {
+            <span class="d-flex align-items-center gap-2">
+                @if (State == SectionState.Completed)
+                {
+                    <button type="button" class="btn btn-outline-light btn-sm" @onclick="EditAsync"
+                        @onclick:stopPropagation="true">
+                        <i class="bi bi-pencil"></i> @Text.Edit
+                    </button>
+                }
+                <i class="bi bi-chevron-down collapse-chevron"></i>
+            </span>
+        }
+    </div>
+    @if (State != SectionState.Disabled)
+    {
+        <div id="buyerMethodCollapse" class="collapse @(State == SectionState.Active ? "show" : "")">
+            <div class="card-body">
+                <p class="text-muted mb-4">@Text.BuyerMethodDescription</p>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card h-100 @(_selectedMethod == BuyerSigningMethod.ThisDevice ? "border-primary border-2" : "border")"
+                            style="cursor: pointer;" @onclick="() => SelectMethod(BuyerSigningMethod.ThisDevice)">
+                            <div class="card-body text-center p-4">
+                                <i
+                                    class="bi bi-phone fs-1 @(_selectedMethod == BuyerSigningMethod.ThisDevice ? "text-primary" : "text-muted")"></i>
+                                <h5 class="card-title mt-3">@Text.SignOnThisDevice</h5>
+                                <p class="card-text text-muted small">@Text.SignOnThisDeviceDescription</p>
+                                @if (_selectedMethod == BuyerSigningMethod.ThisDevice)
+                                {
+                                    <i class="bi bi-check-circle-fill text-primary fs-4"></i>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 @(_selectedMethod == BuyerSigningMethod.SendNotification ? "border-primary border-2" : "border")"
+                            style="cursor: pointer;" @onclick="() => SelectMethod(BuyerSigningMethod.SendNotification)">
+                            <div class="card-body text-center p-4">
+                                <i
+                                    class="bi bi-envelope-paper fs-1 @(_selectedMethod == BuyerSigningMethod.SendNotification ? "text-primary" : "text-muted")"></i>
+                                <h5 class="card-title mt-3">@Text.SendNotificationToBuyer</h5>
+                                <p class="card-text text-muted small">@Text.SendNotificationToBuyerDescription</p>
+                                @if (_selectedMethod == BuyerSigningMethod.SendNotification)
+                                {
+                                    <i class="bi bi-check-circle-fill text-primary fs-4"></i>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (_selectedMethod == BuyerSigningMethod.SendNotification)
+                {
+                    <div class="mt-4">
+                        <label class="form-label" for="BuyerEmailNotification">@Text.BuyerEmail *</label>
+                        <input class="form-control" type="email" @bind="Model.BuyerEmail" id="BuyerEmailNotification"
+                            disabled="@_formDisabled" />
+                        @if (!string.IsNullOrEmpty(_validationError))
+                        {
+                            <div class="text-danger small mt-1">@_validationError</div>
+                        }
+                    </div>
+                }
+
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" disabled="@(_selectedMethod == null || _formDisabled)"
+                        @onclick="SubmitAsync">
+                        @if (_isLoading)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+                        }
+                        @Text.Next <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    public enum BuyerSigningMethod
+    {
+        ThisDevice,
+        SendNotification
+    }
+
+    [Parameter] public ContractViewModel Model { get; set; } = new();
+    [Parameter] public SectionState State { get; set; }
+    [Parameter] public EventCallback<SectionState> StateChanged { get; set; }
+    [Parameter] public EventCallback<BuyerSigningMethod> OnSubmit { get; set; }
+    [Parameter] public EventCallback OnEdit { get; set; }
+
+    private bool _isLoading;
+    private BuyerSigningMethod? _selectedMethod;
+    private string? _validationError;
+
+    private bool _formDisabled => _isLoading || State == SectionState.Completed;
+
+    private async Task SetStateAsync(SectionState newState)
+    {
+        State = newState;
+        await StateChanged.InvokeAsync(newState);
+    }
+
+    private void SelectMethod(BuyerSigningMethod method)
+    {
+        if (_formDisabled) return;
+        _selectedMethod = method;
+        _validationError = null;
+    }
+
+    private async Task SubmitAsync()
+    {
+        if (_selectedMethod == null) return;
+
+        if (_selectedMethod == BuyerSigningMethod.SendNotification && string.IsNullOrWhiteSpace(Model.BuyerEmail))
+        {
+            _validationError = Text.BuyerEmailRequired;
+            return;
+        }
+
+        _isLoading = true;
+        _validationError = null;
+
+        await SetStateAsync(SectionState.Completed);
+        await OnSubmit.InvokeAsync(_selectedMethod.Value);
+
+        _isLoading = false;
+    }
+
+    private async Task EditAsync()
+    {
+        _validationError = null;
+        await SetStateAsync(SectionState.Active);
+        await OnEdit.InvokeAsync();
+    }
+}

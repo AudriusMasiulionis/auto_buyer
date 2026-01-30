@@ -1,0 +1,57 @@
+@page "/contract-test"
+@using AutoDokas.Data.Models
+@layout AutoDokas.Components.Layout.EmptyLayout
+
+
+<ContractPdfTemplate Contract=@contract />
+
+@code {
+    private VehicleContract contract = new VehicleContract
+    {
+        CreatedAt = DateTime.UtcNow,
+        BuyerInfo = new VehicleContract.PartyInfo
+        {
+            Address = "123",
+            Code = "123",
+            Email = "123",
+            HasConsented = true,
+            Name = "123",
+            Phone = "+37068666666",
+        },
+        Origin = new Country { Code = "LT", Name = "Lietuva" },
+        PaymentInfo = new VehicleContract.Payment
+        {
+            AdditionalInformation = "123",
+            PaymentAtContractFormation = true,
+            PaymentMethod = VehicleContract.Payment.PaymentType.BankTransfer,
+            Price = 12_000,
+            TransferInsurance = true
+        },
+        SellerInfo = new VehicleContract.PartyInfo
+        {
+            Address = "123",
+            Code = "123",
+            Email = "123",
+            HasConsented = true,
+            Name = "123",
+            Phone = "+37068666666",
+        },
+        VehicleInfo = new VehicleContract.Vehicle
+        {
+            AdditionalInformation = "123",
+            Defects = [VehicleContract.Vehicle.Defect.BrakeSystem],
+            HasBeenDamaged = true,
+            IdentificationNumber = "123",
+            IsInspected = true,
+            Make = "123",
+            Millage = 123,
+            PriorDamagesKnown = true,
+            RegistrationNumber = "123",
+            Sdk = "123"
+        }
+
+
+
+    };
+
+}

@@ -1,0 +1,158 @@
+@using AutoDokas.Components.Pages.Contract
+@using AutoDokas.Components.Shared
+@using AutoDokas.Data.Models
+@using Microsoft.AspNetCore.Components.Forms
+
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center @(State != SectionState.Disabled ? "collapse-toggle" : "") @(State == SectionState.Completed ? "bg-success text-white" : "") @(State == SectionState.Disabled ? "bg-light text-muted" : "")"
+        data-bs-toggle="@(State != SectionState.Disabled ? "collapse" : null)"
+        data-bs-target="@(State != SectionState.Disabled ? "#buyerInfoCollapse" : null)"
+        role="@(State != SectionState.Disabled ? "button" : null)"
+        aria-expanded="@(State == SectionState.Active ? "true" : "false")"
+        aria-controls="@(State != SectionState.Disabled ? "buyerInfoCollapse" : null)">
+        <span>
+            <strong>5.</strong> @Text.BuyerInformation
+            @if (State == SectionState.Completed)
+            {
+                <i class="bi bi-check-circle-fill ms-2"></i>
+            }
+        </span>
+        @if (State != SectionState.Disabled)
+        {
+            <span class="d-flex align-items-center gap-2">
+                @if (State == SectionState.Completed)
+                {
+                    <button type="button" class="btn btn-outline-light btn-sm" @onclick="EditAsync"
+                        @onclick:stopPropagation="true">
+                        <i class="bi bi-pencil"></i> @Text.Edit
+                    </button>
+                }
+                <i class="bi bi-chevron-down collapse-chevron"></i>
+            </span>
+        }
+    </div>
+    @if (State != SectionState.Disabled)
+    {
+        <div id="buyerInfoCollapse" class="collapse @(State == SectionState.Active ? "show" : "")">
+            <div class="card-body">
+                @if (ValidationErrors.Any())
+                {
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach (var error in ValidationErrors)
+                            {
+                                <li>@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="BuyerName">@Text.Name *</label>
+                        <input class="form-control" @bind="Model.BuyerName" id="BuyerName" disabled="@_formDisabled" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="BuyerCode">@Text.Code *</label>
+                        <input class="form-control" @bind="Model.BuyerCode" id="BuyerCode" disabled="@_formDisabled" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="BuyerPhone">@Text.Phone *</label>
+                        <input class="form-control" @bind="Model.BuyerPhone" id="BuyerPhone" disabled="@_formDisabled" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="BuyerAddress">@Text.Address *</label>
+                        <input class="form-control" @bind="Model.BuyerAddress" id="BuyerAddress" disabled="@_formDisabled" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="BuyerEmailInfo">@Text.Email *</label>
+                        <input class="form-control" type="email" @bind="Model.BuyerEmail" id="BuyerEmailInfo" disabled="@(_formDisabled || ReadOnlyEmail)" />
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <SignatureField @bind-SignatureData="Model.BuyerSignatureData" Title="@Text.Signature" Disabled="_formDisabled" />
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" @bind="_hasConsented" id="BuyerConsent" disabled="@_formDisabled" />
+                    <label class="form-check-label" for="BuyerConsent">@((MarkupString)Text.TermsAndConditionsConsent)</label>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" disabled="@(!_hasConsented || _formDisabled)" @onclick="SubmitAsync">
+                        @if (_isLoading)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+                        }
+                        @Text.Next <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public ContractViewModel Model { get; set; } = new();
+    [Parameter] public SectionState State { get; set; }
+    [Parameter] public EventCallback<SectionState> StateChanged { get; set; }
+    [Parameter] public EventCallback OnSubmit { get; set; }
+    [Parameter] public EventCallback OnEdit { get; set; }
+    [Parameter] public bool ReadOnlyEmail { get; set; }
+
+    private bool _isLoading;
+    private bool _hasConsented;
+    private List<string> ValidationErrors { get; set; } = [];
+
+    private bool _formDisabled => _isLoading || State == SectionState.Completed;
+
+    private async Task SetStateAsync(SectionState newState)
+    {
+        State = newState;
+        await StateChanged.InvokeAsync(newState);
+    }
+
+    private async Task SubmitAsync()
+    {
+        if (!Validate()) return;
+
+        _isLoading = true;
+        ValidationErrors.Clear();
+
+        await SetStateAsync(SectionState.Completed);
+        await OnSubmit.InvokeAsync();
+
+        _isLoading = false;
+    }
+
+    private async Task EditAsync()
+    {
+        ValidationErrors.Clear();
+        await SetStateAsync(SectionState.Active);
+        await OnEdit.InvokeAsync();
+    }
+
+    private bool Validate()
+    {
+        ValidationErrors.Clear();
+
+        if (string.IsNullOrWhiteSpace(Model.BuyerName))
+            ValidationErrors.Add(Text.BuyerNameRequired);
+        if (string.IsNullOrWhiteSpace(Model.BuyerCode))
+            ValidationErrors.Add(Text.BuyerCodeRequired);
+        if (string.IsNullOrWhiteSpace(Model.BuyerPhone))
+            ValidationErrors.Add(Text.BuyerPhoneRequired);
+        if (string.IsNullOrWhiteSpace(Model.BuyerAddress))
+            ValidationErrors.Add(Text.BuyerAddressRequired);
+        if (string.IsNullOrWhiteSpace(Model.BuyerEmail))
+            ValidationErrors.Add(Text.BuyerEmailRequired);
+        if (Model.BuyerSignatureData == null || Model.BuyerSignatureData.Length == 0)
+            ValidationErrors.Add(Text.SignatureRequired);
+        if (!_hasConsented)
+            ValidationErrors.Add(Text.ConsentRequired);
+
+        return ValidationErrors.Count == 0;
+    }
+}
