@@ -1,0 +1,60 @@
+@page "/BuyerInviteInformation"
+@using AutoDokas.Components.Email
+@using AutoDokas.Data.Models
+@using AutoDokas.Services.EmailTemplates
+@layout AutoDokas.Components.TestPages.EmptyLayout
+
+
+<BuyerInviteInformationFill Model=@model />
+
+@code {
+    private ContractCompletedEmailModel model = new()
+    {
+        BaseUrl = "http://localhost:5136",
+        Contract = new VehicleContract
+        {
+            Id = Guid.NewGuid(),
+            CreatedAt = DateTime.UtcNow,
+            BuyerInfo = new VehicleContract.PartyInfo
+            {
+                Address = "Vilniaus g. 10, Vilnius",
+                Code = "39001010001",
+                Email = "pirkejas@email.lt",
+                HasConsented = true,
+                Name = "Jonas Jonaitis",
+                Phone = "+37061234567",
+            },
+            Origin = new Country { Code = "LT", Name = "Lietuva" },
+            PaymentInfo = new VehicleContract.Payment
+            {
+                AdditionalInformation = "",
+                PaymentAtContractFormation = true,
+                PaymentMethod = VehicleContract.Payment.PaymentType.BankTransfer,
+                Price = 12_500,
+                TransferInsurance = true
+            },
+            SellerInfo = new VehicleContract.PartyInfo
+            {
+                Address = "Kauno g. 5, Kaunas",
+                Code = "38501010001",
+                Email = "pardavejas@email.lt",
+                HasConsented = true,
+                Name = "Petras Petraitis",
+                Phone = "+37069876543",
+            },
+            VehicleInfo = new VehicleContract.Vehicle
+            {
+                AdditionalInformation = "",
+                Defects = [],
+                HasBeenDamaged = false,
+                IdentificationNumber = "WVWZZZ3CZWE123456",
+                IsInspected = true,
+                Make = "Volkswagen Passat",
+                Millage = 185_000,
+                PriorDamagesKnown = false,
+                RegistrationNumber = "ABC 123",
+                Sdk = "LT123456"
+            }
+        }
+    };
+}

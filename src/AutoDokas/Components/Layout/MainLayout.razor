@@ -1,29 +1,28 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @using AutoDokas.Resources
 @using Microsoft.Extensions.Localization
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4">
-    <div class="container-fluid">
-        <!-- Brand -->
-        <a class="navbar-brand fw-bold" href="">@Text.NavBrand</a>
+<nav class="navbar navbar-expand-lg navbar-site">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-white" href="">@Text.NavBrand</a>
+        <a href="/contract" class="btn btn-outline-light btn-sm rounded-pill px-3">@Text.NewContract</a>
     </div>
 </nav>
-
 
 <main>
     @Body
 </main>
 
-<footer class="bg-dark text-white py-4 mt-5">
+<footer class="footer-site">
     <div class="container">
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-md-6">
-                <h5 class="fw-bold">@Text.NavBrand</h5>
-                <p class="text-muted small mb-0">&copy; @DateTime.Now.Year AutoDokas. All rights reserved.</p>
+                <div class="footer-brand fw-bold mb-1">@Text.NavBrand</div>
+                <p class="text-secondary small mb-0">&copy; @DateTime.Now.Year AutoDokas. All rights reserved.</p>
             </div>
-            <div class="col-md-6 text-md-end">
-                <a href="/terms-and-conditions" class="text-white text-decoration-none me-3">@Text.TermsAndConditions</a>
-                <a href="/privacy-policy" class="text-white text-decoration-none">@Text.PrivacyPolicy</a>
+            <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                <a href="/terms-and-conditions" class="footer-link me-3">@Text.TermsAndConditions</a>
+                <a href="/privacy-policy" class="footer-link">@Text.PrivacyPolicy</a>
             </div>
         </div>
     </div>

@@ -3,28 +3,34 @@
 @using AutoDokas.Data.Models
 @using Microsoft.AspNetCore.Components.Forms
 
-<div class="card mb-3">
-    <div class="card-header d-flex justify-content-between align-items-center @(State != SectionState.Disabled ? "collapse-toggle" : "") @(State == SectionState.Completed ? "bg-success text-white" : "") @(State == SectionState.Disabled ? "bg-light text-muted" : "")"
+<div class="section-card @(State == SectionState.Active ? "section-card-active" : "") @(State == SectionState.Completed ? "section-card-completed" : "")">
+    <div class="section-header @(State == SectionState.Active ? "section-header-active" : "") @(State == SectionState.Completed ? "section-header-completed" : "") @(State == SectionState.Disabled ? "section-header-disabled" : "") @(State != SectionState.Disabled ? "collapse-toggle" : "")"
         data-bs-toggle="@(State != SectionState.Disabled ? "collapse" : null)"
         data-bs-target="@(State != SectionState.Disabled ? "#buyerInfoCollapse" : null)"
         role="@(State != SectionState.Disabled ? "button" : null)"
         aria-expanded="@(State == SectionState.Active ? "true" : "false")"
         aria-controls="@(State != SectionState.Disabled ? "buyerInfoCollapse" : null)">
-        <span>
-            <strong>5.</strong> @Text.BuyerInformation
-            @if (State == SectionState.Completed)
-            {
-                <i class="bi bi-check-circle-fill ms-2"></i>
-            }
+        <span class="d-flex align-items-center">
+            <span class="section-number">
+                @if (State == SectionState.Completed)
+                {
+                    <i class="bi bi-check-lg"></i>
+                }
+                else
+                {
+                    <text>5</text>
+                }
+            </span>
+            <span>@Text.BuyerInformation</span>
         </span>
         @if (State != SectionState.Disabled)
         {
             <span class="d-flex align-items-center gap-2">
                 @if (State == SectionState.Completed)
                 {
-                    <button type="button" class="btn btn-outline-light btn-sm" @onclick="EditAsync"
+                    <button type="button" class="section-edit-btn" @onclick="EditAsync"
                         @onclick:stopPropagation="true">
-                        <i class="bi bi-pencil"></i> @Text.Edit
+                        <i class="bi bi-pencil-square"></i> @Text.Edit
                     </button>
                 }
                 <i class="bi bi-chevron-down collapse-chevron"></i>
@@ -34,7 +40,7 @@
     @if (State != SectionState.Disabled)
     {
         <div id="buyerInfoCollapse" class="collapse @(State == SectionState.Active ? "show" : "")">
-            <div class="card-body">
+            <div class="section-body">
                 @if (ValidationErrors.Any())
                 {
                     <div class="alert alert-danger">
@@ -79,12 +85,12 @@
                     <label class="form-check-label" for="BuyerConsent">@((MarkupString)Text.TermsAndConditionsConsent)</label>
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="section-footer">
                 <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" disabled="@(!_hasConsented || _formDisabled)" @onclick="SubmitAsync">
+                    <button type="button" class="btn-section-next" disabled="@(!_hasConsented || _formDisabled)" @onclick="SubmitAsync">
                         @if (_isLoading)
                         {
-                            <span class="spinner-border spinner-border-sm me-2"></span>
+                            <span class="spinner-border spinner-border-sm"></span>
                         }
                         @Text.Next <i class="bi bi-arrow-right"></i>
                     </button>

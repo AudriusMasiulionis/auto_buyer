@@ -154,7 +154,7 @@
     <comment/>
   </data>
   <data name="HeroSubtitle" xml:space="preserve">
-    <value>Pildyk sutartį internetu</value>
+    <value>Užpildykite, pasirašykite ir atsisiųskite — viskas internetu</value>
     <comment/>
   </data>
   <data name="SellNowButton" xml:space="preserve">
@@ -162,23 +162,23 @@
     <comment/>
   </data>
   <data name="AboutSectionTitle" xml:space="preserve">
-    <value>Apie projektą 🤠</value>
+    <value>Kodėl AutoDokas?</value>
     <comment/>
   </data>
   <data name="AboutSectionText" xml:space="preserve">
-    <value>Mes esame aistringi kurti įrankius, kurie įgalina asmenis ir įmones pasiekti savo tikslus. Mūsų misija - teikti intuityvius ir galingus sprendimus, kurie daro poveikį jūsų kasdieniam gyvenimui.</value>
+    <value>Paprastas ir patogus būdas sudaryti automobilio pirkimo-pardavimo sutartį internetu. Nereikia spausdinti, nereikia rašiklio.</value>
     <comment/>
   </data>
   <data name="FeaturesTitle" xml:space="preserve">
-    <value>Funkcijos</value>
+    <value>Privalumai</value>
     <comment/>
   </data>
   <data name="Feature1Title" xml:space="preserve">
-    <value>Greitas veikimas</value>
+    <value>Per kelias minutes</value>
     <comment/>
   </data>
   <data name="Feature1Text" xml:space="preserve">
-    <value>Mėgaukitės žaibiškai greitu veikimu su mūsų pažangia technologija.</value>
+    <value>Sutartis paruošiama per kelias minutes — nuo duomenų užpildymo iki PDF atsisiuntimo.</value>
     <comment/>
   </data>
   <data name="Feature2Title" xml:space="preserve">
@@ -186,15 +186,15 @@
     <comment/>
   </data>
   <data name="Feature2Text" xml:space="preserve">
-    <value>Mes teikiame pirmenybę jūsų saugumui su aukščiausios klasės apsauga ir patikimumu.</value>
+    <value>Jūsų duomenys apsaugoti ir tvarkomi pagal privatumo politiką. Saugi platforma sutarčių sudarymui.</value>
     <comment/>
   </data>
   <data name="Feature3Title" xml:space="preserve">
-    <value>Pritaikomi įrankiai</value>
+    <value>Bet kuriame įrenginyje</value>
     <comment/>
   </data>
   <data name="Feature3Text" xml:space="preserve">
-    <value>Pritaikykite mūsų platformą pagal savo unikalius poreikius su lanksčiais variantais.</value>
+    <value>Pildykite ir pasirašykite sutartį iš bet kurio įrenginio — telefono, planšetės ar kompiuterio.</value>
     <comment/>
   </data>
   <data name="StepText" xml:space="preserve">
@@ -563,6 +563,50 @@
   </data>
   <data name="SignatureRequired" xml:space="preserve">
     <value>Parašas yra privalomas</value>
+    <comment/>
+  </data>
+  <data name="HowItWorksTitle" xml:space="preserve">
+    <value>Kaip tai veikia?</value>
+    <comment/>
+  </data>
+  <data name="HowItWorksSubtitle" xml:space="preserve">
+    <value>Trys paprasti žingsniai iki sutarties</value>
+    <comment/>
+  </data>
+  <data name="Step1Title" xml:space="preserve">
+    <value>Užpildykite duomenis</value>
+    <comment/>
+  </data>
+  <data name="Step1Text" xml:space="preserve">
+    <value>Įveskite transporto priemonės, mokėjimo ir pardavėjo informaciją paprastoje formoje.</value>
+    <comment/>
+  </data>
+  <data name="Step2Title" xml:space="preserve">
+    <value>Pasirašykite skaitmeniškai</value>
+    <comment/>
+  </data>
+  <data name="Step2Text" xml:space="preserve">
+    <value>Abu sandorio dalyviai pasirašo sutartį elektroniniu parašu tiesiai iš savo įrenginio.</value>
+    <comment/>
+  </data>
+  <data name="Step3Title" xml:space="preserve">
+    <value>Gaukite sutartį</value>
+    <comment/>
+  </data>
+  <data name="Step3Text" xml:space="preserve">
+    <value>Paruoštas PDF dokumentas automatiškai išsiunčiamas abiem šalims el. paštu.</value>
+    <comment/>
+  </data>
+  <data name="CtaTitle" xml:space="preserve">
+    <value>Paruoškite sutartį per kelias minutes</value>
+    <comment/>
+  </data>
+  <data name="CtaSubtitle" xml:space="preserve">
+    <value>Nereikia spausdintuvo, nereikia rašiklio. Viskas internetu.</value>
+    <comment/>
+  </data>
+  <data name="StartNow" xml:space="preserve">
+    <value>Pradėti dabar</value>
     <comment/>
   </data>
 </root>

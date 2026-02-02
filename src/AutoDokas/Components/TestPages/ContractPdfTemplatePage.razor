@@ -1,6 +1,7 @@
 @page "/contract-test"
 @using AutoDokas.Data.Models
-@layout AutoDokas.Components.Layout.EmptyLayout
+@using AutoDokas.Components.Pdf
+@layout AutoDokas.Components.TestPages.EmptyLayout
 
 
 <ContractPdfTemplate Contract=@contract />
@@ -49,9 +50,6 @@
             RegistrationNumber = "123",
             Sdk = "123"
         }
-
-
-
     };
 
 }

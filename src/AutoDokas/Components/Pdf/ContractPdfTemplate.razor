@@ -1,4 +1,5 @@
 @using AutoDokas.Data.Models
+@using AutoDokas.Extensions
 @inherits ComponentBase
 
 <!DOCTYPE html>
@@ -6,260 +7,587 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Vehicle Purchase Contract</title>
+    <title>Transporto priemonės pirkimo-pardavimo sutartis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* PDF-specific styles */
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --navy: #0f172a;
+            --navy-light: #1e293b;
+            --blue: #2563eb;
+            --slate: #64748b;
+            --slate-light: #94a3b8;
+            --border: #e2e8f0;
+            --surface: #f8fafc;
+            --green: #22c55e;
+        }
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--navy-light);
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        /* ===== HEADER ===== */
+        .contract-header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--navy);
+        }
+
+        .contract-header h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .contract-meta {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .contract-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--slate);
+        }
+
+        .contract-meta-item strong {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: #fff;
+        }
+
+        .section-head {
+            padding: 10px 16px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: var(--blue);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section-head h2 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 0;
+            border: none;
             padding: 0;
         }
 
-        h1,
-        h2 {
-            color: #1b6ec2;
+        .section-content {
+            padding: 16px;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 24px;
+        .section-content p {
+            font-size: 12px;
+            color: var(--slate);
+            margin-bottom: 12px;
         }
 
-        h2 {
-            margin-top: 30px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            font-size: 18px;
-        }
-
-        table {
+        /* ===== DATA TABLE ===== */
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
         }
 
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
+        .data-table tr {
+            border-bottom: 1px solid #f1f5f9;
         }
 
-        th,
-        td {
-            padding: 8px;
+        .data-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 8px 12px;
             text-align: left;
+            vertical-align: top;
+            border: none;
         }
 
-        th {
-            background-color: #f2f2f2;
-            width: 30%;
+        .data-table th {
+            width: 40%;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--navy);
+            background: none;
         }
 
-        .signature-section {
-            margin-top: 50px;
+        .data-table td {
+            font-size: 13px;
+            color: var(--navy-light);
         }
 
-        .signature-box {
-            border-top: 1px solid #000;
-            margin-top: 70px;
+        .data-table tr:nth-child(even) {
+            background: var(--surface);
+        }
+
+        /* ===== BADGES ===== */
+        .badge-yes {
             display: inline-block;
-            width: 200px;
-            text-align: center;
+            background: #dcfce7;
+            color: #15803d;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
         }
 
-        .signature-container {
+        .badge-no {
+            display: inline-block;
+            background: #fef2f2;
+            color: #991b1b;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-info {
+            display: inline-block;
+            background: #eff6ff;
+            color: var(--blue);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ===== DEFECT LIST ===== */
+        .defect-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .defect-list li {
+            background: #fef2f2;
+            color: #991b1b;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* ===== OBLIGATIONS ===== */
+        .obligations-section {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: #fff;
+        }
+
+        .obligations-section .section-head {
+            background: var(--surface);
+        }
+
+        .obligations-content {
+            padding: 16px;
+            font-size: 12px;
+            color: var(--navy-light);
+            line-height: 1.7;
+        }
+
+        .obligations-content ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .obligations-content li {
+            margin-bottom: 10px;
+        }
+
+        .obligations-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== SIGNATURES ===== */
+        .signatures {
             display: flex;
             justify-content: space-between;
+            gap: 40px;
+            margin-top: 8px;
         }
 
-        footer {
+        .sig-block {
+            flex: 1;
             text-align: center;
         }
-    </style>
 
+        .sig-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .sig-image {
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .sig-image img {
+            max-height: 80px;
+            max-width: 200px;
+        }
+
+        .sig-line {
+            border-top: 1px solid var(--navy);
+            padding-top: 6px;
+            font-size: 11px;
+            color: var(--slate);
+        }
+    </style>
 </head>
 
 <body>
-    <header style="text-align: center;">
+    <header class="contract-header">
         <h1>TRANSPORTO PRIEMONĖS PIRKIMO–PARDAVIMO SUTARTIS</h1>
-        <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-            <div><strong>Data:</strong> @Contract.CreatedAt.ToShortDateString()</div>
-            <div><strong>Laikas:</strong> @Contract.CreatedAt.ToShortTimeString()</div>
-            <div><strong>Sutarties sudarymo valstybė:</strong> @(Contract.Origin?.Name ?? "-")</div>
+        <div class="contract-meta">
+            <div class="contract-meta-item">
+                <strong>Data:</strong> @Contract.CreatedAt.ToShortDateString()
+            </div>
+            <div class="contract-meta-item">
+                <strong>Laikas:</strong> @Contract.CreatedAt.ToShortTimeString()
+            </div>
+            <div class="contract-meta-item">
+                <strong>Sutarties sudarymo valstybė:</strong> @(Contract.Origin?.Name ?? "-")
+            </div>
         </div>
     </header>
 
-    <section>
-        <h2>Pardavėjas (transporto priemonės savininkas)</h2>
-        <table>
-            <tr>
-                <th>asmens kodas / įmonės kodas / gimimo data, kai asmens kodas nesuteiktas</th>
-                <td>@(Contract.SellerInfo?.Name ?? "-")</td>
-            </tr>
-            <tr>
-                <th>vardas, pavardė arba juridinio asmens pavadinimas</th>
-                <td>@(Contract.SellerInfo?.Code ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Telefono numeris</th>
-                <td>@(Contract.SellerInfo?.Phone ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Elektroninis pašto adresas</th>
-                <td>@(Contract.SellerInfo?.Email ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Pardavėjo adresas</th>
-                <td>@(Contract.SellerInfo?.Address ?? "-")</td>
-            </tr>
-        </table>
-    </section>
+    <!-- SELLER -->
+    <div class="section">
+        <div class="section-head">
+            <h2>Pardavėjas (transporto priemonės savininkas)</h2>
+        </div>
+        <div class="section-content">
+            <table class="data-table">
+                <tr>
+                    <th>Vardas, pavardė arba juridinio asmens pavadinimas</th>
+                    <td>@(Contract.SellerInfo?.Name ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Asmens kodas / įmonės kodas / gimimo data</th>
+                    <td>@(Contract.SellerInfo?.Code ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Telefono numeris</th>
+                    <td>@(Contract.SellerInfo?.Phone ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Elektroninis pašto adresas</th>
+                    <td>@(Contract.SellerInfo?.Email ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Adresas</th>
+                    <td>@(Contract.SellerInfo?.Address ?? "-")</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-    <section>
-        <h2>Pirkėjas (transporto priemonės įgijėjas)</h2>
-        <table>
-            <tr>
-                <th>asmens kodas / įmonės kodas / gimimo data, kai asmens kodas nesuteiktas</th>
-                <td>@(Contract.BuyerInfo?.Name ?? "-")</td>
-            </tr>
-            <tr>
-                <th>vardas, pavardė arba juridinio asmens pavadinimas</th>
-                <td>@(Contract.BuyerInfo?.Code ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Telefono numeris</th>
-                <td>@(Contract.BuyerInfo?.Phone ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Elektroninis pašto adresas</th>
-                <td>@(Contract.BuyerInfo?.Email ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Pirkėjo adresas</th>
-                <td>@(Contract.BuyerInfo?.Address ?? "-")</td>
-            </tr>
-        </table>
-    </section>
+    <!-- BUYER -->
+    <div class="section">
+        <div class="section-head">
+            <h2>Pirkėjas (transporto priemonės įgijėjas)</h2>
+        </div>
+        <div class="section-content">
+            <table class="data-table">
+                <tr>
+                    <th>Vardas, pavardė arba juridinio asmens pavadinimas</th>
+                    <td>@(Contract.BuyerInfo?.Name ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Asmens kodas / įmonės kodas / gimimo data</th>
+                    <td>@(Contract.BuyerInfo?.Code ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Telefono numeris</th>
+                    <td>@(Contract.BuyerInfo?.Phone ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Elektroninis pašto adresas</th>
+                    <td>@(Contract.BuyerInfo?.Email ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Adresas</th>
+                    <td>@(Contract.BuyerInfo?.Address ?? "-")</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-    <section>
-        <h2>Transporto priemonės informacija</h2>
-        <p>Pardavėjas parduoda, o pirkėjas perka pardavėjui nuosavybės teise priklausančią transporto priemonę:</p>
-        <table>
-            <tr>
-                <th>Transporto priemonės savininko deklaravimo kodas (SDK):</th>
-                <td>@(Contract.VehicleInfo?.Sdk ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Gamybinė markė (D.1) ir komercinis pavadinimas (D.3):</th>
-                <td>@(Contract.VehicleInfo?.Make ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Valstybinis registracijos numeris (A):</th>
-                <td>@(Contract.VehicleInfo?.RegistrationNumber ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Rida</th>
-                <td>@(Contract.VehicleInfo?.Millage.ToString() ?? "0") km</td>
-            </tr>
-            <tr>
-                <th>Atpažinties (identifikavimo) numeris (E):</th>
-                <td>@(Contract.VehicleInfo?.IdentificationNumber ?? "-")</td>
-            </tr>
-            <tr>
-                <th>Transporto priemonės registracijos liudijimo serija ir numeris:</th>
-                <td>TODO!</td>
-            </tr>
-            <tr>
-                <th>Is Inspected</th>
-                <td>@(Contract.VehicleInfo?.IsInspected ?? false ? "Yes" : "No")</td>
-            </tr>
-            <tr>
-                <th>Has Been Damaged</th>
-                <td>@(Contract.VehicleInfo?.HasBeenDamaged ?? false ? "Yes" : "No")</td>
-            </tr>
-            <tr>
-                <th>Prior Damages Known</th>
-                <td>@(Contract.VehicleInfo?.PriorDamagesKnown ?? false ? "Yes" : "No")</td>
-            </tr>
-
-            <tr>
-                <th>Defects</th>
-                <td>
-                    @if (Contract.VehicleInfo?.Defects != null && Contract.VehicleInfo.Defects.Any())
-                    {
-                        <ul>
-                            @foreach (var defect in Contract.VehicleInfo.Defects)
-                            {
-                                <li>@defect</li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <span>None</span>
-                    }
-                </td>
-            </tr>
-
-            <tr>
-                <th>Additional Information</th>
-                <td>@(Contract.VehicleInfo?.AdditionalInformation ?? "-")</td>
-            </tr>
-        </table>
-    </section>
-
-
-
-    <section class="signature-section">
-        <h2>Signatures</h2>
-        <p>Pirkėjo ir Pardavėjo įsipareigojimai pasirašant šią Transporto priemonės pirkimo-pardavimo sutartį:</p>
-        <ul>
-            <li><strong>Pardavėjas</strong> patvirtina, kad parduodama transporto priemonė priklauso jam nuosavybės
-                teise, į parduodamą transporto priemonę tretieji asmenysjokių teisių ar pretenzijų neturi, transporto
-                priemonė neareštuota, ji nėra teisinio ginčo objektas, teisė disponuoti ja neatimta ir
-                neapribota.Perduodamos transporto priemonės identifikavimo numeris ir kiti duomenys atitinka jos
-                registracijos dokumente nurodytus duomenis.</li>
-            <li>
-                <strong>Pirkėjas</strong> ir <strong>Pardavėjas</strong>, vadovaudamiesi Lietuvos Respublikos saugaus eismo automobilių keliais įstatymo
-                20 straipsnio 1 dalimi, privalo REGITRAIdeklaruoti duomenis apie įgytą arba perleistą nuosavybės teisę į
-                transporto priemonę, t. y. <strong>Pirkėjas</strong> – per 5 darbo dienas nuo nuosavybės teisėsįgijimo dienos, o
-                <strong>Pardavėjas</strong> – per 5 darbo dienas nuo Pirkėjo duomenų apie įgytą nuosavybės teisę deklaravimo dienos.
-            </li>
-            <li>
-                <strong>Pardavėjas</strong> ir <strong>Pirkėjas</strong> patvirtina, kad jiems yra žinoma, jog Lietuvos Respublikos kelių transporto
-                priemonių registre registruojamos tik tostransporto priemonės, kurių savininkas Lietuvos Respublikos
-                saugaus eismo automobilių keliais įstatymo 20 straipsnyje nustatyta tvarka LietuvosRespublikos kelių
-                transporto priemonių registro tvarkytojui (REGITRAI) yra deklaravęs duomenis apie registruojamos
-                transporto priemonėsnuosavybės teisę.
-            </li>
-            <li>
-                <strong>Pirkėjas</strong> patvirtina, kad prieš sudarydamas šią sutartį jis įvertino transporto priemonės ridą (odometro
-                duomenis), taip pat transporto priemonėsir jos atskirų dalių būklę ir dėl jos jokių pretenzijų
-                <strong>Pardavėjui</strong> neturi.
-            </li>
-        </ul>
-
-        <div class="signature-container">
-            <div>
-                @if (Contract.SellerInfo?.SignatureData != null)
+    <!-- VEHICLE -->
+    <div class="section">
+        <div class="section-head">
+            <h2>Transporto priemonės informacija</h2>
+        </div>
+        <div class="section-content">
+            <p>Pardavėjas parduoda, o pirkėjas perka pardavėjui nuosavybės teise priklausančią transporto priemonę:</p>
+            <table class="data-table">
+                <tr>
+                    <th>Transporto priemonės savininko deklaravimo kodas (SDK)</th>
+                    <td>@(Contract.VehicleInfo?.Sdk ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Gamybinė markė (D.1) ir komercinis pavadinimas (D.3)</th>
+                    <td>@(Contract.VehicleInfo?.Make ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Valstybinis registracijos numeris (A)</th>
+                    <td>@(Contract.VehicleInfo?.RegistrationNumber ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Rida</th>
+                    <td>@(Contract.VehicleInfo?.Millage.ToString() ?? "0") km</td>
+                </tr>
+                <tr>
+                    <th>Atpažinties (identifikavimo) numeris (E)</th>
+                    <td>@(Contract.VehicleInfo?.IdentificationNumber ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Techninė apžiūra galiojanti</th>
+                    <td>
+                        @if (Contract.VehicleInfo?.IsInspected ?? false)
+                        {
+                            <span class="badge-yes">Taip</span>
+                        }
+                        else
+                        {
+                            <span class="badge-no">Ne</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Transporto priemonė buvo dalyvausi eismo įvykyje</th>
+                    <td>
+                        @if (Contract.VehicleInfo?.HasBeenDamaged ?? false)
+                        {
+                            <span class="badge-yes">Taip</span>
+                        }
+                        else
+                        {
+                            <span class="badge-no">Ne</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ankstesni pažeidimai žinomi</th>
+                    <td>
+                        @if (Contract.VehicleInfo?.PriorDamagesKnown ?? false)
+                        {
+                            <span class="badge-yes">Taip</span>
+                        }
+                        else
+                        {
+                            <span class="badge-no">Ne</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Defektai</th>
+                    <td>
+                        @if (Contract.VehicleInfo?.Defects != null && Contract.VehicleInfo.Defects.Any())
+                        {
+                            <ul class="defect-list">
+                                @foreach (var defect in Contract.VehicleInfo.Defects)
+                                {
+                                    <li>@defect.GetDisplayName()</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="badge-info">Nėra</span>
+                        }
+                    </td>
+                </tr>
+                @if (!string.IsNullOrWhiteSpace(Contract.VehicleInfo?.AdditionalInformation))
                 {
-                    <img src="data:image/png;base64,@Convert.ToBase64String(Contract.SellerInfo.SignatureData)"
-                        alt="Seller Signature" style="max-height: 100px;" />
+                    <tr>
+                        <th>Papildoma informacija</th>
+                        <td>@Contract.VehicleInfo.AdditionalInformation</td>
+                    </tr>
                 }
-                <div class="signature-box">Seller Signature</div>
-            </div>
+            </table>
+        </div>
+    </div>
 
-            <div>
-                @if (Contract.BuyerInfo?.SignatureData != null)
+    <!-- PAYMENT -->
+    <div class="section">
+        <div class="section-head">
+            <h2>Mokėjimo informacija</h2>
+        </div>
+        <div class="section-content">
+            <table class="data-table">
+                <tr>
+                    <th>Kaina</th>
+                    <td><strong>@(Contract.PaymentInfo?.Price.ToString("N2") ?? "0.00") €</strong></td>
+                </tr>
+                <tr>
+                    <th>Mokėjimo būdas</th>
+                    <td>
+                        @if (Contract.PaymentInfo?.PaymentMethod != null)
+                        {
+                            <span class="badge-info">@Contract.PaymentInfo.PaymentMethod.Value.GetDisplayName()</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Mokėjimo momentas</th>
+                    <td>
+                        @if (Contract.PaymentInfo?.PaymentAtContractFormation ?? false)
+                        {
+                            <span>Sutarties sudarymo metu</span>
+                        }
+                        else if (Contract.PaymentInfo?.PaymentDate != null)
+                        {
+                            <span>@Contract.PaymentInfo.PaymentDate.Value.ToString("yyyy-MM-dd")</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Draudimo perleidimas</th>
+                    <td>
+                        @if (Contract.PaymentInfo?.TransferInsurance ?? false)
+                        {
+                            <span class="badge-yes">Taip</span>
+                        }
+                        else
+                        {
+                            <span class="badge-no">Ne</span>
+                        }
+                    </td>
+                </tr>
+                @if (!string.IsNullOrWhiteSpace(Contract.PaymentInfo?.AdditionalInformation))
                 {
-                    <img src="data:image/png;base64,@Convert.ToBase64String(Contract.BuyerInfo.SignatureData)"
-                        alt="Buyer Signature" style="max-height: 100px;" />
+                    <tr>
+                        <th>Papildoma informacija</th>
+                        <td>@Contract.PaymentInfo.AdditionalInformation</td>
+                    </tr>
                 }
-                <div class="signature-box">Buyer Signature</div>
+            </table>
+        </div>
+    </div>
+
+    <!-- OBLIGATIONS & SIGNATURES -->
+    <div class="obligations-section">
+        <div class="section-head">
+            <h2>Šalių įsipareigojimai ir parašai</h2>
+        </div>
+        <div class="obligations-content">
+            <p>Pirkėjo ir Pardavėjo įsipareigojimai pasirašant šią Transporto priemonės pirkimo-pardavimo sutartį:</p>
+            <ul>
+                <li><strong>Pardavėjas</strong> patvirtina, kad parduodama transporto priemonė priklauso jam nuosavybės
+                    teise, į parduodamą transporto priemonę tretieji asmenys jokių teisių ar pretenzijų neturi, transporto
+                    priemonė neareštuota, ji nėra teisinio ginčo objektas, teisė disponuoti ja neatimta ir
+                    neapribota. Perduodamos transporto priemonės identifikavimo numeris ir kiti duomenys atitinka jos
+                    registracijos dokumente nurodytus duomenis.</li>
+                <li>
+                    <strong>Pirkėjas</strong> ir <strong>Pardavėjas</strong>, vadovaudamiesi Lietuvos Respublikos saugaus
+                    eismo automobilių keliais įstatymo 20 straipsnio 1 dalimi, privalo REGITRAI deklaruoti duomenis apie
+                    įgytą arba perleistą nuosavybės teisę į transporto priemonę, t. y. <strong>Pirkėjas</strong> – per 5
+                    darbo dienas nuo nuosavybės teisės įgijimo dienos, o <strong>Pardavėjas</strong> – per 5 darbo dienas
+                    nuo Pirkėjo duomenų apie įgytą nuosavybės teisę deklaravimo dienos.
+                </li>
+                <li>
+                    <strong>Pardavėjas</strong> ir <strong>Pirkėjas</strong> patvirtina, kad jiems yra žinoma, jog Lietuvos
+                    Respublikos kelių transporto priemonių registre registruojamos tik tos transporto priemonės, kurių
+                    savininkas Lietuvos Respublikos saugaus eismo automobilių keliais įstatymo 20 straipsnyje nustatyta
+                    tvarka Lietuvos Respublikos kelių transporto priemonių registro tvarkytojui (REGITRAI) yra deklaravęs
+                    duomenis apie registruojamos transporto priemonės nuosavybės teisę.
+                </li>
+                <li>
+                    <strong>Pirkėjas</strong> patvirtina, kad prieš sudarydamas šią sutartį jis įvertino transporto
+                    priemonės ridą (odometro duomenis), taip pat transporto priemonės ir jos atskirų dalių būklę ir dėl jos
+                    jokių pretenzijų <strong>Pardavėjui</strong> neturi.
+                </li>
+            </ul>
+
+            <div class="signatures">
+                <div class="sig-block">
+                    <div class="sig-label">Pardavėjas</div>
+                    <div class="sig-image">
+                        @if (Contract.SellerInfo?.SignatureData != null)
+                        {
+                            <img src="data:image/png;base64,@Convert.ToBase64String(Contract.SellerInfo.SignatureData)"
+                                alt="Pardavėjo parašas" />
+                        }
+                    </div>
+                    <div class="sig-line">@(Contract.SellerInfo?.Name ?? "________________")</div>
+                </div>
+
+                <div class="sig-block">
+                    <div class="sig-label">Pirkėjas</div>
+                    <div class="sig-image">
+                        @if (Contract.BuyerInfo?.SignatureData != null)
+                        {
+                            <img src="data:image/png;base64,@Convert.ToBase64String(Contract.BuyerInfo.SignatureData)"
+                                alt="Pirkėjo parašas" />
+                        }
+                    </div>
+                    <div class="sig-line">@(Contract.BuyerInfo?.Name ?? "________________")</div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 </body>
 
 </html>

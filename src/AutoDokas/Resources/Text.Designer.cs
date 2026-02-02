@@ -58,7 +58,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mes esame aistringi kurti įrankius, kurie įgalina asmenis ir įmones pasiekti savo tikslus. Mūsų misija - teikti intuityvius ir galingus sprendimus, kurie daro poveikį jūsų kasdieniam gyvenimui..
+        ///   Looks up a localized string similar to Paprastas ir patogus būdas sudaryti automobilio pirkimo-pardavimo sutartį internetu. Nereikia spausdinti, nereikia rašiklio..
         /// </summary>
         public static string AboutSectionText {
             get {
@@ -67,7 +67,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apie projektą 🤠.
+        ///   Looks up a localized string similar to Kodėl AutoDokas?.
         /// </summary>
         public static string AboutSectionTitle {
             get {
@@ -292,6 +292,24 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nereikia spausdintuvo, nereikia rašiklio. Viskas internetu..
+        /// </summary>
+        public static string CtaSubtitle {
+            get {
+                return ResourceManager.GetString("CtaSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paruoškite sutartį per kelias minutes.
+        /// </summary>
+        public static string CtaTitle {
+            get {
+                return ResourceManager.GetString("CtaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to stabdžių sistemos.
         /// </summary>
         public static string Defect_BrakeSystem {
@@ -391,7 +409,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mėgaukitės žaibiškai greitu veikimu su mūsų pažangia technologija..
+        ///   Looks up a localized string similar to Sutartis paruošiama per kelias minutes — nuo duomenų užpildymo iki PDF atsisiuntimo..
         /// </summary>
         public static string Feature1Text {
             get {
@@ -400,7 +418,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Greitas veikimas.
+        ///   Looks up a localized string similar to Per kelias minutes.
         /// </summary>
         public static string Feature1Title {
             get {
@@ -409,7 +427,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mes teikiame pirmenybę jūsų saugumui su aukščiausios klasės apsauga ir patikimumu..
+        ///   Looks up a localized string similar to Jūsų duomenys apsaugoti ir tvarkomi pagal privatumo politiką. Saugi platforma sutarčių sudarymui..
         /// </summary>
         public static string Feature2Text {
             get {
@@ -427,7 +445,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pritaikykite mūsų platformą pagal savo unikalius poreikius su lanksčiais variantais..
+        ///   Looks up a localized string similar to Pildykite ir pasirašykite sutartį iš bet kurio įrenginio — telefono, planšetės ar kompiuterio..
         /// </summary>
         public static string Feature3Text {
             get {
@@ -436,7 +454,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pritaikomi įrankiai.
+        ///   Looks up a localized string similar to Bet kuriame įrenginyje.
         /// </summary>
         public static string Feature3Title {
             get {
@@ -445,7 +463,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Funkcijos.
+        ///   Looks up a localized string similar to Privalumai.
         /// </summary>
         public static string FeaturesTitle {
             get {
@@ -463,7 +481,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pildyk sutartį internetu.
+        ///   Looks up a localized string similar to Užpildykite, pasirašykite ir atsisiųskite — viskas internetu.
         /// </summary>
         public static string HeroSubtitle {
             get {
@@ -486,6 +504,24 @@ namespace AutoDokas.Resources {
         public static string HomeTitle {
             get {
                 return ResourceManager.GetString("HomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trys paprasti žingsniai iki sutarties.
+        /// </summary>
+        public static string HowItWorksSubtitle {
+            get {
+                return ResourceManager.GetString("HowItWorksSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip tai veikia?.
+        /// </summary>
+        public static string HowItWorksTitle {
+            get {
+                return ResourceManager.GetString("HowItWorksTitle", resourceCulture);
             }
         }
         
@@ -981,6 +1017,69 @@ namespace AutoDokas.Resources {
         public static string SignOnThisDeviceDescription {
             get {
                 return ResourceManager.GetString("SignOnThisDeviceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pradėti dabar.
+        /// </summary>
+        public static string StartNow {
+            get {
+                return ResourceManager.GetString("StartNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Įveskite transporto priemonės, mokėjimo ir pardavėjo informaciją paprastoje formoje..
+        /// </summary>
+        public static string Step1Text {
+            get {
+                return ResourceManager.GetString("Step1Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Užpildykite duomenis.
+        /// </summary>
+        public static string Step1Title {
+            get {
+                return ResourceManager.GetString("Step1Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abu sandorio dalyviai pasirašo sutartį elektroniniu parašu tiesiai iš savo įrenginio..
+        /// </summary>
+        public static string Step2Text {
+            get {
+                return ResourceManager.GetString("Step2Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pasirašykite skaitmeniškai.
+        /// </summary>
+        public static string Step2Title {
+            get {
+                return ResourceManager.GetString("Step2Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paruoštas PDF dokumentas automatiškai išsiunčiamas abiem šalims el. paštu..
+        /// </summary>
+        public static string Step3Text {
+            get {
+                return ResourceManager.GetString("Step3Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gaukite sutartį.
+        /// </summary>
+        public static string Step3Title {
+            get {
+                return ResourceManager.GetString("Step3Title", resourceCulture);
             }
         }
         

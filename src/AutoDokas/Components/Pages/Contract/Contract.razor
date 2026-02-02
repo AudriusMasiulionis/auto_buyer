@@ -10,7 +10,10 @@
 
 <PageTitle>@Text.NewContract</PageTitle>
 
-<div class="container my-4">
+<div class="contract-page">
+    <div class="contract-page-header">
+        <h1 class="contract-page-title">@Text.NewContract</h1>
+    </div>
 
     <VehicleSection
         @bind-State="_vehicleState"
@@ -46,6 +49,4 @@
         ReadOnlyEmail="_isBuyerMode"
         OnSubmit="HandleBuyerInfoNext"
         OnEdit="@(_isBuyerMode ? EventCallback.Empty : new EventCallback(null, () => EditSection(FormSection.BuyerInfo)))" />
-
-
 </div>

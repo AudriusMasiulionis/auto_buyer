@@ -67,8 +67,8 @@ public partial class ContractDownload : ComponentBase
     
     public class VerificationModel
     {
-        [Required(ErrorMessage = "Email address is required")]
-        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        [Required(ErrorMessage = "El. pašto adresas yra privalomas")]
+        [EmailAddress(ErrorMessage = "Įveskite teisingą el. pašto adresą")]
         public string Email { get; set; } = string.Empty;
     }
 }

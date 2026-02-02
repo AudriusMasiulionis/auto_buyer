@@ -5,76 +5,103 @@
 @using AutoDokas.Data.Models
 @inherits ComponentBase
 
-<PageTitle>Download Contract</PageTitle>
+<PageTitle>Sutarties atsisiuntimas</PageTitle>
 
-<div class="container my-4">
-    <h2>Download Contract Document</h2>
-    
+<div class="contract-page">
     @if (loading)
     {
-        <div class="spinner-border" role="status"></div>
-        <p>Loading contract details...</p>
+        <div class="status-page">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="status-text mt-3">Kraunami sutarties duomenys...</p>
+        </div>
     }
     else if (contract == null)
     {
-        <div class="alert alert-danger">
-            <h4 class="alert-heading">Contract Not Found</h4>
-            <p>Sorry, we couldn't find the contract you're looking for. Please check the contract ID and try again.</p>
+        <div class="status-page">
+            <div class="status-icon status-icon-danger">
+                <i class="bi bi-exclamation-circle-fill"></i>
+            </div>
+            <h2 class="status-title">Sutartis nerasta</h2>
+            <p class="status-text">
+                Atsiprašome, nepavyko rasti jūsų sutarties. Patikrinkite nuorodą ir bandykite dar kartą.
+            </p>
+            <a href="/" class="btn btn-cta">
+                Grįžti į pradžią <i class="bi bi-arrow-right ms-2"></i>
+            </a>
         </div>
     }
     else
     {
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="card-title">Contract Details</h5>
+        <div class="contract-page-header">
+            <h1 class="contract-page-title">Sutarties atsisiuntimas</h1>
+        </div>
+
+        <div class="download-card">
+            <div class="download-card-header">
+                Sutarties informacija
             </div>
-            <div class="card-body">
-                <p><strong>Vehicle:</strong> @(contract.VehicleInfo?.Make ?? "-") @(contract.VehicleInfo?.RegistrationNumber ?? "-")</p>
-                <p><strong>Seller:</strong> @(contract.SellerInfo?.Name ?? "-")</p>
-                <p><strong>Price:</strong> @(contract.PaymentInfo?.Price.ToString("C") ?? "-")</p>
+            <div class="download-card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        <small class="text-muted d-block">Automobilis</small>
+                        <strong>@(contract.VehicleInfo?.Make ?? "-") @(contract.VehicleInfo?.RegistrationNumber ?? "-")</strong>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <small class="text-muted d-block">Sutarties Sudarymmo Data</small>
+                        <strong>@contract.CreatedAt.ToLongDateString()</strong>
+                    </div>
+                </div>
             </div>
         </div>
 
         @if (!isVerified)
         {
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Email Verification</h5>
+            <div class="download-card">
+                <div class="download-card-header">
+                    <i class="bi bi-shield-lock me-2"></i>Tapatybės patvirtinimas
                 </div>
-                <div class="card-body">
-                    <p>Please enter your email address to verify your identity before downloading the contract.</p>
-                    
+                <div class="download-card-body">
+                    <p class="text-muted mb-3" style="font-size: 0.9rem;">
+                        Įveskite savo el. pašto adresą, kad patvirtintumėte savo tapatybę prieš atsisiųsdami sutartį.
+                    </p>
+
                     <EditForm Model="verificationModel" OnValidSubmit="VerifyEmail">
                         <DataAnnotationsValidator />
-                        
+
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
+                            <label for="email" class="form-label">El. pašto adresas *</label>
                             <InputText id="email" @bind-Value="verificationModel.Email" class="form-control" />
                             <ValidationMessage For="@(() => verificationModel.Email)" />
-                            
+
                             @if (showEmailError)
                             {
-                                <div class="text-danger mt-1">
-                                    The email address you entered doesn't match our records. Please try again.
+                                <div class="text-danger small mt-1">
+                                    Įvestas el. pašto adresas neatitinka mūsų įrašų. Bandykite dar kartą.
                                 </div>
                             }
                         </div>
-                        
-                        <button type="submit" class="btn btn-primary">Verify</button>
+
+                        <button type="submit" class="btn-section-next">
+                            <i class="bi bi-shield-check"></i> Patvirtinti
+                        </button>
                     </EditForm>
                 </div>
             </div>
         }
         else
         {
-            <div class="alert alert-success">
-                <h4 class="alert-heading">Email Verified!</h4>
-                <p>Your email has been verified. You can now download the contract document.</p>
+            <div class="status-page" style="padding-top: 2rem;">
+                <div class="status-icon status-icon-success">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <h2 class="status-title">Tapatybė patvirtinta!</h2>
+                <p class="status-text">
+                    Jūsų el. paštas patvirtintas. Dabar galite atsisiųsti sutarties dokumentą.
+                </p>
+                <a href="@GetDownloadUrl()" class="btn btn-cta" target="_blank" style="background: #16a34a; border-color: #16a34a;">
+                    <i class="bi bi-file-earmark-pdf me-2"></i> Atsisiųsti sutartį (PDF)
+                </a>
             </div>
-            
-            <a href="@GetDownloadUrl()" class="btn btn-success" target="_blank">
-                <i class="bi bi-file-earmark-pdf"></i> Download Contract PDF
-            </a>
         }
     }
 </div>
