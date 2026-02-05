@@ -10,7 +10,7 @@ namespace AutoDokas.Services;
 /// <summary>
 /// Implementation of the PDF service using Blazor component rendering with Puppeteer
 /// </summary>
-public class PdfService : IPdfService
+public class PdfService
 {
     private readonly ILogger<PdfService> _logger;
     private readonly HtmlRenderer _htmlRenderer;
@@ -100,22 +100,20 @@ public class PdfService : IPdfService
                 DisplayHeaderFooter = true,
                 MarginOptions = new MarginOptions
                 {
-                    Top = "20mm",
+                    Top = "10mm",
                     Bottom = "40mm",
                     Left = "10mm",
                     Right = "10mm"
                 },
-                HeaderTemplate = @"
-        <div style='width: 100%; font-size: 10px; padding: 10px 20px; display: flex; justify-content: space-between;'>
-            <div style='font-weight: bold;'>Auto Dokas</div>
-            <div>Contract #<span class='pageNumber'></span> of <span class='totalPages'></span></div>
-            <div>" + contract.VehicleInfo?.Make ?? "-" + @"</div>
-        </div>",
-                FooterTemplate = @"
-        <div style='width: 100%; font-size: 10px; padding: 10px 20px; text-align: center;'>
-            <div>Page <span class='pageNumber'></span> of <span class='totalPages'></span></div>
-            <div>" + DateTime.Now.ToString("yyyy-MM-dd") + @"</div>
-        </div>"
+                HeaderTemplate = """
+                    <div style="width: 100%; font-size: 9px; color: #64748b; padding: 5px 20px; text-align: right;">
+                    </div>
+                    """,
+                FooterTemplate = """
+                    <div style="width: 100%; font-size: 9px; color: #64748b; padding: 5px 20px; text-align: center;">
+                        autodokas.lt
+                    </div>
+                    """
 
             };
 

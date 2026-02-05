@@ -9,56 +9,61 @@ namespace AutoDokas.Services;
 public class EmailNotificationService
 {
     private readonly IEmailService _emailService;
-    private readonly IEmailTemplateFactory _emailTemplateFactory;
+    private readonly RazorEmailTemplateFactory _emailTemplateFactory;
     private readonly ILogger<EmailNotificationService> _logger;
+    private readonly string _fromEmail;
     private readonly string _baseUrl;
+    private readonly string? _toOverride;
 
     public EmailNotificationService(
         IEmailService emailService,
-        IEmailTemplateFactory emailTemplateFactory,
+        RazorEmailTemplateFactory emailTemplateFactory,
         ILogger<EmailNotificationService> logger,
         IConfiguration configuration)
     {
         _emailService = emailService;
         _emailTemplateFactory = emailTemplateFactory;
         _logger = logger;
-        _baseUrl = configuration["AWS:BaseUrl"] ?? "https://localhost";
+        _fromEmail = configuration["Email:FromAddress"] ?? "noreply@autodokas.lt";
+        _baseUrl = configuration["Email:BaseUrl"] ?? "https://localhost";
+        var toOverride = configuration["Email:ToOverride"];
+        _toOverride = string.IsNullOrWhiteSpace(toOverride) ? null : toOverride;
     }
 
-    /// <summary>
-    /// Sends a contract notification email to the recipient
-    /// </summary>
-    /// <param name="to">Recipient email address</param>
-    /// <param name="contract">The vehicle contract with details to include in the email</param>
     public async Task SendContractNotificationAsync(string to, VehicleContract contract)
     {
+        await SendAsync<ContractCompletedEmailModel>(to, contract);
+    }
+
+    public async Task SendBuyerInviteAsync(string to, VehicleContract contract)
+    {
+        await SendAsync<BuyerInviteInformationFillModel>(to, contract);
+    }
+
+    private async Task SendAsync<TModel>(string to, VehicleContract contract) where TModel : IEmailModel, new()
+    {
+        var recipient = _toOverride ?? to;
+
         try
         {
-            var subject = $"Vehicle Contract: {contract.VehicleInfo?.Make} {contract.VehicleInfo?.RegistrationNumber}";
-            
-            // Create the email model
-            var emailModel = new ContractCompletedEmailModel
+            var model = new TModel
             {
                 Contract = contract,
                 BaseUrl = _baseUrl
             };
-            
-            // Render the email template to HTML
-            var htmlBody = await _emailTemplateFactory.RenderAsync(emailModel);
-            
-            // Send the email with the rendered HTML
-            await _emailService.SendEmailAsync("noreply@autodokas.lt", to, subject, htmlBody);
-            
-            _logger.LogInformation("Contract notification email sent to {Recipient} for contract {ContractId}", 
-                to, contract.Id);
+
+            var rendered = await _emailTemplateFactory.RenderAsync(model);
+
+            await _emailService.SendEmailAsync(_fromEmail, recipient, rendered.Subject, rendered.Body);
+
+            _logger.LogInformation("{EmailType} sent to {Recipient} for contract {ContractId}",
+                typeof(TModel).Name, recipient, contract.Id);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to send contract notification email to {Recipient} for contract {ContractId}", 
-                to, contract.Id);
+            _logger.LogError(ex, "Failed to send {EmailType} to {Recipient} for contract {ContractId}",
+                typeof(TModel).Name, recipient, contract.Id);
             throw;
         }
     }
-    
-    // Additional email notification methods can be added here as needed
 }

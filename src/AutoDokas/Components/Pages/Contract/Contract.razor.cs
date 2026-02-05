@@ -12,7 +12,7 @@ public partial class Contract : ComponentBase
 {
     [Inject] private AppDbContext Context { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
-    [Inject] private IEmailService EmailService { get; set; } = null!;
+    [Inject] private EmailNotificationService EmailNotificationService { get; set; } = null!;
 
     [Inject] private ICsvReader CsvReader { get; set; } = null!;
 
@@ -21,6 +21,7 @@ public partial class Contract : ComponentBase
     private VehicleContract contract = new();
     private bool _loading = false;
     private bool _isBuyerMode;
+    private bool _isContractCompleted;
     private FormSection _currentSection = FormSection.Vehicle;
     private FormSection? _returnToSection;
     private SectionState _vehicleState = SectionState.Active;
@@ -48,12 +49,21 @@ public partial class Contract : ComponentBase
             {
                 contract = foundContract;
 
-                if (_isBuyerMode)
+                if (contract.FinalStatus == VehicleContract.FormSectionStatus.Completed)
                 {
-                    _vehicleState = SectionState.Completed;
-                    _paymentState = SectionState.Completed;
-                    _sellerState = SectionState.Completed;
-                    _buyerMethodState = SectionState.Completed;
+                    _isContractCompleted = true;
+                    _vehicleState = SectionState.ReadOnly;
+                    _paymentState = SectionState.ReadOnly;
+                    _sellerState = SectionState.ReadOnly;
+                    _buyerMethodState = SectionState.ReadOnly;
+                    _buyerInfoState = SectionState.ReadOnly;
+                }
+                else if (_isBuyerMode)
+                {
+                    _vehicleState = SectionState.ReadOnly;
+                    _paymentState = SectionState.ReadOnly;
+                    _sellerState = SectionState.ReadOnly;
+                    _buyerMethodState = SectionState.ReadOnly;
                     _buyerInfoState = SectionState.Active;
                     _currentSection = FormSection.BuyerInfo;
                 }
@@ -120,6 +130,7 @@ public partial class Contract : ComponentBase
 
     private void EditSection(FormSection section)
     {
+        if (_isContractCompleted) return;
         if (_currentSection > section)
         {
             _returnToSection = _currentSection;
@@ -188,9 +199,7 @@ public partial class Contract : ComponentBase
                 UpdateSectionStatus(FormSection.BuyerMethod, VehicleContract.FormSectionStatus.Completed);
                 await SaveProgress();
 
-                var buyerLink = $"{Navigation.BaseUri}buyer/{contract.Id}";
-                var emailBody = $"You have been invited to sign a vehicle purchase contract.\n\nPlease open the following link to fill in your information:\n{buyerLink}";
-                await EmailService.SendEmailAsync("noreply@autodokas.lt", Model.BuyerEmail, "Vehicle Contract - Buyer Information Required", emailBody);
+                await EmailNotificationService.SendBuyerInviteAsync(Model.BuyerEmail, contract);
 
                 Navigation.NavigateTo("/BuyerNotificationSent");
             }
@@ -214,7 +223,14 @@ public partial class Contract : ComponentBase
         {
             _loading = true;
             UpdateSectionStatus(FormSection.BuyerInfo, VehicleContract.FormSectionStatus.Completed);
+            contract.FinalStatus = VehicleContract.FormSectionStatus.Completed;
             await SaveProgress();
+
+            if (!string.IsNullOrWhiteSpace(contract.SellerInfo?.Email))
+                await EmailNotificationService.SendContractNotificationAsync(contract.SellerInfo.Email, contract);
+            if (!string.IsNullOrWhiteSpace(contract.BuyerInfo?.Email))
+                await EmailNotificationService.SendContractNotificationAsync(contract.BuyerInfo.Email, contract);
+
             Navigation.NavigateTo("/ContractCompleted");
         }
         catch (Exception ex)

@@ -3,6 +3,7 @@
 @rendermode InteractiveServer
 @using System.ComponentModel.DataAnnotations
 @using AutoDokas.Data.Models
+@using AutoDokas.Extensions
 @inherits ComponentBase
 
 <PageTitle>Sutarties atsisiuntimas</PageTitle>
@@ -47,8 +48,8 @@
                         <strong>@(contract.VehicleInfo?.Make ?? "-") @(contract.VehicleInfo?.RegistrationNumber ?? "-")</strong>
                     </div>
                     <div class="col-md-4 mb-2">
-                        <small class="text-muted d-block">Sutarties Sudarymmo Data</small>
-                        <strong>@contract.CreatedAt.ToLongDateString()</strong>
+                        <small class="text-muted d-block">Sutarties Sudarymo Data</small>
+                        <strong>@contract.CreatedAt.ToLithuanianTime().ToLongDateString()</strong>
                     </div>
                 </div>
             </div>

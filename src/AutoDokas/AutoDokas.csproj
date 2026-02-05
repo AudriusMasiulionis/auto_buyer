@@ -52,4 +52,10 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Data\StaticData\**\*.csv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

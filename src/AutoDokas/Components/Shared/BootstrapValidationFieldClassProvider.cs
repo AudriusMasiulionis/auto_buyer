@@ -6,34 +6,25 @@ public class BootstrapValidationFieldClassProvider : FieldCssClassProvider
 {
     public override string GetFieldCssClass(EditContext editContext, in FieldIdentifier fieldIdentifier)
     {
-        // Check if the field is a checkbox based on property type
         bool isCheckbox = IsCheckboxField(fieldIdentifier);
-        
-        // Use the appropriate base class depending on the input type
         var cssClass = isCheckbox ? "form-check-input" : "form-control";
-        
-        if (editContext.IsModified(fieldIdentifier))
+
+        var hasMessages = editContext.GetValidationMessages(fieldIdentifier).Any();
+
+        // Show validation state if field was modified OR has validation errors
+        if (editContext.IsModified(fieldIdentifier) || hasMessages)
         {
-            var isValid = !editContext.GetValidationMessages(fieldIdentifier).Any();
-            cssClass += isValid ? " is-valid" : " is-invalid";
+            cssClass += hasMessages ? " is-invalid" : " is-valid";
         }
-        
+
         return cssClass;
     }
-    
-    private bool IsCheckboxField(FieldIdentifier fieldIdentifier)
+
+    private static bool IsCheckboxField(FieldIdentifier fieldIdentifier)
     {
-        // Best way to detect checkbox: check if the property type is boolean
-        if (fieldIdentifier.Model != null)
-        {
-            var propertyInfo = fieldIdentifier.Model.GetType().GetProperty(fieldIdentifier.FieldName);
-            if (propertyInfo != null)
-            {
-                // If it's a boolean property, it's almost certainly a checkbox
-                return propertyInfo.PropertyType == typeof(bool);
-            }
-        }
-        
-        return false;
+        if (fieldIdentifier.Model == null) return false;
+
+        var propertyInfo = fieldIdentifier.Model.GetType().GetProperty(fieldIdentifier.FieldName);
+        return propertyInfo?.PropertyType == typeof(bool);
     }
 }

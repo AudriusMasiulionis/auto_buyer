@@ -8,12 +8,19 @@
 @using AutoDokas.Data.Models
 @using AutoDokas.Extensions
 
-<PageTitle>@Text.NewContract</PageTitle>
+<PageTitle>@(_isContractCompleted ? Text.CompletedContract : Text.NewContract)</PageTitle>
 
 <div class="contract-page">
     <div class="contract-page-header">
-        <h1 class="contract-page-title">@Text.NewContract</h1>
+        <h1 class="contract-page-title">@(_isContractCompleted ? Text.CompletedContract : Text.NewContract)</h1>
     </div>
+
+    @if (_isContractCompleted)
+    {
+        <div class="alert alert-success d-flex align-items-center mb-3" role="alert">
+            <span>@((MarkupString)string.Format(Text.ContractReadOnlyBanner, ContractId))</span>
+        </div>
+    }
 
     <VehicleSection
         @bind-State="_vehicleState"
@@ -34,7 +41,7 @@
         OnSubmit="HandleSellerNext"
         OnEdit="@(_isBuyerMode ? EventCallback.Empty : new EventCallback(null, () => EditSection(FormSection.Seller)))" />
 
-    @if (!_isBuyerMode)
+    @if (!_isBuyerMode || _isContractCompleted)
     {
         <BuyerMethodSection
             @bind-State="_buyerMethodState"

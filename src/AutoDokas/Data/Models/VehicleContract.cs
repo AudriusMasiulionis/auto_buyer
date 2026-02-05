@@ -44,11 +44,13 @@ public class VehicleContract
         public string Sdk { get; set; }
         public string Make { get; set; }
         public string RegistrationNumber { get; set; }
+        public string? RegistrationCertificate { get; set; }
         public int Millage { get; set; }
         public string IdentificationNumber { get; set; }
         public bool IsInspected { get; set; }
         public bool HasBeenDamaged { get; set; }
-        public bool PriorDamagesKnown { get; set; }
+        public bool DamagedDuringOwnership { get; set; }
+        public bool DamageIncidentsKnown { get; set; }
         public List<Defect> Defects { get; set; } = [];
         public string? AdditionalInformation { get; set; }
 

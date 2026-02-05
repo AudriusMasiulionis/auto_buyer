@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Reflection;
 using AutoDokas.Components.Email;
 using AutoDokas.Services.EmailTemplates;
 using Microsoft.AspNetCore.Components;
@@ -7,21 +5,24 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace AutoDokas.Services;
 
+public class EmailRender
+{
+    public required string Subject { get; set; }
+    public required string Body { get; set; }
+}
+
 /// <summary>
 /// Factory for generating email content from Razor components
 /// </summary>
-public class RazorEmailTemplateFactory : IEmailTemplateFactory
+public class RazorEmailTemplateFactory
 {
-    private readonly IServiceProvider _serviceProvider;
     private readonly HtmlRenderer _htmlRenderer;
     private readonly ILogger<RazorEmailTemplateFactory> _logger;
 
     public RazorEmailTemplateFactory(
-        IServiceProvider serviceProvider,
         HtmlRenderer htmlRenderer,
         ILogger<RazorEmailTemplateFactory> logger)
     {
-        _serviceProvider = serviceProvider;
         _htmlRenderer = htmlRenderer;
         _logger = logger;
     }
@@ -29,7 +30,7 @@ public class RazorEmailTemplateFactory : IEmailTemplateFactory
     /// <summary>
     /// Renders an email template to HTML string
     /// </summary>
-    public async Task<string> RenderAsync<TModel>(TModel model)
+    public async Task<EmailRender> RenderAsync<TModel>(TModel model) where TModel: IEmailModel
     {
         ArgumentNullException.ThrowIfNull(model);
         
@@ -54,7 +55,11 @@ public class RazorEmailTemplateFactory : IEmailTemplateFactory
                 return output.ToHtmlString();
             });
 
-            return html;
+            return new EmailRender
+            {
+                Subject = model.Subject,
+                Body = html
+            };
         }
         catch (Exception ex)
         {
@@ -71,6 +76,7 @@ public class RazorEmailTemplateFactory : IEmailTemplateFactory
         return model switch
         {
             ContractCompletedEmailModel => typeof(ContractCompletedEmail),
+            BuyerInviteInformationFillModel => typeof(BuyerInviteInformationFill),
             // Add more model-to-component mappings here as needed
             _ => throw new ArgumentException($"No template component found for model type: {typeof(TModel).Name}")
         };

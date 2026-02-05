@@ -229,7 +229,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to asmens kodas / įmonės kodas / gimimo data, kai asmens kodas nesuteiktas.
+        ///   Looks up a localized string similar to Asmens kodas / įmonės kodas / gimimo data, kai asmens kodas nesuteiktas.
         /// </summary>
         public static string Code {
             get {
@@ -247,11 +247,29 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kodas turi būti skaičiai arba data (yyyy-MM-dd).
+        /// </summary>
+        public static string CodeInvalid {
+            get {
+                return ResourceManager.GetString("CodeInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kodas yra privalomas.
         /// </summary>
         public static string CodeRequired {
             get {
                 return ResourceManager.GetString("CodeRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Užbaigta sutartis.
+        /// </summary>
+        public static string CompletedContract {
+            get {
+                return ResourceManager.GetString("CompletedContract", resourceCulture);
             }
         }
         
@@ -283,6 +301,15 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ši sutartis yra užbaigta ir jos redaguoti negalima. &lt;a class=&quot;link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover&quot; href=&quot;/contract/download/{0}&quot;&gt;Atsisiųsti sutartį&lt;/a&gt;.
+        /// </summary>
+        public static string ContractReadOnlyBanner {
+            get {
+                return ResourceManager.GetString("ContractReadOnlyBanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Šalis yra privaloma.
         /// </summary>
         public static string CountryRequired {
@@ -306,6 +333,24 @@ namespace AutoDokas.Resources {
         public static string CtaTitle {
             get {
                 return ResourceManager.GetString("CtaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transporto priemonė eismo ar kitų įvykių metu per laikotarpį, kurį buvau parduodamos transporto priemonės savininkas, buvo apgadinta.
+        /// </summary>
+        public static string DamagedDuringOwnership {
+            get {
+                return ResourceManager.GetString("DamagedDuringOwnership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eismo ar kiti įvykiai, kuriuose transporto priemonė buvo apgadinta, man žinomi.
+        /// </summary>
+        public static string DamageIncidentsKnown {
+            get {
+                return ResourceManager.GetString("DamageIncidentsKnown", resourceCulture);
             }
         }
         
@@ -373,7 +418,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to elektroninio pašto adresas.
+        ///   Looks up a localized string similar to Elektroninio pašto adresas.
         /// </summary>
         public static string Email {
             get {
@@ -472,11 +517,11 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eismo ar kiti įvykiai, kuriuose transporto priemonė buvoapgadinta, man žinomi.
+        ///   Looks up a localized string similar to Šis laukas yra privalomas.
         /// </summary>
-        public static string HasBeenDamaged {
+        public static string FieldRequired {
             get {
-                return ResourceManager.GetString("HasBeenDamaged", resourceCulture);
+                return ResourceManager.GetString("FieldRequired", resourceCulture);
             }
         }
         
@@ -598,7 +643,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to vardas, pavardė arba juridinio asmens pavadinimas.
+        ///   Looks up a localized string similar to Vardas, pavardė arba juridinio asmens pavadinimas.
         /// </summary>
         public static string Name {
             get {
@@ -805,7 +850,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to telefono numeris.
+        ///   Looks up a localized string similar to Telefono numeris.
         /// </summary>
         public static string Phone {
             get {
@@ -850,20 +895,20 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transporto priemonė eismo ar kitų įvykių metu per laikotarpį, kurį buvau parduodamos transporto priemonės savininkas.
-        /// </summary>
-        public static string PriorDamageKnown {
-            get {
-                return ResourceManager.GetString("PriorDamageKnown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Privatumo politika.
         /// </summary>
         public static string PrivacyPolicy {
             get {
                 return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registracijos liudijimo serija ir numeris.
+        /// </summary>
+        public static string RegistrationCertificate {
+            get {
+                return ResourceManager.GetString("RegistrationCertificate", resourceCulture);
             }
         }
         

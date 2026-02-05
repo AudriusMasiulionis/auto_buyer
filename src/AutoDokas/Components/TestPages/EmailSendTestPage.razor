@@ -1,0 +1,153 @@
+@page "/email-test"
+@rendermode InteractiveServer
+@using AutoDokas.Components.Email
+@using AutoDokas.Data.Models
+@using AutoDokas.Services
+@using AutoDokas.Services.EmailTemplates
+@using Microsoft.AspNetCore.Components.Web
+@layout EmptyLayout
+
+<div style="max-width: 600px; margin: 40px auto; font-family: sans-serif;">
+    <h2>Email Send Test</h2>
+
+    <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 4px; font-weight: 600;">Recipient Email</label>
+        <input type="email" @bind="_recipientEmail" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
+    </div>
+
+    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+        <button @onclick="SendBuyerInvite" disabled="@_sending"
+            style="padding: 10px 20px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer;">
+            @if (_sending && _sendingType == "invite") { <text>Sending...</text> } else { <text>Send Buyer Invite</text> }
+        </button>
+        <button @onclick="SendContractCompleted" disabled="@_sending"
+            style="padding: 10px 20px; background: #16a34a; color: white; border: none; border-radius: 6px; cursor: pointer;">
+            @if (_sending && _sendingType == "completed") { <text>Sending...</text> } else { <text>Send Contract Completed</text> }
+        </button>
+    </div>
+
+    @if (_statusMessage != null)
+    {
+        <div style="padding: 12px; border-radius: 6px; background: @(_isError ? "#fee2e2" : "#dcfce7"); color: @(_isError ? "#991b1b" : "#166534");">
+            @_statusMessage
+        </div>
+    }
+</div>
+
+@code {
+    [Inject] private IEmailService EmailService { get; set; } = null!;
+    [Inject] private HtmlRenderer HtmlRenderer { get; set; } = null!;
+
+    private string _recipientEmail = "";
+    private bool _sending;
+    private string? _sendingType;
+    private string? _statusMessage;
+    private bool _isError;
+
+    private readonly ContractCompletedEmailModel _testModel = new()
+    {
+        BaseUrl = "http://localhost:5136",
+        Contract = new VehicleContract
+        {
+            Id = Guid.NewGuid(),
+            CreatedAt = DateTime.UtcNow,
+            BuyerInfo = new VehicleContract.PartyInfo
+            {
+                Address = "Vilniaus g. 10, Vilnius",
+                Code = "39001010001",
+                Email = "pirkejas@email.lt",
+                HasConsented = true,
+                Name = "Jonas Jonaitis",
+                Phone = "+37061234567",
+            },
+            Origin = new Country { Code = "LT", Name = "Lietuva" },
+            PaymentInfo = new VehicleContract.Payment
+            {
+                AdditionalInformation = "",
+                PaymentAtContractFormation = true,
+                PaymentMethod = VehicleContract.Payment.PaymentType.BankTransfer,
+                Price = 12_500,
+                TransferInsurance = true
+            },
+            SellerInfo = new VehicleContract.PartyInfo
+            {
+                Address = "Kauno g. 5, Kaunas",
+                Code = "38501010001",
+                Email = "pardavejas@email.lt",
+                HasConsented = true,
+                Name = "Petras Petraitis",
+                Phone = "+37069876543",
+            },
+            VehicleInfo = new VehicleContract.Vehicle
+            {
+                AdditionalInformation = "",
+                Defects = [],
+                HasBeenDamaged = false,
+                IdentificationNumber = "WVWZZZ3CZWE123456",
+                IsInspected = true,
+                Make = "Volkswagen Passat",
+                Millage = 185_000,
+                DamagedDuringOwnership = false,
+                DamageIncidentsKnown = false,
+                RegistrationNumber = "ABC 123",
+                Sdk = "LT123456",
+            }
+        }
+    };
+
+    private async Task SendBuyerInvite()
+    {
+        var model = new BuyerInviteInformationFillModel
+        {
+            Contract = _testModel.Contract,
+            BaseUrl = _testModel.BaseUrl
+        };
+        await SendEmail<BuyerInviteInformationFill>(model, "invite");
+    }
+
+    private async Task SendContractCompleted()
+    {
+        await SendEmail<ContractCompletedEmail>(_testModel, "completed");
+    }
+
+    private async Task SendEmail<TComponent>(IEmailModel emailModel, string type) where TComponent : IComponent
+    {
+        if (string.IsNullOrWhiteSpace(_recipientEmail))
+        {
+            _statusMessage = "Please enter a recipient email.";
+            _isError = true;
+            return;
+        }
+
+        _sending = true;
+        _sendingType = type;
+        _statusMessage = null;
+
+        try
+        {
+            Dictionary<string, object?>? parameters = new Dictionary<string, object?> { { "Model", emailModel } };
+
+            var html = await HtmlRenderer.Dispatcher.InvokeAsync(async () =>
+            {
+                var output = await HtmlRenderer.RenderComponentAsync(
+                    typeof(TComponent),
+                    ParameterView.FromDictionary(parameters));
+                return output.ToHtmlString();
+            });
+
+            await EmailService.SendEmailAsync("noreply@autodokas.lt", _recipientEmail, emailModel.Subject, html);
+
+            _statusMessage = $"\"{emailModel.Subject}\" email sent to {_recipientEmail}";
+            _isError = false;
+        }
+        catch (Exception ex)
+        {
+            _statusMessage = $"Failed: {ex}";
+            _isError = true;
+        }
+        finally
+        {
+            _sending = false;
+        }
+    }
+}

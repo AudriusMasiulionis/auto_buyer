@@ -1,5 +1,6 @@
 @using AutoDokas.Data.Models
 @using AutoDokas.Extensions
+@using AutoDokas.Resources
 @inherits ComponentBase
 
 <!DOCTYPE html>
@@ -75,17 +76,12 @@
 
         /* ===== SECTIONS ===== */
         .section {
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
             margin-bottom: 16px;
             background: #fff;
         }
 
         .section-head {
-            padding: 10px 16px;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
+            padding: 10px 0;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -115,7 +111,7 @@
         }
 
         .section-content {
-            padding: 16px;
+            padding: 0;
         }
 
         .section-content p {
@@ -163,8 +159,99 @@
             background: var(--surface);
         }
 
+        /* ===== COMPACT INFO GRID ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 24px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .info-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .info-label {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--slate);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .info-value {
+            font-size: 13px;
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        /* ===== PARTIES SECTION ===== */
+        .parties-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .party-box {
+            padding: 0;
+            background: #fff;
+        }
+
+        .party-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+        }
+
+        /* ===== VEHICLE STATUS ===== */
+        .vehicle-status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .status-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .status-label {
+            font-size: 9px;
+            font-weight: 500;
+            color: var(--slate);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .defects-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .additional-info {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .additional-info p {
+            margin: 4px 0 0 0;
+        }
+
         /* ===== BADGES ===== */
-        .badge-yes {
+        .badge-success {
             display: inline-block;
             background: #dcfce7;
             color: #15803d;
@@ -174,7 +261,7 @@
             font-weight: 600;
         }
 
-        .badge-no {
+        .badge-danger {
             display: inline-block;
             background: #fef2f2;
             color: #991b1b;
@@ -215,19 +302,15 @@
 
         /* ===== OBLIGATIONS ===== */
         .obligations-section {
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
             margin-bottom: 16px;
             background: #fff;
         }
 
         .obligations-section .section-head {
-            background: var(--surface);
         }
 
         .obligations-content {
-            padding: 16px;
+            padding: 0;
             font-size: 12px;
             color: var(--navy-light);
             line-height: 1.7;
@@ -267,7 +350,7 @@
         }
 
         .sig-image {
-            min-height: 70px;
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -275,8 +358,8 @@
         }
 
         .sig-image img {
-            max-height: 80px;
-            max-width: 200px;
+            max-height: 120px;
+            max-width: 280px;
         }
 
         .sig-line {
@@ -293,189 +376,176 @@
         <h1>TRANSPORTO PRIEMONĖS PIRKIMO–PARDAVIMO SUTARTIS</h1>
         <div class="contract-meta">
             <div class="contract-meta-item">
-                <strong>Data:</strong> @Contract.CreatedAt.ToShortDateString()
+                <strong>@Text.ContractCreationDate:</strong> @CreatedAtLocal.ToShortDateString() @CreatedAtLocal.ToShortTimeString()
             </div>
             <div class="contract-meta-item">
-                <strong>Laikas:</strong> @Contract.CreatedAt.ToShortTimeString()
-            </div>
-            <div class="contract-meta-item">
-                <strong>Sutarties sudarymo valstybė:</strong> @(Contract.Origin?.Name ?? "-")
+                <strong>@Text.Origin:</strong> @(Contract.Origin?.Name ?? "-")
             </div>
         </div>
     </header>
 
-    <!-- SELLER -->
-    <div class="section">
-        <div class="section-head">
-            <h2>Pardavėjas (transporto priemonės savininkas)</h2>
+    <!-- SELLER & BUYER -->
+    <div class="parties-container">
+        <div class="party-box">
+            <div class="party-title">Pardavėjas (transporto priemonės savininkas)</div>
+            <div class="info-grid">
+                <div class="info-item full-width">
+                    <span class="info-label">@Text.Name</span>
+                    <span class="info-value">@(Contract.SellerInfo?.Name ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Code</span>
+                    <span class="info-value">@(Contract.SellerInfo?.Code ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Phone</span>
+                    <span class="info-value">@(Contract.SellerInfo?.Phone ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Email</span>
+                    <span class="info-value">@(Contract.SellerInfo?.Email ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Address</span>
+                    <span class="info-value">@(Contract.SellerInfo?.Address ?? "-")</span>
+                </div>
+            </div>
         </div>
-        <div class="section-content">
-            <table class="data-table">
-                <tr>
-                    <th>Vardas, pavardė arba juridinio asmens pavadinimas</th>
-                    <td>@(Contract.SellerInfo?.Name ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Asmens kodas / įmonės kodas / gimimo data</th>
-                    <td>@(Contract.SellerInfo?.Code ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Telefono numeris</th>
-                    <td>@(Contract.SellerInfo?.Phone ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Elektroninis pašto adresas</th>
-                    <td>@(Contract.SellerInfo?.Email ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Adresas</th>
-                    <td>@(Contract.SellerInfo?.Address ?? "-")</td>
-                </tr>
-            </table>
-        </div>
-    </div>
 
-    <!-- BUYER -->
-    <div class="section">
-        <div class="section-head">
-            <h2>Pirkėjas (transporto priemonės įgijėjas)</h2>
-        </div>
-        <div class="section-content">
-            <table class="data-table">
-                <tr>
-                    <th>Vardas, pavardė arba juridinio asmens pavadinimas</th>
-                    <td>@(Contract.BuyerInfo?.Name ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Asmens kodas / įmonės kodas / gimimo data</th>
-                    <td>@(Contract.BuyerInfo?.Code ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Telefono numeris</th>
-                    <td>@(Contract.BuyerInfo?.Phone ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Elektroninis pašto adresas</th>
-                    <td>@(Contract.BuyerInfo?.Email ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Adresas</th>
-                    <td>@(Contract.BuyerInfo?.Address ?? "-")</td>
-                </tr>
-            </table>
+        <div class="party-box">
+            <div class="party-title">Pirkėjas (transporto priemonės įgijėjas)</div>
+            <div class="info-grid">
+                <div class="info-item full-width">
+                    <span class="info-label">@Text.Name</span>
+                    <span class="info-value">@(Contract.BuyerInfo?.Name ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Code</span>
+                    <span class="info-value">@(Contract.BuyerInfo?.Code ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Phone</span>
+                    <span class="info-value">@(Contract.BuyerInfo?.Phone ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Email</span>
+                    <span class="info-value">@(Contract.BuyerInfo?.Email ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Address</span>
+                    <span class="info-value">@(Contract.BuyerInfo?.Address ?? "-")</span>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- VEHICLE -->
     <div class="section">
         <div class="section-head">
-            <h2>Transporto priemonės informacija</h2>
+            <h2>@Text.VehicleInformation</h2>
         </div>
         <div class="section-content">
-            <p>Pardavėjas parduoda, o pirkėjas perka pardavėjui nuosavybės teise priklausančią transporto priemonę:</p>
-            <table class="data-table">
-                <tr>
-                    <th>Transporto priemonės savininko deklaravimo kodas (SDK)</th>
-                    <td>@(Contract.VehicleInfo?.Sdk ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Gamybinė markė (D.1) ir komercinis pavadinimas (D.3)</th>
-                    <td>@(Contract.VehicleInfo?.Make ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Valstybinis registracijos numeris (A)</th>
-                    <td>@(Contract.VehicleInfo?.RegistrationNumber ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Rida</th>
-                    <td>@(Contract.VehicleInfo?.Millage.ToString() ?? "0") km</td>
-                </tr>
-                <tr>
-                    <th>Atpažinties (identifikavimo) numeris (E)</th>
-                    <td>@(Contract.VehicleInfo?.IdentificationNumber ?? "-")</td>
-                </tr>
-                <tr>
-                    <th>Techninė apžiūra galiojanti</th>
-                    <td>
-                        @if (Contract.VehicleInfo?.IsInspected ?? false)
+            <p style="margin-bottom: 12px;">Pardavėjas parduoda, o pirkėjas perka pardavėjui nuosavybės teise priklausančią transporto priemonę:</p>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">@Text.Sdk</span>
+                    <span class="info-value">@(Contract.VehicleInfo?.Sdk ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Make</span>
+                    <span class="info-value">@(Contract.VehicleInfo?.Make ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.RegistrationNumber</span>
+                    <span class="info-value">@(Contract.VehicleInfo?.RegistrationNumber ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.RegistrationCertificate</span>
+                    <span class="info-value">@(Contract.VehicleInfo?.RegistrationCertificate ?? "-")</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.Millage</span>
+                    <span class="info-value">@(Contract.VehicleInfo?.Millage.ToString("N0") ?? "0") km</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.IdentificationNumber</span>
+                    <span class="info-value">@(Contract.VehicleInfo?.IdentificationNumber ?? "-")</span>
+                </div>
+            </div>
+
+            <div class="vehicle-status-grid">
+                <div class="status-item">
+                    <span class="status-label">@Text.IsInspected</span>
+                    @if (Contract.VehicleInfo?.IsInspected ?? false)
+                    {
+                        <span class="badge-success">@Text.Valid</span>
+                    }
+                    else
+                    {
+                        <span class="badge-danger">@Text.Invalid</span>
+                    }
+                </div>
+                <div class="status-item">
+                    <span class="status-label">@Text.DamagedDuringOwnership</span>
+                    @if (Contract.VehicleInfo?.DamagedDuringOwnership ?? false)
+                    {
+                        <span class="badge-danger">@Text.Yes</span>
+                    }
+                    else
+                    {
+                        <span class="badge-success">@Text.No</span>
+                    }
+                </div>
+                <div class="status-item">
+                    <span class="status-label">@Text.DamageIncidentsKnown</span>
+                    @if (Contract.VehicleInfo?.DamageIncidentsKnown ?? false)
+                    {
+                        <span class="badge-danger">@Text.Yes</span>
+                    }
+                    else
+                    {
+                        <span class="badge-success">@Text.No</span>
+                    }
+                </div>
+            </div>
+
+            @if (Contract.VehicleInfo?.Defects != null && Contract.VehicleInfo.Defects.Any())
+            {
+                <div class="defects-section">
+                    <span class="info-label">@Text.Defects</span>
+                    <ul class="defect-list">
+                        @foreach (var defect in Contract.VehicleInfo.Defects)
                         {
-                            <span class="badge-yes">Taip</span>
+                            <li>@defect.GetDisplayName()</li>
                         }
-                        else
-                        {
-                            <span class="badge-no">Ne</span>
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <th>Transporto priemonė buvo dalyvausi eismo įvykyje</th>
-                    <td>
-                        @if (Contract.VehicleInfo?.HasBeenDamaged ?? false)
-                        {
-                            <span class="badge-yes">Taip</span>
-                        }
-                        else
-                        {
-                            <span class="badge-no">Ne</span>
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <th>Ankstesni pažeidimai žinomi</th>
-                    <td>
-                        @if (Contract.VehicleInfo?.PriorDamagesKnown ?? false)
-                        {
-                            <span class="badge-yes">Taip</span>
-                        }
-                        else
-                        {
-                            <span class="badge-no">Ne</span>
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <th>Defektai</th>
-                    <td>
-                        @if (Contract.VehicleInfo?.Defects != null && Contract.VehicleInfo.Defects.Any())
-                        {
-                            <ul class="defect-list">
-                                @foreach (var defect in Contract.VehicleInfo.Defects)
-                                {
-                                    <li>@defect.GetDisplayName()</li>
-                                }
-                            </ul>
-                        }
-                        else
-                        {
-                            <span class="badge-info">Nėra</span>
-                        }
-                    </td>
-                </tr>
-                @if (!string.IsNullOrWhiteSpace(Contract.VehicleInfo?.AdditionalInformation))
-                {
-                    <tr>
-                        <th>Papildoma informacija</th>
-                        <td>@Contract.VehicleInfo.AdditionalInformation</td>
-                    </tr>
-                }
-            </table>
+                    </ul>
+                </div>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Contract.VehicleInfo?.AdditionalInformation))
+            {
+                <div class="additional-info">
+                    <span class="info-label">@Text.AdditionalInformation</span>
+                    <p class="info-value">@Contract.VehicleInfo.AdditionalInformation</p>
+                </div>
+            }
         </div>
     </div>
 
     <!-- PAYMENT -->
     <div class="section">
         <div class="section-head">
-            <h2>Mokėjimo informacija</h2>
+            <h2>@Text.PaymentInformation</h2>
         </div>
         <div class="section-content">
-            <table class="data-table">
-                <tr>
-                    <th>Kaina</th>
-                    <td><strong>@(Contract.PaymentInfo?.Price.ToString("N2") ?? "0.00") €</strong></td>
-                </tr>
-                <tr>
-                    <th>Mokėjimo būdas</th>
-                    <td>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">@Text.Price</span>
+                    <span class="info-value">@(Contract.PaymentInfo?.Price.ToString("N2") ?? "0.00") €</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.PaymentMethod</span>
+                    <span class="info-value">
                         @if (Contract.PaymentInfo?.PaymentMethod != null)
                         {
                             <span class="badge-info">@Contract.PaymentInfo.PaymentMethod.Value.GetDisplayName()</span>
@@ -484,46 +554,46 @@
                         {
                             <span>-</span>
                         }
-                    </td>
-                </tr>
-                <tr>
-                    <th>Mokėjimo momentas</th>
-                    <td>
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.PaymentMoment</span>
+                    <span class="info-value">
                         @if (Contract.PaymentInfo?.PaymentAtContractFormation ?? false)
                         {
-                            <span>Sutarties sudarymo metu</span>
+                            @Text.AtContractFormation
                         }
                         else if (Contract.PaymentInfo?.PaymentDate != null)
                         {
-                            <span>@Contract.PaymentInfo.PaymentDate.Value.ToString("yyyy-MM-dd")</span>
+                            @Contract.PaymentInfo.PaymentDate.Value.ToString("yyyy-MM-dd")
                         }
                         else
                         {
                             <span>-</span>
                         }
-                    </td>
-                </tr>
-                <tr>
-                    <th>Draudimo perleidimas</th>
-                    <td>
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">@Text.TransferInsurance</span>
+                    <span class="info-value">
                         @if (Contract.PaymentInfo?.TransferInsurance ?? false)
                         {
-                            <span class="badge-yes">Taip</span>
+                            <span class="badge-success">@Text.Yes</span>
                         }
                         else
                         {
-                            <span class="badge-no">Ne</span>
+                            <span class="badge-danger">@Text.No</span>
                         }
-                    </td>
-                </tr>
-                @if (!string.IsNullOrWhiteSpace(Contract.PaymentInfo?.AdditionalInformation))
-                {
-                    <tr>
-                        <th>Papildoma informacija</th>
-                        <td>@Contract.PaymentInfo.AdditionalInformation</td>
-                    </tr>
-                }
-            </table>
+                    </span>
+                </div>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Contract.PaymentInfo?.AdditionalInformation))
+            {
+                <div class="additional-info">
+                    <span class="info-label">@Text.AdditionalInformation</span>
+                    <p class="info-value">@Contract.PaymentInfo.AdditionalInformation</p>
+                </div>
+            }
         </div>
     </div>
 
@@ -595,4 +665,6 @@
 @code {
     [Parameter]
     public VehicleContract Contract { get; set; } = default!;
+
+    private DateTime CreatedAtLocal => Contract.CreatedAt.ToLithuanianTime();
 }

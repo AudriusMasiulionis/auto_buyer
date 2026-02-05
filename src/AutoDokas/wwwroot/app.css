@@ -12,16 +12,15 @@
 html, body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     color: #1e293b;
-    height: 100%;
 }
 
-body {
+.page-wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-main {
+.page-wrapper > main {
     flex: 1;
 }
 
@@ -260,9 +259,20 @@ h1:focus {
 .hero-image-wrapper {
     position: relative;
     z-index: 1;
+    display: inline-block;
+}
+
+.hero-image-wrapper::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 1.25rem;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.4) 100%);
+    pointer-events: none;
 }
 
 .hero-image {
+    display: block;
     width: 100%;
     max-width: 520px;
     border-radius: 1.25rem;

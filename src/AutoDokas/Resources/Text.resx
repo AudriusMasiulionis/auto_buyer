@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Name" xml:space="preserve">
-    <value>vardas, pavardė arba juridinio asmens pavadinimas</value>
+    <value>Vardas, pavardė arba juridinio asmens pavadinimas</value>
     <comment/>
   </data>
   <data name="NavBrand" xml:space="preserve">
@@ -206,11 +206,11 @@
     <comment/>
   </data>
   <data name="Code" xml:space="preserve">
-    <value>asmens kodas / įmonės kodas / gimimo data, kai asmens kodas nesuteiktas</value>
+    <value>Asmens kodas / įmonės kodas / gimimo data, kai asmens kodas nesuteiktas</value>
     <comment/>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>telefono numeris</value>
+    <value>Telefono numeris</value>
     <comment/>
   </data>
   <data name="Address" xml:space="preserve">
@@ -218,7 +218,7 @@
     <comment/>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>elektroninio pašto adresas</value>
+    <value>Elektroninio pašto adresas</value>
     <comment/>
   </data>
   <data name="TermsAndConditionsConsent" xml:space="preserve">
@@ -249,12 +249,12 @@
     <value>Transporto priemonės trūkumai</value>
     <comment/>
   </data>
-  <data name="PriorDamageKnown" xml:space="preserve">
-    <value>Transporto priemonė eismo ar kitų įvykių metu per laikotarpį, kurį buvau parduodamos transporto priemonės savininkas</value>
+  <data name="DamagedDuringOwnership" xml:space="preserve">
+    <value>Transporto priemonė eismo ar kitų įvykių metu per laikotarpį, kurį buvau parduodamos transporto priemonės savininkas, buvo apgadinta</value>
     <comment/>
   </data>
-  <data name="HasBeenDamaged" xml:space="preserve">
-    <value>Eismo ar kiti įvykiai, kuriuose transporto priemonė buvoapgadinta, man žinomi</value>
+  <data name="DamageIncidentsKnown" xml:space="preserve">
+    <value>Eismo ar kiti įvykiai, kuriuose transporto priemonė buvo apgadinta, man žinomi</value>
     <comment/>
   </data>
   <data name="IsInspected" xml:space="preserve">
@@ -271,6 +271,10 @@
   </data>
   <data name="RegistrationNumber" xml:space="preserve">
     <value>Valstybinis registracijos numeris (A)</value>
+    <comment/>
+  </data>
+  <data name="RegistrationCertificate" xml:space="preserve">
+    <value>Registracijos liudijimo serija ir numeris</value>
     <comment/>
   </data>
   <data name="Make" xml:space="preserve">
@@ -361,6 +365,10 @@
     <value>Vardas yra privalomas</value>
     <comment/>
   </data>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>Šis laukas yra privalomas</value>
+    <comment/>
+  </data>
   <data name="NameMaxLength" xml:space="preserve">
     <value>Vardas negali viršyti 100 simbolių</value>
     <comment/>
@@ -383,6 +391,10 @@
   </data>
   <data name="CodeDigitsOnly" xml:space="preserve">
     <value>Kodas turi sudaryti tik skaičiai</value>
+    <comment/>
+  </data>
+  <data name="CodeInvalid" xml:space="preserve">
+    <value>Kodas turi būti skaičiai arba data (yyyy-MM-dd)</value>
     <comment/>
   </data>
   <data name="PhoneRequired" xml:space="preserve">
@@ -607,6 +619,14 @@
   </data>
   <data name="StartNow" xml:space="preserve">
     <value>Pradėti dabar</value>
+    <comment/>
+  </data>
+  <data name="CompletedContract" xml:space="preserve">
+    <value>Užbaigta sutartis</value>
+    <comment/>
+  </data>
+  <data name="ContractReadOnlyBanner" xml:space="preserve">
+    <value>Ši sutartis yra užbaigta ir jos redaguoti negalima. &lt;a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/contract/download/{0}"&gt;Atsisiųsti sutartį&lt;/a&gt;</value>
     <comment/>
   </data>
 </root>

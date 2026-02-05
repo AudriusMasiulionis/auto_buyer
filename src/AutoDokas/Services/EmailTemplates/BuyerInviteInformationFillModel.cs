@@ -3,14 +3,14 @@ using AutoDokas.Data.Models;
 namespace AutoDokas.Services.EmailTemplates;
 
 /// <summary>
-/// Model for generating an email when a contract is completed
+/// Model for generating an email when a buyer is invited to fill information
 /// </summary>
-public class ContractCompletedEmailModel : IEmailModel
+public class BuyerInviteInformationFillModel : IEmailModel
 {
-    public string Subject => "Transporto priemonės sutartis užpildyta";
+    public string Subject => "Pirkėjo informacijos pildymas";
 
     /// <summary>
-    /// The contract that was completed
+    /// The contract for which buyer information is needed
     /// </summary>
     public VehicleContract Contract { get; set; } = null!;
 

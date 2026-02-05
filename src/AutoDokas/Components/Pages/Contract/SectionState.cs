@@ -4,5 +4,6 @@ public enum SectionState
 {
     Disabled,
     Active,
-    Completed
+    Completed,
+    ReadOnly
 }

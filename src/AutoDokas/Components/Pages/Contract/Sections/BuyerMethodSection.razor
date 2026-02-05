@@ -1,7 +1,9 @@
 @using AutoDokas.Components.Pages.Contract
+@using AutoDokas.Components.Shared
+@using Microsoft.AspNetCore.Components.Forms
 
-<div class="section-card @(State == SectionState.Active ? "section-card-active" : "") @(State == SectionState.Completed ? "section-card-completed" : "")">
-    <div class="section-header @(State == SectionState.Active ? "section-header-active" : "") @(State == SectionState.Completed ? "section-header-completed" : "") @(State == SectionState.Disabled ? "section-header-disabled" : "") @(State != SectionState.Disabled ? "collapse-toggle" : "")"
+<div class="section-card @(State == SectionState.Active ? "section-card-active" : "") @(State == SectionState.Completed || State == SectionState.ReadOnly ? "section-card-completed" : "")">
+    <div class="section-header @(State == SectionState.Active ? "section-header-active" : "") @(State == SectionState.Completed || State == SectionState.ReadOnly ? "section-header-completed" : "") @(State == SectionState.Disabled ? "section-header-disabled" : "") @(State != SectionState.Disabled ? "collapse-toggle" : "")"
         data-bs-toggle="@(State != SectionState.Disabled ? "collapse" : null)"
         data-bs-target="@(State != SectionState.Disabled ? "#buyerMethodCollapse" : null)"
         role="@(State != SectionState.Disabled ? "button" : null)"
@@ -9,7 +11,7 @@
         aria-controls="@(State != SectionState.Disabled ? "buyerMethodCollapse" : null)">
         <span class="d-flex align-items-center">
             <span class="section-number">
-                @if (State == SectionState.Completed)
+                @if (State == SectionState.Completed || State == SectionState.ReadOnly)
                 {
                     <i class="bi bi-check-lg"></i>
                 }
@@ -37,66 +39,68 @@
     @if (State != SectionState.Disabled)
     {
         <div id="buyerMethodCollapse" class="collapse @(State == SectionState.Active ? "show" : "")">
-            <div class="section-body">
-                <p class="text-muted mb-4" style="font-size: 0.9rem;">@Text.BuyerMethodDescription</p>
+            <EditForm EditContext="_editContext">
+                <DataAnnotationsValidator />
+                <div class="section-body">
+                    <p class="text-muted mb-4" style="font-size: 0.9rem;">@Text.BuyerMethodDescription</p>
 
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <div class="method-card @(_selectedMethod == BuyerSigningMethod.ThisDevice ? "method-card-selected" : "")"
-                            @onclick="() => SelectMethod(BuyerSigningMethod.ThisDevice)">
-                            <div class="method-card-icon">
-                                <i class="bi bi-phone"></i>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="method-card @(_selectedMethod == BuyerSigningMethod.ThisDevice ? "method-card-selected" : "")"
+                                @onclick="() => SelectMethod(BuyerSigningMethod.ThisDevice)">
+                                <div class="method-card-icon">
+                                    <i class="bi bi-phone"></i>
+                                </div>
+                                <h5>@Text.SignOnThisDevice</h5>
+                                <p>@Text.SignOnThisDeviceDescription</p>
+                                @if (_selectedMethod == BuyerSigningMethod.ThisDevice)
+                                {
+                                    <i class="bi bi-check-circle-fill text-primary"></i>
+                                }
                             </div>
-                            <h5>@Text.SignOnThisDevice</h5>
-                            <p>@Text.SignOnThisDeviceDescription</p>
-                            @if (_selectedMethod == BuyerSigningMethod.ThisDevice)
-                            {
-                                <i class="bi bi-check-circle-fill text-primary"></i>
-                            }
+                        </div>
+                        <div class="col-md-6">
+                            <div class="method-card @(_selectedMethod == BuyerSigningMethod.SendNotification ? "method-card-selected" : "")"
+                                @onclick="() => SelectMethod(BuyerSigningMethod.SendNotification)">
+                                <div class="method-card-icon">
+                                    <i class="bi bi-envelope-paper"></i>
+                                </div>
+                                <h5>@Text.SendNotificationToBuyer</h5>
+                                <p>@Text.SendNotificationToBuyerDescription</p>
+                                @if (_selectedMethod == BuyerSigningMethod.SendNotification)
+                                {
+                                    <i class="bi bi-check-circle-fill text-primary"></i>
+                                }
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="method-card @(_selectedMethod == BuyerSigningMethod.SendNotification ? "method-card-selected" : "")"
-                            @onclick="() => SelectMethod(BuyerSigningMethod.SendNotification)">
-                            <div class="method-card-icon">
-                                <i class="bi bi-envelope-paper"></i>
-                            </div>
-                            <h5>@Text.SendNotificationToBuyer</h5>
-                            <p>@Text.SendNotificationToBuyerDescription</p>
-                            @if (_selectedMethod == BuyerSigningMethod.SendNotification)
-                            {
-                                <i class="bi bi-check-circle-fill text-primary"></i>
-                            }
+
+                    @if (_selectedMethod == BuyerSigningMethod.SendNotification)
+                    {
+                        <div class="mt-4">
+                            <label class="form-label" for="BuyerEmailNotification">@Text.BuyerEmail *</label>
+                            <InputText @bind-Value="Model.BuyerEmail" type="email" id="BuyerEmailNotification" disabled="@_formDisabled" />
+                            <ValidationMessage For="() => Model.BuyerEmail" />
                         </div>
-                    </div>
+                    }
+
                 </div>
-
-                @if (_selectedMethod == BuyerSigningMethod.SendNotification)
+                @if (State != SectionState.ReadOnly)
                 {
-                    <div class="mt-4">
-                        <label class="form-label" for="BuyerEmailNotification">@Text.BuyerEmail *</label>
-                        <input class="form-control" type="email" @bind="Model.BuyerEmail" id="BuyerEmailNotification"
-                            disabled="@_formDisabled" />
-                        @if (!string.IsNullOrEmpty(_validationError))
-                        {
-                            <div class="text-danger small mt-1">@_validationError</div>
-                        }
+                    <div class="section-footer">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn-section-next" disabled="@(_selectedMethod == null || _formDisabled)"
+                                @onclick="SubmitAsync">
+                                @if (_isLoading)
+                                {
+                                    <span class="spinner-border spinner-border-sm"></span>
+                                }
+                                @Text.Next <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
                 }
-
-            </div>
-            <div class="section-footer">
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn-section-next" disabled="@(_selectedMethod == null || _formDisabled)"
-                        @onclick="SubmitAsync">
-                        @if (_isLoading)
-                        {
-                            <span class="spinner-border spinner-border-sm"></span>
-                        }
-                        @Text.Next <i class="bi bi-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
+            </EditForm>
         </div>
     }
 </div>
@@ -114,11 +118,17 @@
     [Parameter] public EventCallback<BuyerSigningMethod> OnSubmit { get; set; }
     [Parameter] public EventCallback OnEdit { get; set; }
 
+    private EditContext _editContext = null!;
     private bool _isLoading;
     private BuyerSigningMethod? _selectedMethod;
-    private string? _validationError;
 
-    private bool _formDisabled => _isLoading || State == SectionState.Completed;
+    private bool _formDisabled => _isLoading || State == SectionState.Completed || State == SectionState.ReadOnly;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(Model);
+        _editContext.SetFieldCssClassProvider(new BootstrapValidationFieldClassProvider());
+    }
 
     private async Task SetStateAsync(SectionState newState)
     {
@@ -130,21 +140,20 @@
     {
         if (_formDisabled) return;
         _selectedMethod = method;
-        _validationError = null;
     }
 
     private async Task SubmitAsync()
     {
         if (_selectedMethod == null) return;
 
-        if (_selectedMethod == BuyerSigningMethod.SendNotification && string.IsNullOrWhiteSpace(Model.BuyerEmail))
+        if (_selectedMethod == BuyerSigningMethod.SendNotification)
         {
-            _validationError = Text.BuyerEmailRequired;
-            return;
+            _editContext.Validate();
+            if (_editContext.GetValidationMessages(_editContext.Field(nameof(Model.BuyerEmail))).Any())
+                return;
         }
 
         _isLoading = true;
-        _validationError = null;
 
         await SetStateAsync(SectionState.Completed);
         await OnSubmit.InvokeAsync(_selectedMethod.Value);
@@ -154,7 +163,8 @@
 
     private async Task EditAsync()
     {
-        _validationError = null;
+        _editContext = new EditContext(Model);
+        _editContext.SetFieldCssClassProvider(new BootstrapValidationFieldClassProvider());
         await SetStateAsync(SectionState.Active);
         await OnEdit.InvokeAsync();
     }

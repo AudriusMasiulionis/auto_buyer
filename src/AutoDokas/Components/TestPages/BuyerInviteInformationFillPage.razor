@@ -8,7 +8,7 @@
 <BuyerInviteInformationFill Model=@model />
 
 @code {
-    private ContractCompletedEmailModel model = new()
+    private BuyerInviteInformationFillModel model = new ()
     {
         BaseUrl = "http://localhost:5136",
         Contract = new VehicleContract
@@ -51,7 +51,8 @@
                 IsInspected = true,
                 Make = "Volkswagen Passat",
                 Millage = 185_000,
-                PriorDamagesKnown = false,
+                DamagedDuringOwnership = false,
+                DamageIncidentsKnown = false,
                 RegistrationNumber = "ABC 123",
                 Sdk = "LT123456"
             }

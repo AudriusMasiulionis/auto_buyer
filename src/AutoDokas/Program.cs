@@ -3,7 +3,6 @@ using AutoDokas.Components;
 using AutoDokas.Data;
 using AutoDokas.Extensions;
 using AutoDokas.Services;
-using AutoDokas.Services.Options;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -39,13 +38,6 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.FallBackToParentUICultures = false;
 });
 
-// Configure AWS SSM options
-builder.Services.Configure<AwsSsmOptions>(
-    builder.Configuration.GetSection(AwsSsmOptions.SectionName));
-
-// Add AWS SSM configuration services - this will register AmazonSesOptions to be loaded from SSM
-builder.Services.AddAwsSsmConfiguration();
-
 // Add data services (CSV reader, etc.)
 builder.Services.AddDataServices();
 
@@ -55,13 +47,7 @@ builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddScoped<HtmlRenderer>();
 
 // Register the PDF service
-builder.Services.AddScoped<IPdfService, PdfService>();
-
-// Register the email template factory
-builder.Services.AddScoped<IEmailTemplateFactory, RazorEmailTemplateFactory>();
-
-// Register the email notification service
-builder.Services.AddScoped<EmailNotificationService>();
+builder.Services.AddScoped<PdfService>();
 
 // Register the appropriate email service based on the environment
 builder.Services.AddEmailServices(builder.Environment);

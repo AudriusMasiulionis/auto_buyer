@@ -1,9 +1,11 @@
 @using AutoDokas.Components.Pages.Contract
+@using AutoDokas.Components.Shared
 @using AutoDokas.Data.Models
 @using AutoDokas.Extensions
+@using Microsoft.AspNetCore.Components.Forms
 
-<div class="section-card @(State == SectionState.Active ? "section-card-active" : "") @(State == SectionState.Completed ? "section-card-completed" : "")">
-    <div class="section-header @(State == SectionState.Active ? "section-header-active" : "") @(State == SectionState.Completed ? "section-header-completed" : "") @(State == SectionState.Disabled ? "section-header-disabled" : "") @(State != SectionState.Disabled ? "collapse-toggle" : "")"
+<div class="section-card @(State == SectionState.Active ? "section-card-active" : "") @(State == SectionState.Completed || State == SectionState.ReadOnly ? "section-card-completed" : "")">
+    <div class="section-header @(State == SectionState.Active ? "section-header-active" : "") @(State == SectionState.Completed || State == SectionState.ReadOnly ? "section-header-completed" : "") @(State == SectionState.Disabled ? "section-header-disabled" : "") @(State != SectionState.Disabled ? "collapse-toggle" : "")"
         data-bs-toggle="@(State != SectionState.Disabled ? "collapse" : null)"
         data-bs-target="@(State != SectionState.Disabled ? "#vehicleCollapse" : null)"
         role="@(State != SectionState.Disabled ? "button" : null)"
@@ -11,7 +13,7 @@
         aria-controls="@(State != SectionState.Disabled ? "vehicleCollapse" : null)">
         <span class="d-flex align-items-center">
             <span class="section-number">
-                @if (State == SectionState.Completed)
+                @if (State == SectionState.Completed || State == SectionState.ReadOnly)
                 {
                     <i class="bi bi-check-lg"></i>
                 }
@@ -39,114 +41,138 @@
     @if (State != SectionState.Disabled)
     {
         <div id="vehicleCollapse" class="collapse @(State == SectionState.Active ? "show" : "")">
-            <div class="section-body">
-                @if (ValidationErrors.Any())
+            <EditForm EditContext="_editContext">
+                <DataAnnotationsValidator />
+                <div class="section-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="VehicleSdk">@Text.Sdk</label>
+                            <InputText @bind-Value="Model.VehicleSdk" id="VehicleSdk" disabled="@_formDisabled" />
+                            <ValidationMessage For="() => Model.VehicleSdk" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="VehicleMake">@Text.Make</label>
+                            <InputText @bind-Value="Model.VehicleMake" id="VehicleMake" disabled="@_formDisabled" />
+                            <ValidationMessage For="() => Model.VehicleMake" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="VehicleRegistrationNumber">@Text.RegistrationNumber</label>
+                            <InputText @bind-Value="Model.VehicleRegistrationNumber" id="VehicleRegistrationNumber" disabled="@_formDisabled" />
+                            <ValidationMessage For="() => Model.VehicleRegistrationNumber" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="VehicleRegistrationCertificate">@Text.RegistrationCertificate</label>
+                            <InputText @bind-Value="Model.VehicleRegistrationCertificate" id="VehicleRegistrationCertificate" disabled="@_formDisabled" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="VehicleMillage">@Text.Millage</label>
+                            <InputNumber @bind-Value="Model.VehicleMillage" id="VehicleMillage" disabled="@_formDisabled" />
+                            <ValidationMessage For="() => Model.VehicleMillage" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="VehicleIdentificationNumber">@Text.IdentificationNumber</label>
+                            <InputText @bind-Value="Model.VehicleIdentificationNumber" id="VehicleIdentificationNumber" disabled="@_formDisabled" />
+                            <ValidationMessage For="() => Model.VehicleIdentificationNumber" />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>@Text.IsInspected</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="VehicleIsInspected" id="VehicleIsInspectedTrue"
+                                       checked="@Model.VehicleIsInspected" @onchange="() => Model.VehicleIsInspected = true" disabled="@_formDisabled" />
+                                <label class="form-check-label" for="VehicleIsInspectedTrue">@Text.Valid</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="VehicleIsInspected" id="VehicleIsInspectedFalse"
+                                       checked="@(!Model.VehicleIsInspected)" @onchange="() => Model.VehicleIsInspected = false" disabled="@_formDisabled" />
+                                <label class="form-check-label" for="VehicleIsInspectedFalse">@Text.Invalid</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>@Text.DamageIncidentsKnown</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="VehicleHasBeenDamaged" id="VehicleHasBeenDamagedTrue"
+                                       checked="@Model.VehicleHasBeenDamaged" @onchange="() => Model.VehicleHasBeenDamaged = true" disabled="@_formDisabled" />
+                                <label class="form-check-label" for="VehicleHasBeenDamagedTrue">@Text.Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="VehicleHasBeenDamaged" id="VehicleHasBeenDamagedFalse"
+                                       checked="@(!Model.VehicleHasBeenDamaged)" @onchange="() => Model.VehicleHasBeenDamaged = false" disabled="@_formDisabled" />
+                                <label class="form-check-label" for="VehicleHasBeenDamagedFalse">@Text.No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>@Text.DamagedDuringOwnership</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="VehicleDamagedDuringOwnership" id="VehicleDamagedDuringOwnershipTrue"
+                                       checked="@Model.VehicleDamagedDuringOwnership" @onchange="() => Model.VehicleDamagedDuringOwnership = true" disabled="@_formDisabled" />
+                                <label class="form-check-label" for="VehicleDamagedDuringOwnershipTrue">@Text.Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="VehicleDamagedDuringOwnership" id="VehicleDamagedDuringOwnershipFalse"
+                                       checked="@(!Model.VehicleDamagedDuringOwnership)" @onchange="() => Model.VehicleDamagedDuringOwnership = false" disabled="@_formDisabled" />
+                                <label class="form-check-label" for="VehicleDamagedDuringOwnershipFalse">@Text.No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>@Text.DamageIncidentsKnown</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="VehicleDamageIncidentsKnown" id="VehicleDamageIncidentsKnownTrue"
+                                       checked="@Model.VehicleDamageIncidentsKnown" @onchange="() => Model.VehicleDamageIncidentsKnown = true" disabled="@_formDisabled" />
+                                <label class="form-check-label" for="VehicleDamageIncidentsKnownTrue">@Text.Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="VehicleDamageIncidentsKnown" id="VehicleDamageIncidentsKnownFalse"
+                                       checked="@(!Model.VehicleDamageIncidentsKnown)" @onchange="() => Model.VehicleDamageIncidentsKnown = false" disabled="@_formDisabled" />
+                                <label class="form-check-label" for="VehicleDamageIncidentsKnownFalse">@Text.No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>@Text.Defects</label>
+                        @foreach (var defect in DefectValues)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="edit_@defect" value="@defect"
+                                       @onchange="(e => ToggleDefectSelection(defect, e))"
+                                       checked="@Model.VehicleDefects.Contains(defect)" disabled="@_formDisabled" />
+                                <label class="form-check-label" for="edit_@defect">@defect.GetDisplayName()</label>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="VehicleAdditionalInformation">@Text.VehicleAdditionalInfo</label>
+                        <InputTextArea @bind-Value="Model.VehicleAdditionalInformation" id="VehicleAdditionalInformation" rows="3" disabled="@_formDisabled" />
+                    </div>
+                </div>
+                @if (State != SectionState.ReadOnly)
                 {
-                    <div class="alert alert-danger">
-                        <ul class="mb-0">
-                            @foreach (var error in ValidationErrors)
-                            {
-                                <li>@error</li>
-                            }
-                        </ul>
+                    <div class="section-footer">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn-section-next" disabled="@_formDisabled" @onclick="SubmitAsync">
+                                @if (_isLoading)
+                                {
+                                    <span class="spinner-border spinner-border-sm"></span>
+                                }
+                                @Text.Next <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
                 }
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label" for="VehicleSdk">@Text.Sdk *</label>
-                        <input class="form-control" @bind="Model.VehicleSdk" id="VehicleSdk" disabled="@_formDisabled" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label" for="VehicleMake">@Text.Make *</label>
-                        <input class="form-control" @bind="Model.VehicleMake" id="VehicleMake" disabled="@_formDisabled" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label" for="VehicleRegistrationNumber">@Text.RegistrationNumber *</label>
-                        <input class="form-control" @bind="Model.VehicleRegistrationNumber" id="VehicleRegistrationNumber" disabled="@_formDisabled" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label" for="VehicleMillage">@Text.Millage</label>
-                        <input class="form-control" type="number" @bind="Model.VehicleMillage" id="VehicleMillage" disabled="@_formDisabled" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label" for="VehicleIdentificationNumber">@Text.IdentificationNumber *</label>
-                        <input class="form-control" @bind="Model.VehicleIdentificationNumber" id="VehicleIdentificationNumber" disabled="@_formDisabled" />
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label>@Text.IsInspected</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="VehicleIsInspected" id="VehicleIsInspectedTrue"
-                                   checked="@Model.VehicleIsInspected" @onchange="() => Model.VehicleIsInspected = true" disabled="@_formDisabled" />
-                            <label class="form-check-label" for="VehicleIsInspectedTrue">@Text.Valid</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="VehicleIsInspected" id="VehicleIsInspectedFalse"
-                                   checked="@(!Model.VehicleIsInspected)" @onchange="() => Model.VehicleIsInspected = false" disabled="@_formDisabled" />
-                            <label class="form-check-label" for="VehicleIsInspectedFalse">@Text.Invalid</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label>@Text.HasBeenDamaged</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="VehicleHasBeenDamaged" id="VehicleHasBeenDamagedTrue"
-                                   checked="@Model.VehicleHasBeenDamaged" @onchange="() => Model.VehicleHasBeenDamaged = true" disabled="@_formDisabled" />
-                            <label class="form-check-label" for="VehicleHasBeenDamagedTrue">@Text.Yes</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="VehicleHasBeenDamaged" id="VehicleHasBeenDamagedFalse"
-                                   checked="@(!Model.VehicleHasBeenDamaged)" @onchange="() => Model.VehicleHasBeenDamaged = false" disabled="@_formDisabled" />
-                            <label class="form-check-label" for="VehicleHasBeenDamagedFalse">@Text.No</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label>@Text.PriorDamageKnown</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="VehiclePriorDamagesKnown" id="VehiclePriorDamagesKnownTrue"
-                                   checked="@Model.VehiclePriorDamagesKnown" @onchange="() => Model.VehiclePriorDamagesKnown = true" disabled="@_formDisabled" />
-                            <label class="form-check-label" for="VehiclePriorDamagesKnownTrue">@Text.Yes</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="VehiclePriorDamagesKnown" id="VehiclePriorDamagesKnownFalse"
-                                   checked="@(!Model.VehiclePriorDamagesKnown)" @onchange="() => Model.VehiclePriorDamagesKnown = false" disabled="@_formDisabled" />
-                            <label class="form-check-label" for="VehiclePriorDamagesKnownFalse">@Text.No</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label>@Text.Defects</label>
-                    @foreach (var defect in DefectValues)
-                    {
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="edit_@defect" value="@defect"
-                                   @onchange="(e => ToggleDefectSelection(defect, e))"
-                                   checked="@Model.VehicleDefects.Contains(defect)" disabled="@_formDisabled" />
-                            <label class="form-check-label" for="edit_@defect">@defect.GetDisplayName()</label>
-                        </div>
-                    }
-                </div>
-            </div>
-            <div class="section-footer">
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn-section-next" disabled="@_formDisabled" @onclick="SubmitAsync">
-                        @if (_isLoading)
-                        {
-                            <span class="spinner-border spinner-border-sm"></span>
-                        }
-                        @Text.Next <i class="bi bi-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
+            </EditForm>
         </div>
     }
 </div>
@@ -158,11 +184,26 @@
     [Parameter] public EventCallback OnSubmit { get; set; }
     [Parameter] public EventCallback OnEdit { get; set; }
 
+    private EditContext _editContext = null!;
     private bool _isLoading;
-    private List<string> ValidationErrors { get; set; } = [];
     private readonly VehicleContract.Vehicle.Defect[] DefectValues = Enum.GetValues<VehicleContract.Vehicle.Defect>();
 
-    private bool _formDisabled => _isLoading || State == SectionState.Completed;
+    private static readonly string[] SectionFields =
+    [
+        nameof(ContractViewModel.VehicleSdk),
+        nameof(ContractViewModel.VehicleMake),
+        nameof(ContractViewModel.VehicleRegistrationNumber),
+        nameof(ContractViewModel.VehicleMillage),
+        nameof(ContractViewModel.VehicleIdentificationNumber)
+    ];
+
+    private bool _formDisabled => _isLoading || State == SectionState.Completed || State == SectionState.ReadOnly;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(Model);
+        _editContext.SetFieldCssClassProvider(new BootstrapValidationFieldClassProvider());
+    }
 
     private async Task SetStateAsync(SectionState newState)
     {
@@ -185,10 +226,9 @@
 
     private async Task SubmitAsync()
     {
-        if (!Validate()) return;
+        if (!ValidateSection()) return;
 
         _isLoading = true;
-        ValidationErrors.Clear();
 
         await SetStateAsync(SectionState.Completed);
         await OnSubmit.InvokeAsync();
@@ -198,24 +238,16 @@
 
     private async Task EditAsync()
     {
-        ValidationErrors.Clear();
+        _editContext = new EditContext(Model);
+        _editContext.SetFieldCssClassProvider(new BootstrapValidationFieldClassProvider());
         await SetStateAsync(SectionState.Active);
         await OnEdit.InvokeAsync();
     }
 
-    private bool Validate()
+    private bool ValidateSection()
     {
-        ValidationErrors.Clear();
-
-        if (string.IsNullOrWhiteSpace(Model.VehicleSdk))
-            ValidationErrors.Add(Text.SdkRequired);
-        if (string.IsNullOrWhiteSpace(Model.VehicleMake))
-            ValidationErrors.Add(Text.MakeRequired);
-        if (string.IsNullOrWhiteSpace(Model.VehicleRegistrationNumber))
-            ValidationErrors.Add(Text.RegistrationNumberRequired);
-        if (string.IsNullOrWhiteSpace(Model.VehicleIdentificationNumber))
-            ValidationErrors.Add(Text.IdentificationNumberRequired);
-
-        return ValidationErrors.Count == 0;
+        _editContext.Validate();
+        return SectionFields.All(f =>
+            !_editContext.GetValidationMessages(_editContext.Field(f)).Any());
     }
 }

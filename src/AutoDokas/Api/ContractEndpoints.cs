@@ -1,9 +1,5 @@
 using AutoDokas.Data;
-using AutoDokas.Data.Models;
 using AutoDokas.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 
 namespace AutoDokas.Api;
 
@@ -29,7 +25,7 @@ public static class ContractEndpoints
         Guid id, 
         string? email, 
         AppDbContext context, 
-        IPdfService pdfService)
+        PdfService pdfService)
     {
         // Find the contract
         var contract = await context.VehicleContracts.FindAsync(id);
@@ -55,7 +51,7 @@ public static class ContractEndpoints
         byte[] pdfBytes = await pdfService.GenerateContractPdfAsync(contract);
 
         // Return the PDF as a downloadable file
-        string fileName = $"vehicle-contract-{contract.VehicleInfo?.RegistrationNumber ?? id.ToString()}.pdf";
+        string fileName = $"pirkimo-pardavimo-sutartis-{contract.VehicleInfo?.RegistrationNumber}.pdf";
         return Results.File(pdfBytes, "application/pdf", fileName);
     }
 }

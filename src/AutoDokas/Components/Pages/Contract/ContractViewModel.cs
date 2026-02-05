@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using AutoDokas.Data.Models;
+using AutoDokas.Extensions;
 using AutoDokas.Resources;
 
 namespace AutoDokas.Components.Pages.Contract;
@@ -7,24 +8,24 @@ namespace AutoDokas.Components.Pages.Contract;
 public class ContractViewModel
 {
     // Buyer Information
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.NameRequired))]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     [StringLength(100, ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.NameMaxLength))]
     public string BuyerName { get; set; } = string.Empty;
 
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.EmailRequired))]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     [EmailAddress(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.EmailInvalid))]
     [StringLength(100, ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.EmailMaxLength))]
     public string BuyerEmail { get; set; } = string.Empty;
 
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.CodeRequired))]
-    [RegularExpression(@"^\d+$", ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.CodeDigitsOnly))]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
+    [RegularExpression(@"^(\d+|\d{4}-\d{2}-\d{2})$", ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.CodeInvalid))]
     public string BuyerCode { get; set; } = string.Empty;
 
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.PhoneRequired))]
-    [RegularExpression(@"^\d+$", ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.PhoneDigitsOnly))]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
+    [RegularExpression(@"^(\+|00)?\d+$", ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.PhoneDigitsOnly))]
     public string BuyerPhone { get; set; } = string.Empty;
 
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.AddressRequired))]
+    // [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.AddressRequired))]
     [StringLength(300, ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.AddressMaxLength))]
     public string BuyerAddress { get; set; } = string.Empty;
 
@@ -32,64 +33,68 @@ public class ContractViewModel
     public byte[]? BuyerSignatureData { get; set; }
 
     // Contract Information
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.CountryRequired))]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     public Country? Origin { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.ToLithuanianTime();
 
     public bool HasConsented { get; set; } = false;
 
     // Seller Information
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.NameRequired))]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     [StringLength(100, ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.NameMaxLength))]
     public string SellerName { get; set; } = string.Empty;
 
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.EmailRequired))]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     [EmailAddress(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.EmailInvalid))]
     [StringLength(100, ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.EmailMaxLength))]
     public string SellerEmail { get; set; } = string.Empty;
 
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.CodeRequired))]
-    [RegularExpression(@"^\d+$", ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.CodeDigitsOnly))]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
+    [RegularExpression(@"^(\d+|\d{4}-\d{2}-\d{2})$", ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.CodeInvalid))]
     public string SellerCode { get; set; } = string.Empty;
 
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.PhoneRequired))]
-    [RegularExpression(@"^\d+$", ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.PhoneDigitsOnly))]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
+    [RegularExpression(@"^(\+|00)?\d+$", ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.PhoneDigitsOnly))]
     public string SellerPhone { get; set; } = string.Empty;
 
-    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.AddressRequired))]
+    // [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.AddressRequired))]
     [StringLength(300, ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.AddressMaxLength))]
     public string SellerAddress { get; set; } = string.Empty;
 
     // Vehicle Information
-    [Required(ErrorMessage = "SDK yra privalomas")]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     public string VehicleSdk { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Markė yra privaloma")]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     public string VehicleMake { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Registracijos numeris yra privalomas")]
+    // [Required(ErrorMessage = "Registracijos numeris yra privalomas")]
     public string VehicleRegistrationNumber { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Rida yra privaloma")]
+    public string? VehicleRegistrationCertificate { get; set; }
+
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     [Range(0, int.MaxValue, ErrorMessage = "Rida turi būti teigiamas skaičius")]
     public int VehicleMillage { get; set; }
 
-    [Required(ErrorMessage = "Identifikavimo numeris yra privalomas")]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     public string VehicleIdentificationNumber { get; set; } = string.Empty;
 
     public bool VehicleIsInspected { get; set; } = true;
     public bool VehicleHasBeenDamaged { get; set; }
-    public bool VehiclePriorDamagesKnown { get; set; }
+    public bool VehicleDamagedDuringOwnership { get; set; }
+    public bool VehicleDamageIncidentsKnown { get; set; }
     public List<VehicleContract.Vehicle.Defect> VehicleDefects { get; set; } = [];
+    public string? VehicleAdditionalInformation { get; set; }
 
     // Payment Information
-    [Required(ErrorMessage = "Kaina yra privaloma")]
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
     [Range(0.01, double.MaxValue, ErrorMessage = "Kaina turi būti didesnė nei 0")]
     public decimal PaymentPrice { get; set; }
 
-    [Required(ErrorMessage = "Pasirinkite mokėjimo būdą")]
-    public VehicleContract.Payment.PaymentType? PaymentMethod { get; set; }
+    [Required(ErrorMessageResourceType = typeof(Text), ErrorMessageResourceName = nameof(Text.FieldRequired))]
+    public VehicleContract.Payment.PaymentType? PaymentMethod { get; set; } = VehicleContract.Payment.PaymentType.BankTransfer;
 
     public bool PaymentAtContractFormation { get; set; } = true;
     public DateOnly? PaymentDate { get; set; }
@@ -103,7 +108,7 @@ public class ContractViewModel
             SignatureData = contract.SellerInfo?.SignatureData,
             BuyerSignatureData = contract.BuyerInfo?.SignatureData,
             Origin = contract.Origin,
-            CreatedAt = contract.CreatedAt,
+            CreatedAt = contract.CreatedAt.ToLithuanianTime(),
             HasConsented = contract.SellerInfo?.HasConsented ?? false
         };
 
@@ -133,12 +138,15 @@ public class ContractViewModel
             model.VehicleSdk = contract.VehicleInfo.Sdk ?? string.Empty;
             model.VehicleMake = contract.VehicleInfo.Make ?? string.Empty;
             model.VehicleRegistrationNumber = contract.VehicleInfo.RegistrationNumber ?? string.Empty;
+            model.VehicleRegistrationCertificate = contract.VehicleInfo.RegistrationCertificate;
             model.VehicleMillage = contract.VehicleInfo.Millage;
             model.VehicleIdentificationNumber = contract.VehicleInfo.IdentificationNumber ?? string.Empty;
             model.VehicleIsInspected = contract.VehicleInfo.IsInspected;
             model.VehicleHasBeenDamaged = contract.VehicleInfo.HasBeenDamaged;
-            model.VehiclePriorDamagesKnown = contract.VehicleInfo.PriorDamagesKnown;
+            model.VehicleDamagedDuringOwnership = contract.VehicleInfo.DamagedDuringOwnership;
+            model.VehicleDamageIncidentsKnown = contract.VehicleInfo.DamageIncidentsKnown;
             model.VehicleDefects = contract.VehicleInfo.Defects?.ToList() ?? [];
+            model.VehicleAdditionalInformation = contract.VehicleInfo.AdditionalInformation;
         }
 
         // Map Payment Info
@@ -159,7 +167,7 @@ public class ContractViewModel
     {
         // Update Contract Info
         contract.Origin = Origin;
-        contract.CreatedAt = CreatedAt;
+        contract.CreatedAt = CreatedAt.ToUtcFromLithuanian();
 
         // Update Seller Info
         contract.SellerInfo ??= new VehicleContract.PartyInfo();
@@ -176,12 +184,15 @@ public class ContractViewModel
         contract.VehicleInfo.Sdk = VehicleSdk;
         contract.VehicleInfo.Make = VehicleMake;
         contract.VehicleInfo.RegistrationNumber = VehicleRegistrationNumber;
+        contract.VehicleInfo.RegistrationCertificate = VehicleRegistrationCertificate;
         contract.VehicleInfo.Millage = VehicleMillage;
         contract.VehicleInfo.IdentificationNumber = VehicleIdentificationNumber;
         contract.VehicleInfo.IsInspected = VehicleIsInspected;
         contract.VehicleInfo.HasBeenDamaged = VehicleHasBeenDamaged;
-        contract.VehicleInfo.PriorDamagesKnown = VehiclePriorDamagesKnown;
+        contract.VehicleInfo.DamagedDuringOwnership = VehicleDamagedDuringOwnership;
+        contract.VehicleInfo.DamageIncidentsKnown = VehicleDamageIncidentsKnown;
         contract.VehicleInfo.Defects = VehicleDefects;
+        contract.VehicleInfo.AdditionalInformation = VehicleAdditionalInformation;
 
         // Update Payment Info
         contract.PaymentInfo ??= new VehicleContract.Payment();

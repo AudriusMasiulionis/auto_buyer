@@ -9,47 +9,50 @@
 @code {
     private VehicleContract contract = new VehicleContract
     {
+        Id = Guid.NewGuid(),
         CreatedAt = DateTime.UtcNow,
         BuyerInfo = new VehicleContract.PartyInfo
         {
-            Address = "123",
-            Code = "123",
-            Email = "123",
+            Address = "Vilniaus g. 10, Vilnius",
+            Code = "39001010001",
+            Email = "pirkejas@email.lt",
             HasConsented = true,
-            Name = "123",
-            Phone = "+37068666666",
+            Name = "Jonas Jonaitis",
+            Phone = "+37061234567",
         },
         Origin = new Country { Code = "LT", Name = "Lietuva" },
         PaymentInfo = new VehicleContract.Payment
         {
-            AdditionalInformation = "123",
-            PaymentAtContractFormation = true,
+            AdditionalInformation = "additional payment info",
+            PaymentAtContractFormation = false,
             PaymentMethod = VehicleContract.Payment.PaymentType.BankTransfer,
-            Price = 12_000,
-            TransferInsurance = true
+            Price = 12_500,
+            TransferInsurance = true,
+            PaymentDate = DateOnly.FromDateTime(DateTime.UtcNow)
         },
         SellerInfo = new VehicleContract.PartyInfo
         {
-            Address = "123",
-            Code = "123",
-            Email = "123",
+            Address = "Kauno g. 5, Kaunas",
+            Code = "38501010001",
+            Email = "pardavejas@email.lt",
             HasConsented = true,
-            Name = "123",
-            Phone = "+37068666666",
+            Name = "Petras Petraitis",
+            Phone = "+37069876543",
         },
         VehicleInfo = new VehicleContract.Vehicle
         {
-            AdditionalInformation = "123",
-            Defects = [VehicleContract.Vehicle.Defect.BrakeSystem],
-            HasBeenDamaged = true,
-            IdentificationNumber = "123",
+            AdditionalInformation = "additional info",
+            Defects = Enum.GetValues<VehicleContract.Vehicle.Defect>().ToList(),
+            HasBeenDamaged = false,
+            IdentificationNumber = "WVWZZZ3CZWE123456",
             IsInspected = true,
-            Make = "123",
-            Millage = 123,
-            PriorDamagesKnown = true,
-            RegistrationNumber = "123",
-            Sdk = "123"
+            Make = "Volkswagen Passat",
+            Millage = 185_000,
+            DamagedDuringOwnership = false,
+            DamageIncidentsKnown = false,
+            RegistrationNumber = "ABC 123",
+            Sdk = "LT123456",
+            RegistrationCertificate = "123"
         }
     };
-
 }
