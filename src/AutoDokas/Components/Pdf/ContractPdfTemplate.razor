@@ -539,9 +539,9 @@
         </div>
         <div class="section-content">
             <div class="info-grid">
-                <div class="info-item">
+                <div class="info-item full-width">
                     <span class="info-label">@Text.Price</span>
-                    <span class="info-value">@(Contract.PaymentInfo?.Price.ToString("N2") ?? "0.00") €</span>
+                    <span class="info-value">@(Contract.PaymentInfo?.Price.ToString("N2") ?? "0.00") € (@((Contract.PaymentInfo?.Price ?? 0).ToLithuanianWords()))</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">@Text.PaymentMethod</span>
