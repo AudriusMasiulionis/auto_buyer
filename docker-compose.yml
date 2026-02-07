@@ -9,8 +9,20 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__AppDbContext=Data Source=/app/data/app.db
     volumes:
-      - app-data:/app/data
+      - autodokas-data:/app/data
+
+  sqlite-web:
+    image: coleifer/sqlite-web
+    ports:
+      - "8082:8080"
+    volumes:
+      - autodokas-data:/app/data
+    command: sqlite_web -H 0.0.0.0 /app/data/app.db
+    restart: unless-stopped
+    depends_on:
+      - autodokasapp
 
 volumes:
-  app-data:
+  autodokas-data:
