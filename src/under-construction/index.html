@@ -6,106 +6,129 @@
     <title>AutoDokas.lt – Netrukus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --black: #08080a;
-            --asphalt: #111113;
-            --concrete: #1a1a1e;
-            --steel: #71717a;
-            --silver: #a1a1aa;
-            --amber: #f59e0b;
-            --amber-glow: #fbbf2480;
-            --warm-white: #fafaf9;
+            --navy: #0f172a;
+            --navy-deep: #070b14;
+            --navy-light: #1e293b;
+            --blue: #2563eb;
+            --blue-light: #60a5fa;
+            --blue-glow: rgba(37, 99, 235, 0.5);
+            --slate: #64748b;
+            --slate-light: #94a3b8;
+            --surface: #f8fafc;
+            --white: #fff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--black);
-            color: var(--warm-white);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(165deg, var(--navy-deep) 0%, var(--navy) 40%, #0c1b33 100%);
+            color: var(--white);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* ── Grain overlay ── */
+        /* ── Dot grid ── */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            background-image: radial-gradient(rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+            background-size: 32px 32px;
+            -webkit-mask-image: radial-gradient(ellipse at 35% 50%, black 15%, transparent 65%);
+            mask-image: radial-gradient(ellipse at 35% 50%, black 15%, transparent 65%);
             pointer-events: none;
-            z-index: 100;
+            z-index: 0;
         }
 
-        /* ── Road lines ── */
-        .road-line {
+        /* ── Glow orbs ── */
+        .glow {
             position: fixed;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--amber), transparent);
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
             opacity: 0;
-            animation: roadDraw 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: glowPulse 8s ease-in-out infinite, glowFadeIn 1.5s ease 0.5s forwards;
         }
-        .road-line--top {
+        .glow--1 {
+            width: 550px;
+            height: 550px;
+            top: -10%;
+            right: 5%;
+            background: rgba(37, 99, 235, 0.12);
+        }
+        .glow--2 {
+            width: 350px;
+            height: 350px;
+            bottom: -5%;
+            left: -5%;
+            background: rgba(99, 102, 241, 0.08);
+            animation-delay: 2s;
+            animation-direction: reverse;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(15px, -20px); }
+        }
+        @keyframes glowFadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ── Accent lines ── */
+        .accent-line {
+            position: fixed;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blue), transparent);
+            opacity: 0;
+            animation: lineDraw 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .accent-line--1 {
             top: 30%;
             left: -10%;
             width: 120%;
             animation-delay: 0.6s;
         }
-        .road-line--bottom {
+        .accent-line--2 {
             bottom: 25%;
             left: -10%;
             width: 120%;
             animation-delay: 0.9s;
-            opacity: 0;
         }
-        .road-line--accent {
+        .accent-line--3 {
             top: 50%;
             right: -10%;
             width: 40%;
-            height: 1px;
             animation-delay: 1.4s;
-            background: linear-gradient(90deg, transparent, var(--steel), transparent);
+            background: linear-gradient(90deg, transparent, var(--slate), transparent);
         }
 
-        @keyframes roadDraw {
+        @keyframes lineDraw {
             0% { transform: scaleX(0); opacity: 0; transform-origin: left; }
-            50% { opacity: 0.6; }
-            100% { transform: scaleX(1); opacity: 0.15; transform-origin: left; }
+            50% { opacity: 0.4; }
+            100% { transform: scaleX(1); opacity: 0.08; transform-origin: left; }
         }
 
-        /* ── Headlight glow ── */
-        .glow {
+        /* ── Vertical lines ── */
+        .v-line {
             position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%);
+            width: 1px;
+            background: rgba(30, 41, 59, 0.6);
+            top: 0;
+            bottom: 0;
             opacity: 0;
-            animation: glowPulse 4s ease-in-out 1.2s infinite, glowFadeIn 2s ease 0.8s forwards;
-            pointer-events: none;
+            animation: vLineReveal 1.2s ease forwards;
         }
-        .glow--left {
-            top: 10%;
-            left: -15%;
-        }
-        .glow--right {
-            bottom: -10%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            animation-delay: 2.4s;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
-        }
+        .v-line--1 { left: 8%; animation-delay: 0.3s; }
+        .v-line--2 { right: 8%; animation-delay: 0.5s; }
 
-        @keyframes glowPulse {
-            0%, 100% { opacity: 0.07; transform: scale(1); }
-            50% { opacity: 0.12; transform: scale(1.05); }
-        }
-        @keyframes glowFadeIn {
-            to { opacity: 0.07; }
+        @keyframes vLineReveal {
+            0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+            100% { opacity: 0.4; transform: scaleY(1); transform-origin: top; }
         }
 
         /* ── Layout ── */
@@ -128,30 +151,20 @@
         }
 
         .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 0.15em;
-            color: var(--warm-white);
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            color: var(--white);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .logo-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--amber);
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 12px var(--amber-glow);
         }
 
         .header-tag {
             font-size: 0.7rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--steel);
-            border: 1px solid var(--concrete);
+            color: var(--slate);
+            border: 1px solid var(--navy-light);
             padding: 0.4rem 1rem;
             border-radius: 100px;
         }
@@ -170,41 +183,44 @@
         }
 
         .eyebrow {
-            font-size: 0.7rem;
-            letter-spacing: 0.3em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--amber);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
+            color: var(--blue-light);
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            padding: 0.4rem 1.1rem;
+            border-radius: 100px;
+            margin-bottom: 2rem;
             opacity: 0;
-            animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+            animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
         }
 
         .headline {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(3.5rem, 10vw, 7rem);
-            line-height: 0.9;
-            letter-spacing: 0.02em;
-            margin-bottom: 2rem;
+            font-family: 'Archivo', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 30%, var(--blue-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             opacity: 0;
             animation: fadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
         }
 
-        .headline span {
-            display: block;
-        }
-
-        .headline .stroke-text {
-            -webkit-text-stroke: 1.5px var(--steel);
-            color: transparent;
-        }
-
         .description {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             line-height: 1.7;
-            color: var(--silver);
+            color: var(--slate-light);
             max-width: 480px;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             font-weight: 300;
             opacity: 0;
             animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
@@ -214,7 +230,7 @@
         .features {
             display: flex;
             gap: 2.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             flex-wrap: wrap;
             opacity: 0;
             animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
@@ -229,13 +245,13 @@
         .feature-bar {
             width: 16px;
             height: 2px;
-            background: var(--amber);
+            background: var(--blue);
         }
 
         .feature-label {
             font-size: 0.8rem;
             letter-spacing: 0.08em;
-            color: var(--steel);
+            color: var(--slate);
             font-weight: 400;
         }
 
@@ -252,15 +268,15 @@
         .cta {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.9rem 2rem;
-            background: var(--amber);
-            color: var(--black);
+            gap: 0.6rem;
+            padding: 0.9rem 2.25rem;
+            background: var(--blue);
+            color: var(--white);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
+            font-size: 0.9rem;
             border: none;
+            border-radius: 0.6rem;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
@@ -271,14 +287,15 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
             transform: translateX(-100%);
             transition: transform 0.5s ease;
         }
 
         .cta:hover {
+            background: #1d4ed8;
             transform: translateY(-2px);
-            box-shadow: 0 8px 32px var(--amber-glow);
+            box-shadow: 0 12px 36px rgba(37, 99, 235, 0.4);
         }
 
         .cta:hover::before {
@@ -293,7 +310,7 @@
         }
 
         .cta-secondary {
-            color: var(--steel);
+            color: var(--slate);
             font-size: 0.8rem;
             text-decoration: none;
             letter-spacing: 0.05em;
@@ -301,8 +318,8 @@
             border-bottom: 1px solid transparent;
         }
         .cta-secondary:hover {
-            color: var(--warm-white);
-            border-bottom-color: var(--steel);
+            color: var(--white);
+            border-bottom-color: var(--slate);
         }
 
         /* ── Footer ── */
@@ -311,47 +328,30 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-top: 1px solid var(--concrete);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
             opacity: 0;
             animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.4s forwards;
         }
 
         .footer-text {
             font-size: 0.7rem;
-            color: var(--steel);
+            color: var(--slate);
             letter-spacing: 0.1em;
         }
 
         .footer-line {
             flex: 1;
             height: 1px;
-            background: linear-gradient(90deg, var(--concrete), transparent);
+            background: linear-gradient(90deg, var(--navy-light), transparent);
             margin: 0 2rem;
         }
 
         .footer-year {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.9rem;
-            color: var(--steel);
-            letter-spacing: 0.15em;
-        }
-
-        /* ── Vertical accent lines ── */
-        .v-line {
-            position: fixed;
-            width: 1px;
-            background: var(--concrete);
-            top: 0;
-            bottom: 0;
-            opacity: 0;
-            animation: vLineReveal 1.2s ease 0.3s forwards;
-        }
-        .v-line--1 { left: 8%; animation-delay: 0.3s; }
-        .v-line--2 { right: 8%; animation-delay: 0.5s; }
-
-        @keyframes vLineReveal {
-            0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
-            100% { opacity: 0.4; transform: scaleY(1); transform-origin: top; }
+            font-family: 'Archivo', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--slate);
+            letter-spacing: 0.05em;
         }
 
         /* ── Animations ── */
@@ -368,7 +368,7 @@
         /* ── Mobile ── */
         @media (max-width: 640px) {
             .header, .main, .footer { padding: 1.5rem; }
-            .headline { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+            .headline { font-size: clamp(2rem, 8vw, 2.5rem); }
             .features { gap: 1.5rem; }
             .v-line { display: none; }
             .glow { width: 300px; height: 300px; }
@@ -379,33 +379,27 @@
 </head>
 <body>
     <!-- Ambient effects -->
-    <div class="glow glow--left"></div>
-    <div class="glow glow--right"></div>
-    <div class="road-line road-line--top"></div>
-    <div class="road-line road-line--bottom"></div>
-    <div class="road-line road-line--accent"></div>
+    <div class="glow glow--1"></div>
+    <div class="glow glow--2"></div>
+    <div class="accent-line accent-line--1"></div>
+    <div class="accent-line accent-line--2"></div>
+    <div class="accent-line accent-line--3"></div>
     <div class="v-line v-line--1"></div>
     <div class="v-line v-line--2"></div>
 
     <div class="page">
         <header class="header">
-            <a href="/" class="logo">
-                <span class="logo-dot"></span>
-                AUTODOKAS
-            </a>
+            <a href="/" class="logo">AutoDokas.lt</a>
             <span class="header-tag">LT</span>
         </header>
 
         <main class="main">
             <div class="content">
                 <p class="eyebrow">Jau greitai</p>
-                <h1 class="headline">
-                    <span>Svetainė</span>
-                    <span class="stroke-text">Kuriama</span>
-                </h1>
+                <h1 class="headline">Svetainė kuriama</h1>
                 <p class="description">
                     Kuriame patogų būdą sudaryti automobilio pirkimo–pardavimo
-                    sutartį internetu. Greitai, paprastai, pasirašymas su skaitmeniniu parašu.
+                    sutartį internetu. Greitai, paprastai, skaitmeniniu parašu.
                 </p>
                 <div class="features">
                     <div class="feature">
