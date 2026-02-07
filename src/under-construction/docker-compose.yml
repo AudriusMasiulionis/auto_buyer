@@ -1,8 +1,36 @@
 services:
+  traefik:
+    image: traefik:v3.2
+    command:
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--certificatesresolvers.letsencrypt.acme.email=contact@autodokas.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencrypt-data:/letsencrypt
+    restart: unless-stopped
+
   under-construction:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8080:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.under-construction.rule=Host(`autodokas.lt`)"
+      - "traefik.http.routers.under-construction.entrypoints=websecure"
+      - "traefik.http.routers.under-construction.tls.certresolver=letsencrypt"
+      - "traefik.http.services.under-construction.loadbalancer.server.port=80"
     restart: unless-stopped
+
+volumes:
+  letsencrypt-data:
