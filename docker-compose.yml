@@ -1,28 +1,83 @@
 services:
+  traefik:
+    image: traefik:v3.6
+    command:
+      - "--log.level=DEBUG"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.file.directory=/etc/traefik/dynamic"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--certificatesresolvers.letsencrypt.acme.email=contact@autodokas.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencrypt-data:/letsencrypt
+      - ./traefik:/etc/traefik/dynamic:ro
+      - ./.htpasswd:/etc/traefik/.htpasswd:ro
+    restart: unless-stopped
+
   autodokasapp:
     build:
       context: ./src/AutoDokas
       dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-      - "8443:443"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__AppDbContext=Data Source=/app/data/app.db
+      - EmailLabs__AppKey=${EMAILLABS_APP_KEY}
+      - EmailLabs__SecretKey=${EMAILLABS_SECRET_KEY}
+      - EmailLabs__SmtpAccount=${EMAILLABS_SMTP_ACCOUNT}
     volumes:
       - autodokas-data:/app/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.autodokasapp.rule=Host(`autodokas.lt`)"
+      - "traefik.http.routers.autodokasapp.entrypoints=websecure"
+      - "traefik.http.routers.autodokasapp.tls.certresolver=letsencrypt"
+      - "traefik.http.services.autodokasapp.loadbalancer.server.port=8080"
+    restart: unless-stopped
 
   sqlite-web:
     image: coleifer/sqlite-web
-    ports:
-      - "8082:8080"
     volumes:
       - autodokas-data:/app/data
     command: sqlite_web -H 0.0.0.0 /app/data/app.db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sqlite-web.rule=Host(`sqlite.autodokas.lt`)"
+      - "traefik.http.routers.sqlite-web.entrypoints=websecure"
+      - "traefik.http.routers.sqlite-web.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.sqlite-web.middlewares=admin-auth@file"
+      - "traefik.http.services.sqlite-web.loadbalancer.server.port=8080"
     restart: unless-stopped
-    depends_on:
-      - autodokasapp
+
+  seq:
+    image: datalust/seq:latest
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - seq-data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.seq.rule=Host(`seq.autodokas.lt`)"
+      - "traefik.http.routers.seq.entrypoints=websecure"
+      - "traefik.http.routers.seq.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.seq.middlewares=admin-auth@file"
+      - "traefik.http.services.seq.loadbalancer.server.port=80"
+    restart: unless-stopped
 
 volumes:
   autodokas-data:
+  letsencrypt-data:
+  seq-data:

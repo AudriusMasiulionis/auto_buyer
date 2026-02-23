@@ -6,6 +6,7 @@
 venv/
 # dotenv files
 .env
+.htpasswd
 
 # User-specific files
 *.rsuser

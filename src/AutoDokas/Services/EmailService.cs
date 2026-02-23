@@ -1,121 +1,69 @@
-using Amazon.SimpleEmail;
+using System.Net.Http.Headers;
+using System.Text;
+using Microsoft.Extensions.Options;
 
 namespace AutoDokas.Services;
 
-
-/// <summary>
-/// Interface for email service operations
-/// </summary>
 public interface IEmailService
 {
-    /// <summary>
-    /// Sends an email to the recipient
-    /// </summary>
-    /// <param name="from">Sender email address</param>
-    /// <param name="to">Recipient email address</param>
-    /// <param name="subject">Email subject</param>
-    /// <param name="body">Email body content</param>
-    /// <returns>A task that represents the asynchronous send operation</returns>
     Task SendEmailAsync(string from, string to, string subject, string body);
 }
 
-/// <summary>
-/// A fake implementation of the email service that logs emails rather than sending them.
-/// This is intended for development and testing purposes.
-/// </summary>
-public class FakeEmailService : IEmailService
+public class FakeEmailService(ILogger<FakeEmailService> logger) : IEmailService
 {
-    private readonly ILogger<FakeEmailService> _logger;
-
-    public FakeEmailService(ILogger<FakeEmailService> logger)
-    {
-        _logger = logger;
-    }
-
-    /// <summary>
-    /// Logs the email instead of actually sending it
-    /// </summary>
     public Task SendEmailAsync(string from, string to, string subject, string body)
     {
-        _logger.LogInformation("FAKE EMAIL SENT\n" +
-                            "From: {From}\n" +
-                            "To: {To}\n" +
-                            "Subject: {Subject}\n" +
-                            "Body: {Body}",
-                            from, to, subject, body);
-
+        logger.LogInformation("FAKE EMAIL SENT\nFrom: {From}\nTo: {To}\nSubject: {Subject}\nBody: {Body}",
+            from, to, subject, body);
         return Task.CompletedTask;
     }
 }
 
-/// <summary>
-/// Configuration options for Amazon SES email service
-/// </summary>
-public class AmazonSesOptions
+public class EmailLabsOptions
 {
-    /// <summary>
-    /// The section name in the configuration file
-    /// </summary>
-    public const string SectionName = "AWS";
-    
-    /// <summary>
-    /// AWS region name (e.g., "eu-west-1")
-    /// </summary>
-    public string Region { get; set; } = "eu-west-1";
+    public const string SectionName = "EmailLabs";
+
+    public string AppKey { get; set; } = "";
+    public string SecretKey { get; set; } = "";
+    public string SmtpAccount { get; set; } = "";
 }
 
-/// <summary>
-/// Implementation of the email service that uses Amazon SES SMTP with IAM role-based authentication
-/// </summary>
-public class AmazonSesEmailService(
-    ILogger<AmazonSesEmailService> logger) : IEmailService
+public class EmailLabsEmailService(
+    IHttpClientFactory httpClientFactory,
+    IOptions<EmailLabsOptions> options,
+    ILogger<EmailLabsEmailService> logger) : IEmailService
 {
-    /// <summary>
-    /// Sends an email using SMTP with AWS SES credentials from IAM role
-    /// </summary>
+    private const string ApiUrl = "https://api.emaillabs.net.pl/api/new_sendmail";
+
     public async Task SendEmailAsync(string from, string to, string subject, string body)
     {
-        try
+        var opts = options.Value;
+
+        var formData = new Dictionary<string, string>
         {
-            using var client = new AmazonSimpleEmailServiceClient();
+            ["smtp_account"] = opts.SmtpAccount,
+            ["from"] = from,
+            ["subject"] = subject,
+            ["html"] = body,
+            [$"to[{to}]"] = ""
+        };
 
-            // Create the email content
-            var request = new Amazon.SimpleEmail.Model.SendEmailRequest
-            {
-                Source = from,
-                Destination = new Amazon.SimpleEmail.Model.Destination
-                {
-                    ToAddresses = [to]
-                },
-                Message = new Amazon.SimpleEmail.Model.Message
-                {
-                    Subject = new Amazon.SimpleEmail.Model.Content(subject),
-                    Body = new Amazon.SimpleEmail.Model.Body
-                    {
-                        Html = new Amazon.SimpleEmail.Model.Content
-                        {
-                            Charset = "UTF-8",
-                            Data = body
-                        }
-                    }
-                },
-                ReturnPath = from
-            };
+        using var client = httpClientFactory.CreateClient();
+        var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{opts.AppKey}:{opts.SecretKey}"));
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
 
-            // Send the email
-            var response = await client.SendEmailAsync(request);
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-            {
-                logger.LogInformation("Email sent successfully to {Recipient}", to);
-            }
-            else
-            {
-                logger.LogWarning("Failed to send email to {Recipient}. Status code: {StatusCode}", to, response.HttpStatusCode);
-            }
+        var content = new FormUrlEncodedContent(formData);
+        var response = await client.PostAsync(ApiUrl, content);
+
+        if (response.IsSuccessStatusCode)
+        {
+            logger.LogInformation("Email sent successfully to {Recipient}", to);
         }
-        catch (Exception ex)
+        else
         {
-            logger.LogError(ex, "Failed to send email to {Recipient}", to);
+            var responseBody = await response.Content.ReadAsStringAsync();
+            logger.LogError("Failed to send email to {Recipient}. Status: {StatusCode}, Response: {Response}",
+                to, response.StatusCode, responseBody);
         }
     }
 }

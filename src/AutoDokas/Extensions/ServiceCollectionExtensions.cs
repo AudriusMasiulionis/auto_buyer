@@ -13,19 +13,19 @@ public static class ServiceCollectionExtensions
     /// <param name="services">The service collection</param>
     /// <param name="environment">The hosting environment</param>
     /// <returns>The service collection for chaining</returns>
-    public static IServiceCollection AddEmailServices(this IServiceCollection services, IHostEnvironment environment)
+    public static IServiceCollection AddEmailServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<RazorEmailTemplateFactory>();
         services.AddScoped<EmailNotificationService>();
+        services.Configure<EmailLabsOptions>(configuration.GetSection(EmailLabsOptions.SectionName));
 
-        if (environment.IsDevelopment())
-        {
-            // Use Amazon SES in production environment
-            services.AddScoped<IEmailService, AmazonSesEmailService>();
-    }
-        else
+        if (configuration.GetValue<bool>("Email:UseFake"))
         {
             services.AddScoped<IEmailService, FakeEmailService>();
+        }
+        else
+        {
+            services.AddScoped<IEmailService, EmailLabsEmailService>();
         }
 
         return services;

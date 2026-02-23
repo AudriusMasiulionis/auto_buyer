@@ -5,6 +5,7 @@ using AutoDokas.Resources;
 using AutoDokas.Services;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 
 namespace AutoDokas.Components.Pages.Contract;
 
@@ -13,6 +14,7 @@ public partial class Contract : ComponentBase
     [Inject] private AppDbContext Context { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
     [Inject] private EmailNotificationService EmailNotificationService { get; set; } = null!;
+    [Inject] private ILogger<Contract> Logger { get; set; } = null!;
 
     [Inject] private ICsvReader CsvReader { get; set; } = null!;
 
@@ -180,7 +182,7 @@ public partial class Contract : ComponentBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error saving vehicle data: {ex.Message}");
+            Logger.LogError(ex, "Error saving vehicle data");
         }
     }
 
@@ -205,7 +207,7 @@ public partial class Contract : ComponentBase
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error sending buyer notification: {ex.Message}");
+                Logger.LogError(ex, "Error sending buyer notification");
             }
             finally
             {
@@ -235,7 +237,7 @@ public partial class Contract : ComponentBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error saving buyer info: {ex.Message}");
+            Logger.LogError(ex, "Error saving buyer info");
         }
         finally
         {
@@ -269,7 +271,7 @@ public partial class Contract : ComponentBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            Logger.LogError(ex, "Error moving to next section");
         }
         finally
         {

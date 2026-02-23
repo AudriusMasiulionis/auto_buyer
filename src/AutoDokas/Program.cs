@@ -7,8 +7,12 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using PuppeteerSharp;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -50,9 +54,13 @@ builder.Services.AddScoped<HtmlRenderer>();
 builder.Services.AddScoped<PdfService>();
 
 // Register the appropriate email service based on the environment
-builder.Services.AddEmailServices(builder.Environment);
+builder.Services.AddEmailServices(builder.Configuration);
 
+builder.Services.AddHttpClient();
 builder.Services.AddMemoryCache();
+
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<AppDbContext>();
 
 var app = builder.Build();
 
@@ -77,11 +85,15 @@ await new BrowserFetcher().DownloadAsync();
 // Initialize static data in memory
 app.InitializeStaticData();
 
+app.UseSerilogRequestLogging();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRequestLocalization();
 app.UseAntiforgery();
+
+app.MapHealthChecks("/health");
 
 // Map contract API endpoints from the ContractEndpoints class
 app.MapContractEndpoints();

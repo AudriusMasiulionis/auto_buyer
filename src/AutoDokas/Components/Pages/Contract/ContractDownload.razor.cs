@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using AutoDokas.Data;
 using AutoDokas.Data.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
 namespace AutoDokas.Components.Pages.Contract;
@@ -11,6 +12,7 @@ public partial class ContractDownload : ComponentBase
     [Parameter] public Guid ContractId { get; set; }
     [Inject] private AppDbContext Context { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
+    [Inject] private ILogger<ContractDownload> Logger { get; set; } = null!;
     
     private VehicleContract? contract;
     private bool loading = true;
@@ -33,7 +35,7 @@ public partial class ContractDownload : ComponentBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading contract: {ex.Message}");
+            Logger.LogError(ex, "Error loading contract {ContractId}", ContractId);
         }
         finally
         {

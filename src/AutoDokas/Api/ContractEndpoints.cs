@@ -22,15 +22,19 @@ public static class ContractEndpoints
     /// Handles the contract download request
     /// </summary>
     private static async Task<IResult> DownloadContractAsync(
-        Guid id, 
-        string? email, 
-        AppDbContext context, 
-        PdfService pdfService)
+        Guid id,
+        string? email,
+        AppDbContext context,
+        PdfService pdfService,
+        ILoggerFactory loggerFactory)
     {
+        var logger = loggerFactory.CreateLogger("AutoDokas.Api.ContractEndpoints");
+
         // Find the contract
         var contract = await context.VehicleContracts.FindAsync(id);
         if (contract == null)
         {
+            logger.LogWarning("Contract {ContractId} not found", id);
             return Results.NotFound("Contract not found");
         }
 
@@ -38,17 +42,20 @@ public static class ContractEndpoints
         if (!string.IsNullOrEmpty(email))
         {
             // Check if the email matches either seller or buyer
-            bool isAuthorized = (contract.SellerInfo?.Email == email) || 
+            bool isAuthorized = (contract.SellerInfo?.Email == email) ||
                                 (contract.BuyerInfo?.Email == email);
-            
+
             if (!isAuthorized)
             {
+                logger.LogWarning("Unauthorized download attempt for contract {ContractId}", id);
                 return Results.Unauthorized();
             }
         }
 
         // Generate the PDF
         byte[] pdfBytes = await pdfService.GenerateContractPdfAsync(contract);
+
+        logger.LogInformation("Contract {ContractId} downloaded successfully", id);
 
         // Return the PDF as a downloadable file
         string fileName = $"pirkimo-pardavimo-sutartis-{contract.VehicleInfo?.RegistrationNumber}.pdf";

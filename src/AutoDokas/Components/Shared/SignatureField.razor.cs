@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using System;
 
@@ -7,6 +8,7 @@ namespace AutoDokas.Components.Shared;
 public partial class SignatureField : ComponentBase
 {
     [Inject] private IJSRuntime JS { get; set; } = null!;
+    [Inject] private ILogger<SignatureField> Logger { get; set; } = null!;
 
     [Parameter] public string Title { get; set; } = "Signature";
     [Parameter] public byte[]? SignatureData { get; set; }
@@ -30,7 +32,7 @@ public partial class SignatureField : ComponentBase
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error initializing canvas: {ex.Message}");
+                Logger.LogWarning(ex, "Error initializing signature canvas");
             }
         }
 
@@ -58,7 +60,7 @@ public partial class SignatureField : ComponentBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error initializing canvas: {ex.Message}");
+            Logger.LogWarning(ex, "Error initializing signature canvas");
         }
     }
 
@@ -70,7 +72,7 @@ public partial class SignatureField : ComponentBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error clearing canvas: {ex.Message}");
+            Logger.LogWarning(ex, "Error clearing signature canvas");
         }
     }
 
@@ -94,7 +96,7 @@ public partial class SignatureField : ComponentBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error saving signature: {ex.Message}");
+            Logger.LogWarning(ex, "Error saving signature");
         }
     }
 }

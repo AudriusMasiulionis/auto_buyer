@@ -1,0 +1,6 @@
+http:
+  middlewares:
+    admin-auth:
+      basicAuth:
+        usersFile: "/etc/traefik/.htpasswd"
+        realm: "AutoDokas Admin"
