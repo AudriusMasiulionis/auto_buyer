@@ -1,3 +1,4 @@
+@inject IConfiguration Configuration
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,10 +22,10 @@
             'analytics_storage': 'denied'
         });
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=@Configuration["GoogleAnalytics:MeasurementId"]"></script>
     <script>
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
+        gtag('config', '@Configuration["GoogleAnalytics:MeasurementId"]');
     </script>
     <ImportMap/>
     <link rel="icon" type="image/png" href="favicon.png"/>
