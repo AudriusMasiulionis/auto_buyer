@@ -23,25 +23,13 @@ namespace AutoDokas.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("BuyerInfoStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BuyerMethodStatus")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime?>("AnonymizedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("FinalStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PaymentStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SellerStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("VehicleStatus")
+                    b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

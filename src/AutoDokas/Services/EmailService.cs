@@ -6,15 +6,16 @@ namespace AutoDokas.Services;
 
 public interface IEmailService
 {
-    Task SendEmailAsync(string from, string to, string subject, string body);
+    Task SendEmailAsync(string from, string to, string subject, string html, Dictionary<string, string>? vars = null);
 }
 
 public class FakeEmailService(ILogger<FakeEmailService> logger) : IEmailService
 {
-    public Task SendEmailAsync(string from, string to, string subject, string body)
+    public Task SendEmailAsync(string from, string to, string subject, string html, Dictionary<string, string>? vars = null)
     {
-        logger.LogInformation("FAKE EMAIL SENT\nFrom: {From}\nTo: {To}\nSubject: {Subject}\nBody: {Body}",
-            from, to, subject, body);
+        var varsLog = vars != null ? string.Join(", ", vars.Select(kv => $"{kv.Key}={kv.Value}")) : "(none)";
+        logger.LogInformation("FAKE EMAIL SENT\nFrom: {From}\nTo: {To}\nSubject: {Subject}\nVars: {Vars}\nHtml: {Html}",
+            from, to, subject, varsLog, html);
         return Task.CompletedTask;
     }
 }
@@ -33,9 +34,9 @@ public class EmailLabsEmailService(
     IOptions<EmailLabsOptions> options,
     ILogger<EmailLabsEmailService> logger) : IEmailService
 {
-    private const string ApiUrl = "https://api.emaillabs.net.pl/api/new_sendmail";
+    private const string ApiUrl = "https://api.emaillabs.net.pl/api/sendmail_templates";
 
-    public async Task SendEmailAsync(string from, string to, string subject, string body)
+    public async Task SendEmailAsync(string from, string to, string subject, string html, Dictionary<string, string>? vars = null)
     {
         var opts = options.Value;
 
@@ -44,9 +45,17 @@ public class EmailLabsEmailService(
             ["smtp_account"] = opts.SmtpAccount,
             ["from"] = from,
             ["subject"] = subject,
-            ["html"] = body,
+            ["html"] = html,
             [$"to[{to}]"] = ""
         };
+
+        if (vars != null)
+        {
+            foreach (var (key, value) in vars)
+            {
+                formData[$"to[{to}][vars][{key}]"] = value;
+            }
+        }
 
         using var client = httpClientFactory.CreateClient();
         var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{opts.AppKey}:{opts.SecretKey}"));

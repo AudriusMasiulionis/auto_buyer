@@ -59,6 +59,8 @@ builder.Services.AddEmailServices(builder.Configuration);
 builder.Services.AddHttpClient();
 builder.Services.AddMemoryCache();
 
+builder.Services.AddHostedService<DataRetentionService>();
+
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<AppDbContext>();
 
@@ -86,6 +88,14 @@ await new BrowserFetcher().DownloadAsync();
 app.InitializeStaticData();
 
 app.UseSerilogRequestLogging();
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    context.Response.Headers["X-Frame-Options"] = "DENY";
+    context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+    await next();
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -15,7 +15,6 @@ public static class ServiceCollectionExtensions
     /// <returns>The service collection for chaining</returns>
     public static IServiceCollection AddEmailServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<RazorEmailTemplateFactory>();
         services.AddScoped<EmailNotificationService>();
         services.Configure<EmailLabsOptions>(configuration.GetSection(EmailLabsOptions.SectionName));
 

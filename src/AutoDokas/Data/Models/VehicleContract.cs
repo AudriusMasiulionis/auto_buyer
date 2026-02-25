@@ -12,19 +12,17 @@ public class VehicleContract
     public Payment? PaymentInfo { get; set; }
     public Country? Origin { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? AnonymizedAt { get; set; }
 
-    // Form section progress
-    public FormSectionStatus VehicleStatus { get; set; }
-    public FormSectionStatus PaymentStatus { get; set; }
-    public FormSectionStatus SellerStatus { get; set; }
-    public FormSectionStatus BuyerMethodStatus { get; set; }
-    public FormSectionStatus BuyerInfoStatus { get; set; }
-    public FormSectionStatus FinalStatus { get; set; }
+    public ContractStatus Status { get; set; }
 
-    public enum FormSectionStatus
+    public enum ContractStatus
     {
-        NotStarted,
-        InProgress,
+        VehicleEntry,
+        PaymentEntry,
+        SellerEntry,
+        BuyerMethodEntry,
+        BuyerInfoEntry,
         Completed
     }
 

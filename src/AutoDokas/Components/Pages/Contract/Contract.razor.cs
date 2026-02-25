@@ -51,7 +51,7 @@ public partial class Contract : ComponentBase
             {
                 contract = foundContract;
 
-                if (contract.FinalStatus == VehicleContract.FormSectionStatus.Completed)
+                if (contract.Status == VehicleContract.ContractStatus.Completed)
                 {
                     _isContractCompleted = true;
                     _vehicleState = SectionState.ReadOnly;
@@ -91,28 +91,21 @@ public partial class Contract : ComponentBase
 
     private void RestoreSectionStates()
     {
-        _vehicleState = MapStatus(contract.VehicleStatus);
-        _paymentState = MapStatus(contract.PaymentStatus);
-        _sellerState = MapStatus(contract.SellerStatus);
-        _buyerMethodState = MapStatus(contract.BuyerMethodStatus);
-        _buyerInfoState = MapStatus(contract.BuyerInfoStatus);
-        _currentSection = DetermineCurrentSection();
+        var status = (int)contract.Status;
+        _vehicleState = SectionStateFor(FormSection.Vehicle, status);
+        _paymentState = SectionStateFor(FormSection.Payment, status);
+        _sellerState = SectionStateFor(FormSection.Seller, status);
+        _buyerMethodState = SectionStateFor(FormSection.BuyerMethod, status);
+        _buyerInfoState = SectionStateFor(FormSection.BuyerInfo, status);
+        _currentSection = (FormSection)(status + 1);
     }
 
-    private static SectionState MapStatus(VehicleContract.FormSectionStatus status) => status switch
+    private static SectionState SectionStateFor(FormSection section, int status)
     {
-        VehicleContract.FormSectionStatus.Completed => SectionState.Completed,
-        VehicleContract.FormSectionStatus.InProgress => SectionState.Active,
-        _ => SectionState.Disabled
-    };
-
-    private FormSection DetermineCurrentSection()
-    {
-        if (contract.VehicleStatus != VehicleContract.FormSectionStatus.Completed) return FormSection.Vehicle;
-        if (contract.PaymentStatus != VehicleContract.FormSectionStatus.Completed) return FormSection.Payment;
-        if (contract.SellerStatus != VehicleContract.FormSectionStatus.Completed) return FormSection.Seller;
-        if (contract.BuyerMethodStatus != VehicleContract.FormSectionStatus.Completed) return FormSection.BuyerMethod;
-        return FormSection.BuyerInfo;
+        var sectionIndex = (int)section - 1;
+        if (sectionIndex < status) return SectionState.Completed;
+        if (sectionIndex == status) return SectionState.Active;
+        return SectionState.Disabled;
     }
 
     private void InitializeModel()
@@ -151,11 +144,10 @@ public partial class Contract : ComponentBase
         try
         {
             Model.ApplyToContract(contract);
-            UpdateSectionStatus(FormSection.Vehicle, VehicleContract.FormSectionStatus.Completed);
 
             if (contract.Id == Guid.Empty)
             {
-                UpdateSectionStatus(FormSection.Payment, VehicleContract.FormSectionStatus.InProgress);
+                contract.Status = VehicleContract.ContractStatus.PaymentEntry;
                 await Context.AddAsync(contract);
                 await Context.SaveChangesAsync();
 
@@ -164,6 +156,8 @@ public partial class Contract : ComponentBase
             }
             else
             {
+                if (!_returnToSection.HasValue)
+                    contract.Status = VehicleContract.ContractStatus.PaymentEntry;
                 await SaveProgress();
             }
 
@@ -198,7 +192,7 @@ public partial class Contract : ComponentBase
             try
             {
                 _loading = true;
-                UpdateSectionStatus(FormSection.BuyerMethod, VehicleContract.FormSectionStatus.Completed);
+                contract.Status = VehicleContract.ContractStatus.BuyerInfoEntry;
                 await SaveProgress();
 
                 await EmailNotificationService.SendBuyerInviteAsync(Model.BuyerEmail, contract);
@@ -224,8 +218,7 @@ public partial class Contract : ComponentBase
         try
         {
             _loading = true;
-            UpdateSectionStatus(FormSection.BuyerInfo, VehicleContract.FormSectionStatus.Completed);
-            contract.FinalStatus = VehicleContract.FormSectionStatus.Completed;
+            contract.Status = VehicleContract.ContractStatus.Completed;
             await SaveProgress();
 
             if (!string.IsNullOrWhiteSpace(contract.SellerInfo?.Email))
@@ -249,8 +242,6 @@ public partial class Contract : ComponentBase
     {
         try
         {
-            // Mark current section as completed
-            UpdateSectionStatus(_currentSection, VehicleContract.FormSectionStatus.Completed);
             SetSectionState(_currentSection, SectionState.Completed);
 
             if (_returnToSection.HasValue)
@@ -263,7 +254,7 @@ public partial class Contract : ComponentBase
             else if (_currentSection < FormSection.BuyerInfo)
             {
                 // Normal forward flow
-                UpdateSectionStatus(_currentSection + 1, VehicleContract.FormSectionStatus.InProgress);
+                contract.Status = (VehicleContract.ContractStatus)((int)_currentSection);
                 await SaveProgress();
                 _currentSection++;
                 SetSectionState(_currentSection, SectionState.Active);
@@ -306,28 +297,6 @@ public partial class Contract : ComponentBase
         Model.ApplyToContract(contract);
         Context.VehicleContracts.Update(contract);
         await Context.SaveChangesAsync();
-    }
-
-    private void UpdateSectionStatus(FormSection section, VehicleContract.FormSectionStatus status)
-    {
-        switch (section)
-        {
-            case FormSection.Vehicle:
-                contract.VehicleStatus = status;
-                break;
-            case FormSection.Payment:
-                contract.PaymentStatus = status;
-                break;
-            case FormSection.Seller:
-                contract.SellerStatus = status;
-                break;
-            case FormSection.BuyerMethod:
-                contract.BuyerMethodStatus = status;
-                break;
-            case FormSection.BuyerInfo:
-                contract.BuyerInfoStatus = status;
-                break;
-        }
     }
 
     private string FormatBoolean(bool value) => value ? Text.Yes : Text.No;

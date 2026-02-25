@@ -178,7 +178,7 @@ h1:focus {
 }
 
 .min-vh-hero {
-    min-height: calc(100vh - 56px);
+    min-height: 60vh;
 }
 
 .hero-bg {

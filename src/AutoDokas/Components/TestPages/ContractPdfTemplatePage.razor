@@ -1,8 +1,10 @@
 @page "/contract-test"
 @using AutoDokas.Data.Models
 @using AutoDokas.Components.Pdf
+@inject IWebHostEnvironment Env
 @layout AutoDokas.Components.TestPages.EmptyLayout
 
+@if (!Env.IsDevelopment()) { return; }
 
 <ContractPdfTemplate Contract=@contract />
 

@@ -33,11 +33,13 @@ namespace AutoDokas.Data.Migrations
                     VehicleInfo_Sdk = table.Column<string>(type: "TEXT", nullable: true),
                     VehicleInfo_Make = table.Column<string>(type: "TEXT", nullable: true),
                     VehicleInfo_RegistrationNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    VehicleInfo_RegistrationCertificate = table.Column<string>(type: "TEXT", nullable: true),
                     VehicleInfo_Millage = table.Column<int>(type: "INTEGER", nullable: true),
                     VehicleInfo_IdentificationNumber = table.Column<string>(type: "TEXT", nullable: true),
                     VehicleInfo_IsInspected = table.Column<bool>(type: "INTEGER", nullable: true),
                     VehicleInfo_HasBeenDamaged = table.Column<bool>(type: "INTEGER", nullable: true),
-                    VehicleInfo_PriorDamagesKnown = table.Column<bool>(type: "INTEGER", nullable: true),
+                    VehicleInfo_DamagedDuringOwnership = table.Column<bool>(type: "INTEGER", nullable: true),
+                    VehicleInfo_DamageIncidentsKnown = table.Column<bool>(type: "INTEGER", nullable: true),
                     VehicleInfo_Defects = table.Column<string>(type: "TEXT", nullable: true),
                     VehicleInfo_AdditionalInformation = table.Column<string>(type: "TEXT", nullable: true),
                     PaymentInfo_Price = table.Column<decimal>(type: "TEXT", nullable: true),
@@ -49,12 +51,7 @@ namespace AutoDokas.Data.Migrations
                     Origin_Name = table.Column<string>(type: "TEXT", nullable: true),
                     Origin_Code = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    VehicleStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    PaymentStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    SellerStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    BuyerMethodStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    BuyerInfoStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    FinalStatus = table.Column<int>(type: "INTEGER", nullable: false)
+                    Status = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

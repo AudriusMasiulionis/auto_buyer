@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoDokas.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260204144912_AddVehicleRegistrationCertificate")]
-    partial class AddVehicleRegistrationCertificate
+    [Migration("20260224190650_AddAnonymizedAt")]
+    partial class AddAnonymizedAt
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,25 +26,13 @@ namespace AutoDokas.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("BuyerInfoStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BuyerMethodStatus")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime?>("AnonymizedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("FinalStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PaymentStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SellerStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("VehicleStatus")
+                    b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -114,6 +102,12 @@ namespace AutoDokas.Data.Migrations
                             b1.Property<string>("AdditionalInformation")
                                 .HasColumnType("TEXT");
 
+                            b1.Property<bool>("DamageIncidentsKnown")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<bool>("DamagedDuringOwnership")
+                                .HasColumnType("INTEGER");
+
                             b1.Property<string>("Defects")
                                 .IsRequired()
                                 .HasColumnType("TEXT");
@@ -133,9 +127,6 @@ namespace AutoDokas.Data.Migrations
                                 .HasColumnType("TEXT");
 
                             b1.Property<int>("Millage")
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<bool>("PriorDamagesKnown")
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("RegistrationCertificate")
