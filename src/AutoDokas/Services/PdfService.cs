@@ -83,7 +83,8 @@ public class PdfService
             // Initialize Puppeteer browser instance
             await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
             {
-                Headless = true
+                Headless = true,
+                Args = ["--no-sandbox", "--disable-setuid-sandbox"]
             });
 
             // Create a new page
