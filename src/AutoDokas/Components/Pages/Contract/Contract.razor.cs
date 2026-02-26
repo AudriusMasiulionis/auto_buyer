@@ -221,12 +221,30 @@ public partial class Contract : ComponentBase
             contract.Status = VehicleContract.ContractStatus.Completed;
             await SaveProgress();
 
-            if (!string.IsNullOrWhiteSpace(contract.SellerInfo?.Email))
-                await EmailNotificationService.SendContractNotificationAsync(contract.SellerInfo.Email, contract);
-            if (!string.IsNullOrWhiteSpace(contract.BuyerInfo?.Email))
-                await EmailNotificationService.SendContractNotificationAsync(contract.BuyerInfo.Email, contract);
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(contract.SellerInfo?.Email))
+                    await EmailNotificationService.SendContractNotificationAsync(contract.SellerInfo.Email, contract);
+            }
+            catch (Exception emailEx)
+            {
+                Logger.LogError(emailEx, "Failed to send completion email to seller");
+            }
 
-            Navigation.NavigateTo("/ContractCompleted");
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(contract.BuyerInfo?.Email))
+                    await EmailNotificationService.SendContractNotificationAsync(contract.BuyerInfo.Email, contract);
+            }
+            catch (Exception emailEx)
+            {
+                Logger.LogError(emailEx, "Failed to send completion email to buyer");
+            }
+
+            if (_isBuyerMode)
+                Navigation.NavigateTo("/ContractCompleted");
+            else
+                Navigation.NavigateTo($"/contract/download/{contract.Id}");
         }
         catch (Exception ex)
         {
