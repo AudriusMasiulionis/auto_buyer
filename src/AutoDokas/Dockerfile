@@ -48,6 +48,5 @@ COPY --from=publish /app/publish .
 
 # Set environment variables
 ENV ASPNETCORE_URLS=http://+:8080
-ENV PUPPETEER_EXECUTABLE_PATH=/root/.cache/puppeteer/chrome/linux-*/chrome-linux64/chrome
 
 ENTRYPOINT ["dotnet", "AutoDokas.dll"]
