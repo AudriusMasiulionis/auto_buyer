@@ -48,8 +48,8 @@ public partial class ContractDownload : ComponentBase
         showEmailError = false;
         
         // Check if the email matches the seller or buyer email
-        if (contract?.SellerInfo?.Email == verificationModel.Email || 
-            contract?.BuyerInfo?.Email == verificationModel.Email)
+        if (string.Equals(contract?.SellerInfo?.Email, verificationModel.Email, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(contract?.BuyerInfo?.Email, verificationModel.Email, StringComparison.OrdinalIgnoreCase))
         {
             isVerified = true;
         }

@@ -42,8 +42,8 @@ public static class ContractEndpoints
         if (!string.IsNullOrEmpty(email))
         {
             // Check if the email matches either seller or buyer
-            bool isAuthorized = (contract.SellerInfo?.Email == email) ||
-                                (contract.BuyerInfo?.Email == email);
+            bool isAuthorized = string.Equals(contract.SellerInfo?.Email, email, StringComparison.OrdinalIgnoreCase) ||
+                                string.Equals(contract.BuyerInfo?.Email, email, StringComparison.OrdinalIgnoreCase);
 
             if (!isAuthorized)
             {
