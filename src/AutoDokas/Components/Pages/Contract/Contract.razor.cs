@@ -5,18 +5,24 @@ using AutoDokas.Resources;
 using AutoDokas.Services;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace AutoDokas.Components.Pages.Contract;
 
+public record DraftEntry(Guid Id, string? RegNumber, string? Make, DateTime CreatedAt);
+
 public partial class Contract : ComponentBase
 {
+    private const string DraftsStorageKey = "autodokas_drafts";
+
     [Inject] private AppDbContext Context { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
     [Inject] private EmailNotificationService EmailNotificationService { get; set; } = null!;
     [Inject] private ILogger<Contract> Logger { get; set; } = null!;
-
     [Inject] private ICsvReader CsvReader { get; set; } = null!;
+    [Inject] private ProtectedLocalStorage LocalStorage { get; set; } = null!;
 
     [Parameter] public Guid? ContractId { get; set; }
 
@@ -31,6 +37,8 @@ public partial class Contract : ComponentBase
     private SectionState _paymentState = SectionState.Disabled;
     private SectionState _buyerMethodState = SectionState.Disabled;
     private SectionState _buyerInfoState = SectionState.Disabled;
+
+    private List<DraftEntry> _drafts = [];
 
     private List<Country> Countries { get; set; } = [];
 
@@ -123,6 +131,78 @@ public partial class Contract : ComponentBase
         }
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !ContractId.HasValue && !_isBuyerMode)
+        {
+            await LoadDrafts();
+            StateHasChanged();
+        }
+    }
+
+    private async Task LoadDrafts()
+    {
+        try
+        {
+            var result = await LocalStorage.GetAsync<List<DraftEntry>>(DraftsStorageKey);
+            var drafts = result.Value ?? [];
+
+            if (drafts.Count == 0) return;
+
+            var draftIds = drafts.Select(d => d.Id).ToList();
+            var activeContracts = await Context.VehicleContracts
+                .AsNoTracking()
+                .Where(c => draftIds.Contains(c.Id) && c.Status != VehicleContract.ContractStatus.Completed)
+                .Select(c => new { c.Id, c.VehicleInfo, c.CreatedAt })
+                .ToListAsync();
+
+            var activeIds = activeContracts.Select(c => c.Id).ToHashSet();
+            var cleaned = activeContracts
+                .Select(c => new DraftEntry(c.Id, c.VehicleInfo?.RegistrationNumber, c.VehicleInfo?.Make, c.CreatedAt))
+                .ToList();
+
+            if (cleaned.Count != drafts.Count)
+                await LocalStorage.SetAsync(DraftsStorageKey, cleaned);
+
+            _drafts = cleaned;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error loading drafts");
+        }
+    }
+
+    private async Task SaveDraft(Guid id, string? regNumber, string? make, DateTime createdAt)
+    {
+        try
+        {
+            var result = await LocalStorage.GetAsync<List<DraftEntry>>(DraftsStorageKey);
+            var drafts = result.Value ?? [];
+            drafts.RemoveAll(d => d.Id == id);
+            drafts.Insert(0, new DraftEntry(id, regNumber, make, createdAt));
+            await LocalStorage.SetAsync(DraftsStorageKey, drafts);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error saving draft");
+        }
+    }
+
+    private async Task RemoveDraft(Guid id)
+    {
+        try
+        {
+            var result = await LocalStorage.GetAsync<List<DraftEntry>>(DraftsStorageKey);
+            var drafts = result.Value ?? [];
+            drafts.RemoveAll(d => d.Id == id);
+            await LocalStorage.SetAsync(DraftsStorageKey, drafts);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error removing draft");
+        }
+    }
+
     private void EditSection(FormSection section)
     {
         if (_isContractCompleted) return;
@@ -150,6 +230,8 @@ public partial class Contract : ComponentBase
                 contract.Status = VehicleContract.ContractStatus.PaymentEntry;
                 await Context.AddAsync(contract);
                 await Context.SaveChangesAsync();
+
+                await SaveDraft(contract.Id, contract.VehicleInfo?.RegistrationNumber, contract.VehicleInfo?.Make, contract.CreatedAt);
 
                 ContractId = contract.Id;
                 Navigation.NavigateTo($"/contract/{contract.Id}", replace: true);
@@ -220,6 +302,7 @@ public partial class Contract : ComponentBase
             _loading = true;
             contract.Status = VehicleContract.ContractStatus.Completed;
             await SaveProgress();
+            await RemoveDraft(contract.Id);
 
             try
             {

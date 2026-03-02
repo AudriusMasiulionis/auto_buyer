@@ -292,6 +292,15 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tęsti.
+        /// </summary>
+        public static string ContinueDraft {
+            get {
+                return ResourceManager.GetString("ContinueDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sutarties sudarymo data.
         /// </summary>
         public static string ContractCreationDate {
@@ -405,6 +414,15 @@ namespace AutoDokas.Resources {
         public static string Defects {
             get {
                 return ResourceManager.GetString("Defects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sukurta.
+        /// </summary>
+        public static string DraftCreatedAt {
+            get {
+                return ResourceManager.GetString("DraftCreatedAt", resourceCulture);
             }
         }
         
@@ -900,6 +918,15 @@ namespace AutoDokas.Resources {
         public static string PrivacyPolicy {
             get {
                 return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nebaigtos sutartys.
+        /// </summary>
+        public static string RecentDrafts {
+            get {
+                return ResourceManager.GetString("RecentDrafts", resourceCulture);
             }
         }
         

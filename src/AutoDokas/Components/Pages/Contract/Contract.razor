@@ -22,6 +22,26 @@
         </div>
     }
 
+    @if (_drafts.Count > 0)
+    {
+        <div class="mb-4">
+            <h5 class="mb-3">@Text.RecentDrafts</h5>
+            @foreach (var draft in _drafts)
+            {
+                <div class="card mb-2">
+                    <div class="card-body d-flex justify-content-between align-items-center py-2">
+                        <div>
+                            <span class="fw-semibold">@(draft.RegNumber ?? "-")</span>
+                            <span class="text-muted ms-2">@(draft.Make ?? "-")</span>
+                            <small class="text-muted ms-3">@draft.CreatedAt.ToString("yyyy-MM-dd")</small>
+                        </div>
+                        <a href="/contract/@draft.Id" class="btn btn-sm btn-outline-primary">@Text.ContinueDraft</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
     <VehicleSection
         @bind-State="_vehicleState"
         Model="Model"

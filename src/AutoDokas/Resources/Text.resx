@@ -629,4 +629,16 @@
     <value>Ši sutartis yra užbaigta ir jos redaguoti negalima. &lt;a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/contract/download/{0}"&gt;Atsisiųsti sutartį&lt;/a&gt;</value>
     <comment/>
   </data>
+  <data name="RecentDrafts" xml:space="preserve">
+    <value>Nebaigtos sutartys</value>
+    <comment/>
+  </data>
+  <data name="ContinueDraft" xml:space="preserve">
+    <value>Tęsti</value>
+    <comment/>
+  </data>
+  <data name="DraftCreatedAt" xml:space="preserve">
+    <value>Sukurta</value>
+    <comment/>
+  </data>
 </root>
