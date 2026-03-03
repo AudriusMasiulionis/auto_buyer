@@ -28,10 +28,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. The HTML document declares `lang="lt"` (not "en")
   4. Contract form pages, legal pages, and app-internal pages serve a noindex meta tag
   5. Web manifest has complete name, short_name, and description fields
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD
+- [ ] 01-01-PLAN.md — Fix robots.txt, sitemap.xml, site.webmanifest, and HTML lang attribute
+- [ ] 01-02-PLAN.md — Add noindex meta tags to 9 non-content pages
 
 ### Phase 2: Homepage SEO
 **Goal**: The homepage is fully optimized for Lithuanian vehicle sale contract search queries
@@ -69,6 +70,6 @@ Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Crawl Infrastructure | 0/? | Not started | - |
+| 1. Crawl Infrastructure | 0/2 | Not started | - |
 | 2. Homepage SEO | 0/? | Not started | - |
 | 3. Validation and Submission | 0/? | Not started | - |
