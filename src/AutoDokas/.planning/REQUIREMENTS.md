@@ -24,10 +24,10 @@ Requirements for the SEO optimization release. Each maps to roadmap phases.
 
 ### Structured Data
 
-- [ ] **SCHEMA-01**: Organization JSON-LD schema present on homepage
-- [ ] **SCHEMA-02**: WebSite JSON-LD schema present on homepage
-- [ ] **SCHEMA-03**: WebPage JSON-LD schema present on homepage
-- [ ] **SCHEMA-04**: Service JSON-LD schema describing the contract generation tool
+- [x] **SCHEMA-01**: Organization JSON-LD schema present on homepage
+- [x] **SCHEMA-02**: WebSite JSON-LD schema present on homepage
+- [x] **SCHEMA-03**: WebPage JSON-LD schema present on homepage
+- [x] **SCHEMA-04**: Service JSON-LD schema describing the contract generation tool
 
 ### Validation
 
@@ -79,10 +79,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | META-02 | Phase 2 | Complete |
 | META-03 | Phase 2 | Complete |
 | META-04 | Phase 2 | Complete |
-| SCHEMA-01 | Phase 2 | Pending |
-| SCHEMA-02 | Phase 2 | Pending |
-| SCHEMA-03 | Phase 2 | Pending |
-| SCHEMA-04 | Phase 2 | Pending |
+| SCHEMA-01 | Phase 2 | Complete |
+| SCHEMA-02 | Phase 2 | Complete |
+| SCHEMA-03 | Phase 2 | Complete |
+| SCHEMA-04 | Phase 2 | Complete |
 | VALID-01 | Phase 3 | Pending |
 | VALID-02 | Phase 3 | Pending |
 | VALID-03 | Phase 3 | Pending |
