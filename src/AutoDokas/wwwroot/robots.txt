@@ -1,6 +1,11 @@
 User-agent: *
-Allow: /$
-Allow: /sitemap.xml
-Disallow: /
+Allow: /
+
+Disallow: /contract
+Disallow: /buyer/
+Disallow: /BuyerNotificationSent
+Disallow: /ContractCompleted
+Disallow: /email-test
+Disallow: /contract-test
 
 Sitemap: https://autodokas.lt/sitemap.xml
