@@ -49,6 +49,25 @@ Plans:
 - [x] 02-01-PLAN.md — Add keyword-optimized title, meta description, canonical URL, and Open Graph tags
 - [x] 02-02-PLAN.md — Add JSON-LD structured data (Organization, WebSite, WebPage, Service) via Schema.NET
 
+### Phase 02.1: Homepage Content Optimization (INSERTED)
+
+**Goal:** The homepage has rich, keyword-optimized content with proper heading hierarchy, new content sections (service description, stats, FAQ), and FAQPage structured data
+**Depends on:** Phase 2
+**Requirements**: CONTENT-01, CONTENT-02, CONTENT-03, CONTENT-04, CONTENT-05, CONTENT-06
+**Success Criteria** (what must be TRUE):
+  1. Homepage heading hierarchy flows h1 -> h2 -> h3 (no h5 content headings)
+  2. All section headings contain Lithuanian vehicle sale contract keywords (not generic text)
+  3. Hero subtitle and all section body text expanded to 2-3 sentences with keyword variations
+  4. Service description section appears between hero and How It Works
+  5. Stats counter section displays real contract count from database
+  6. FAQ section displays 5-8 fully expanded questions with keyword-rich content and internal links
+  7. FAQPage JSON-LD structured data renders alongside existing schemas without errors
+**Plans**: 2 plans
+
+Plans:
+- [ ] 02.1-01-PLAN.md — Heading fixes, expanded copy, service description section, stats counter section
+- [ ] 02.1-02-PLAN.md — FAQ section with 5-8 Q&A pairs and FAQPage JSON-LD structured data
+
 ### Phase 3: Validation and Submission
 **Goal**: All SEO changes are verified correct and submitted to Google for indexing
 **Depends on**: Phase 2
@@ -67,10 +86,11 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3
+Phases execute in numeric order: 1 -> 2 -> 2.1 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Crawl Infrastructure | 2/2 | Complete | 2026-03-03 |
 | 2. Homepage SEO | 2/2 | Complete | 2026-03-03 |
+| 2.1 Homepage Content Optimization | 0/2 | Not started | - |
 | 3. Validation and Submission | 0/2 | Not started | - |
