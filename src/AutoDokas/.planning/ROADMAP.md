@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Fix robots.txt, sitemap.xml, site.webmanifest, and HTML lang attribute
-- [ ] 01-02-PLAN.md — Add noindex meta tags to 9 non-content pages
+- [x] 01-02-PLAN.md — Add noindex meta tags to 9 non-content pages
 
 ### Phase 2: Homepage SEO
 **Goal**: The homepage is fully optimized for Lithuanian vehicle sale contract search queries
@@ -43,11 +43,11 @@ Plans:
   2. Homepage meta description appears as a compelling SERP snippet (max 160 chars, Lithuanian, keyword-rich)
   3. Homepage has a self-referential canonical URL and Open Graph tags (og:title, og:description, og:url, og:type, og:site_name)
   4. Homepage serves Organization, WebSite, WebPage, and Service JSON-LD schemas that parse without errors
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md — Add keyword-optimized title, meta description, canonical URL, and Open Graph tags
+- [ ] 02-02-PLAN.md — Add JSON-LD structured data (Organization, WebSite, WebPage, Service) via Schema.NET
 
 ### Phase 3: Validation and Submission
 **Goal**: All SEO changes are verified correct and submitted to Google for indexing
@@ -70,6 +70,6 @@ Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Crawl Infrastructure | 1/2 | In progress | - |
-| 2. Homepage SEO | 0/? | Not started | - |
+| 1. Crawl Infrastructure | 2/2 | Complete | 2026-03-03 |
+| 2. Homepage SEO | 0/2 | Not started | - |
 | 3. Validation and Submission | 0/? | Not started | - |
