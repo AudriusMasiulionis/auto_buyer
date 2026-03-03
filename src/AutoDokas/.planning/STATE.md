@@ -47,6 +47,8 @@ Recent decisions affecting current work:
 - [Roadmap]: Keyword research from Google Trends happens during Phase 2 planning (META phase)
 - [01-01]: robots.txt uses allow-by-default with specific Disallow rules for app routes
 - [01-01]: Disallow /contract without trailing slash to block all contract sub-routes via prefix matching
+- [01-02]: Inline HeadContent per page for noindex rather than shared component
+- [01-02]: noindex on test pages as defense-in-depth even with dev-only guards
 
 ### Pending Todos
 
@@ -59,5 +61,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 01-01-PLAN.md
+Stopped at: Completed 01-02-PLAN.md (Phase 1 complete)
 Resume file: None

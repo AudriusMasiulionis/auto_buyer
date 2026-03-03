@@ -13,7 +13,7 @@ Requirements for the SEO optimization release. Each maps to roadmap phases.
 - [x] **CRAWL-02**: sitemap.xml lists only the homepage with lastmod date
 - [x] **CRAWL-03**: `<html lang="lt">` attribute correctly set (currently "en")
 - [x] **CRAWL-04**: Web manifest has name, short_name, and description filled in
-- [ ] **CRAWL-05**: Contract form pages, legal pages, and non-content pages have noindex meta tag
+- [x] **CRAWL-05**: Contract form pages, legal pages, and non-content pages have noindex meta tag
 
 ### Meta Tags
 
@@ -74,7 +74,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRAWL-02 | Phase 1 | Complete |
 | CRAWL-03 | Phase 1 | Complete |
 | CRAWL-04 | Phase 1 | Complete |
-| CRAWL-05 | Phase 1 | Pending |
+| CRAWL-05 | Phase 1 | Complete |
 | META-01 | Phase 2 | Pending |
 | META-02 | Phase 2 | Pending |
 | META-03 | Phase 2 | Pending |
