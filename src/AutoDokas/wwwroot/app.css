@@ -425,6 +425,7 @@ h1:focus {
     font-weight: 700;
     font-size: 1.05rem;
     color: var(--ad-navy);
+    margin-top: 0;
     margin-bottom: 0.6rem;
 }
 
@@ -498,6 +499,7 @@ h1:focus {
     font-weight: 700;
     font-size: 1.05rem;
     color: var(--ad-navy);
+    margin-top: 0;
     margin-bottom: 0.6rem;
 }
 
@@ -555,6 +557,49 @@ h1:focus {
     background: #f1f5f9;
     color: var(--ad-navy);
     box-shadow: 0 12px 36px rgba(255, 255, 255, 0.15);
+}
+
+/* ===== SERVICE DESCRIPTION ===== */
+.service-section {
+    padding: 3rem 0 1rem;
+    background: var(--ad-surface);
+}
+
+.service-section .section-heading {
+    margin-bottom: 1.5rem;
+}
+
+.service-desc {
+    font-size: 1.1rem;
+    color: var(--ad-slate);
+    line-height: 1.8;
+}
+
+/* ===== STATS ===== */
+.stats-section {
+    padding: 3rem 0;
+    background: var(--ad-navy);
+    color: #fff;
+}
+
+.stat-item {
+    padding: 1.5rem;
+}
+
+.stat-number {
+    font-family: 'Archivo', 'Inter', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: var(--ad-slate-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 /* ===== FOOTER ===== */
