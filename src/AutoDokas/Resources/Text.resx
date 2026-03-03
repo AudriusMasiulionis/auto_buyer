@@ -649,14 +649,6 @@
     <value>AutoDokas.lt — tai nemokama internetinė platforma, skirta automobilio pirkimo pardavimo sutarčiai sudaryti greitai ir paprastai. Nesvarbu, ar perkate, ar parduodate transporto priemonę Lietuvoje — mūsų sistema padės suformuoti teisiškai galiojančią sutartį per kelias minutes. Nereikia ieškoti sutarties formos ar šablono internete, nereikia spausdintuvo — viskas atliekama skaitmeniškai. Tiesiog užpildykite duomenis, pasirašykite elektroniniu parašu ir atsisiųskite paruoštą PDF dokumentą.</value>
     <comment/>
   </data>
-  <data name="StatsContractsCreated" xml:space="preserve">
-    <value>Sutarčių sudaryta</value>
-    <comment/>
-  </data>
-  <data name="StatsContractsDesc" xml:space="preserve">
-    <value>Automobilio pirkimo pardavimo sutarčių sėkmingai sudaryta mūsų platformoje</value>
-    <comment/>
-  </data>
   <data name="FaqHeading" xml:space="preserve">
     <value>Dažnai užduodami klausimai apie automobilio pirkimo pardavimo sutartį</value>
     <comment/>

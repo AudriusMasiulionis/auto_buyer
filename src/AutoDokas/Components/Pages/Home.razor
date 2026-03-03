@@ -1,11 +1,6 @@
 @page "/"
 @using AutoDokas.Resources
-@using AutoDokas.Data
-@using AutoDokas.Data.Models
-@using Microsoft.EntityFrameworkCore
 @using Schema.NET
-
-@inject IDbContextFactory<AppDbContext> DbFactory
 
 <PageTitle>@Text.HomeTitle</PageTitle>
 
@@ -143,20 +138,6 @@
     </div>
 </section>
 
-<!-- Stats Section -->
-<section class="stats-section">
-    <div class="container">
-        <div class="row justify-content-center text-center g-4">
-            <div class="col-md-4">
-                <div class="stat-item">
-                    <div class="stat-number">@_contractCount.ToString("N0")</div>
-                    <div class="stat-label">@Text.StatsContractsCreated</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- FAQ Section -->
 <section class="faq-section">
     <div class="container">
@@ -217,14 +198,9 @@
 
 @code {
     private string _jsonLd = string.Empty;
-    private int _contractCount;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        using var context = await DbFactory.CreateDbContextAsync();
-        _contractCount = await context.VehicleContracts
-            .CountAsync(c => c.Status == VehicleContract.ContractStatus.Completed);
-
         var organization = new Organization
         {
             Name = "AutoDokas",

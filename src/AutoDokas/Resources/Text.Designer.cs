@@ -1255,24 +1255,6 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sutarčių sudaryta.
-        /// </summary>
-        public static string StatsContractsCreated {
-            get {
-                return ResourceManager.GetString("StatsContractsCreated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutarčių sėkmingai sudaryta mūsų platformoje.
-        /// </summary>
-        public static string StatsContractsDesc {
-            get {
-                return ResourceManager.GetString("StatsContractsDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Įveskite transporto priemonės, mokėjimo ir pardavėjo informaciją paprastoje formoje. Automobilio sutarties pildymas užtrunka vos kelias minutes — nereikia jokių specialių žinių ar teisinės patirties. Mūsų sistema automatiškai suformuoja pirkimo pardavimo sutartį pagal jūsų pateiktus duomenis..
         /// </summary>
         public static string Step1Text {

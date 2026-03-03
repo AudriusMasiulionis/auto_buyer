@@ -575,33 +575,6 @@ h1:focus {
     line-height: 1.8;
 }
 
-/* ===== STATS ===== */
-.stats-section {
-    padding: 3rem 0;
-    background: var(--ad-navy);
-    color: #fff;
-}
-
-.stat-item {
-    padding: 1.5rem;
-}
-
-.stat-number {
-    font-family: 'Archivo', 'Inter', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    font-size: 1rem;
-    color: var(--ad-slate-light);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
 /* ===== FAQ ===== */
 .faq-section {
     padding: 4rem 0;
