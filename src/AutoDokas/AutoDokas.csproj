@@ -19,6 +19,7 @@
       </PackageReference>
       <PackageReference Include="PuppeteerSharp" Version="14.0.0" />
       <PackageReference Include="CsvHelper " Version="33.0.1" />
+      <PackageReference Include="Schema.NET" Version="13.0.0" />
       <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
       <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0" />
       <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="9.0.0" />
