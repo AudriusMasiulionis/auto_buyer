@@ -70,29 +70,29 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CRAWL-01 | — | Pending |
-| CRAWL-02 | — | Pending |
-| CRAWL-03 | — | Pending |
-| CRAWL-04 | — | Pending |
-| CRAWL-05 | — | Pending |
-| META-01 | — | Pending |
-| META-02 | — | Pending |
-| META-03 | — | Pending |
-| META-04 | — | Pending |
-| SCHEMA-01 | — | Pending |
-| SCHEMA-02 | — | Pending |
-| SCHEMA-03 | — | Pending |
-| SCHEMA-04 | — | Pending |
-| VALID-01 | — | Pending |
-| VALID-02 | — | Pending |
-| VALID-03 | — | Pending |
-| VALID-04 | — | Pending |
+| CRAWL-01 | Phase 1 | Pending |
+| CRAWL-02 | Phase 1 | Pending |
+| CRAWL-03 | Phase 1 | Pending |
+| CRAWL-04 | Phase 1 | Pending |
+| CRAWL-05 | Phase 1 | Pending |
+| META-01 | Phase 2 | Pending |
+| META-02 | Phase 2 | Pending |
+| META-03 | Phase 2 | Pending |
+| META-04 | Phase 2 | Pending |
+| SCHEMA-01 | Phase 2 | Pending |
+| SCHEMA-02 | Phase 2 | Pending |
+| SCHEMA-03 | Phase 2 | Pending |
+| SCHEMA-04 | Phase 2 | Pending |
+| VALID-01 | Phase 3 | Pending |
+| VALID-02 | Phase 3 | Pending |
+| VALID-03 | Phase 3 | Pending |
+| VALID-04 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 17 total
-- Mapped to phases: 0
-- Unmapped: 17 ⚠️
+- Mapped to phases: 17
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-03*
-*Last updated: 2026-03-03 after initial definition*
+*Last updated: 2026-03-03 after roadmap creation*
