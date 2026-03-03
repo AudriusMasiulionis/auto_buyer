@@ -472,6 +472,141 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Taip, automobilio pirkimo pardavimo sutartis, sudaryta internetu per AutoDokas.lt platformą, yra teisiškai galiojanti pagal Lietuvos Respublikos civilinį kodeksą. Transporto priemonės pirkimo pardavimo sutarčiai nėra privaloma notarinė forma — pakanka rašytinės sutarties, kurią pasirašo abi šalys. &lt;a href=&quot;/contract&quot;&gt;Sukurkite sutartį dabar&lt;/a&gt; ir įsitikinkite patys..
+        /// </summary>
+        public static string Faq1Answer {
+            get {
+                return ResourceManager.GetString("Faq1Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar internetu sudaryta automobilio pirkimo pardavimo sutartis yra teisiškai galiojanti?.
+        /// </summary>
+        public static string Faq1Question {
+            get {
+                return ResourceManager.GetString("Faq1Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutarties sudarymas AutoDokas.lt platformoje yra visiškai nemokamas. Galite užpildyti, pasirašyti ir atsisiųsti automobilio sutartį nemokamai — jokių paslėptų mokesčių ar papildomų išlaidų. &lt;a href=&quot;/contract&quot;&gt;Pradėkite čia&lt;/a&gt; — tai nieko nekainuoja..
+        /// </summary>
+        public static string Faq2Answer {
+            get {
+                return ResourceManager.GetString("Faq2Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kiek kainuoja automobilio sutarties sudarymas AutoDokas platformoje?.
+        /// </summary>
+        public static string Faq2Question {
+            get {
+                return ResourceManager.GetString("Faq2Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio sutarties pasirašymas internetu vyksta trimis paprastais žingsniais: užpildote transporto priemonės ir šalių duomenis, pardavėjas pasirašo elektroniniu parašu, o tada pirkėjas pasirašo tame pačiame įrenginyje arba gauna nuorodą el. paštu. Visas procesas užtrunka vos kelias minutes..
+        /// </summary>
+        public static string Faq3Answer {
+            get {
+                return ResourceManager.GetString("Faq3Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip pasirašyti automobilio pirkimo pardavimo sutartį internetu?.
+        /// </summary>
+        public static string Faq3Question {
+            get {
+                return ResourceManager.GetString("Faq3Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ne, spausdintuvo nereikia. AutoDokas.lt leidžia sudaryti automobilio sutartį be spausdintuvo — viskas atliekama skaitmeniškai. Sutartis generuojama PDF formatu, kurį galite atsisiųsti arba gauti el. paštu. &lt;a href=&quot;/contract&quot;&gt;Pradėkite sutarties pildymą&lt;/a&gt; iš bet kurio įrenginio..
+        /// </summary>
+        public static string Faq4Answer {
+            get {
+                return ResourceManager.GetString("Faq4Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar reikia spausdintuvo automobilio sutarčiai sudaryti?.
+        /// </summary>
+        public static string Faq4Question {
+            get {
+                return ResourceManager.GetString("Faq4Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio sutarties formai užpildyti reikia: pardavėjo ir pirkėjo duomenų (vardas, asmens kodas, adresas, telefonas), transporto priemonės duomenų (markė, valstybinis numeris, VIN kodas, rida) ir mokėjimo sąlygų (kaina, atsiskaitymo būdas). Visus šiuos duomenis rasite registracijos liudijime..
+        /// </summary>
+        public static string Faq5Answer {
+            get {
+                return ResourceManager.GetString("Faq5Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kokius duomenis reikia pateikti sudarant transporto priemonės sutartį?.
+        /// </summary>
+        public static string Faq5Question {
+            get {
+                return ResourceManager.GetString("Faq5Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taip, AutoDokas.lt platforma veikia bet kuriame įrenginyje — telefone, planšetėje ar kompiuteryje. Automobilio pirkimo pardavimo sutartį internetu galite sudaryti ir pasirašyti iš bet kur, bet kuriuo metu. &lt;a href=&quot;/contract&quot;&gt;Išbandykite dabar&lt;/a&gt; iš savo telefono..
+        /// </summary>
+        public static string Faq6Answer {
+            get {
+                return ResourceManager.GetString("Faq6Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar galiu sudaryti automobilio sutartį iš telefono ar planšetės?.
+        /// </summary>
+        public static string Faq6Question {
+            get {
+                return ResourceManager.GetString("Faq6Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pirkėjas gali pasirašyti automobilio pirkimo pardavimo sutartį dviem būdais: tame pačiame įrenginyje, perduodant telefoną ar kompiuterį pirkėjui, arba nuotoliniu būdu — pirkėjas gauna el. laišką su nuoroda, kur gali užpildyti savo duomenis ir pasirašyti elektroninį parašą automobilio sutartyje..
+        /// </summary>
+        public static string Faq7Answer {
+            get {
+                return ResourceManager.GetString("Faq7Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip pirkėjas pasirašo automobilio sutartį?.
+        /// </summary>
+        public static string Faq7Question {
+            get {
+                return ResourceManager.GetString("Faq7Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dažnai užduodami klausimai apie automobilio pirkimo pardavimo sutartį.
+        /// </summary>
+        public static string FaqHeading {
+            get {
+                return ResourceManager.GetString("FaqHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutartis paruošiama per kelias minutes — nuo duomenų užpildymo iki PDF atsisiuntimo. Skaitmeninė sutartis leidžia sutaupyti laiką ir atlikti viską iš namų ar bet kurios kitos vietos. Nereikia ieškoti sutarties šablono ar formos — viskas automatizuota..
         /// </summary>
         public static string Feature1Text {
