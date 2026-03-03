@@ -31,7 +31,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Fix robots.txt, sitemap.xml, site.webmanifest, and HTML lang attribute
+- [x] 01-01-PLAN.md — Fix robots.txt, sitemap.xml, site.webmanifest, and HTML lang attribute
 - [ ] 01-02-PLAN.md — Add noindex meta tags to 9 non-content pages
 
 ### Phase 2: Homepage SEO
@@ -70,6 +70,6 @@ Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Crawl Infrastructure | 0/2 | Not started | - |
+| 1. Crawl Infrastructure | 1/2 | In progress | - |
 | 2. Homepage SEO | 0/? | Not started | - |
 | 3. Validation and Submission | 0/? | Not started | - |
