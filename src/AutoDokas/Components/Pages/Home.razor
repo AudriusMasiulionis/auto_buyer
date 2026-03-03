@@ -5,10 +5,10 @@
 <PageTitle>@Text.HomeTitle</PageTitle>
 
 <HeadContent>
-    <meta name="description" content="Automobilio pirkimo pardavimo sutartis internetu. Užpildykite, pasirašykite ir atsisiųskite — greitai, saugiai, be spausdintuvo." />
+    <meta name="description" content="Automobilio pirkimo pardavimo sutartis internetu. Užpildykite, pasirašykite ir atsisiųskite - greitai, saugiai, be spausdintuvo." />
     <link rel="canonical" href="https://autodokas.lt/" />
     <meta property="og:title" content="Automobilio pirkimo pardavimo sutartis internetu | AutoDokas" />
-    <meta property="og:description" content="Automobilio pirkimo pardavimo sutartis internetu. Užpildykite, pasirašykite ir atsisiųskite — greitai, saugiai, be spausdintuvo." />
+    <meta property="og:description" content="Automobilio pirkimo pardavimo sutartis internetu. Užpildykite, pasirašykite ir atsisiųskite - greitai, saugiai, be spausdintuvo." />
     <meta property="og:url" content="https://autodokas.lt/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="AutoDokas" />
@@ -97,6 +97,12 @@
                 </div>
             </div>
         </div>
+        <div class="text-center mt-5">
+            <a href="/contract" class="btn-hero">
+                @Text.StartNow
+                <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
     </div>
 </section>
 
@@ -146,33 +152,63 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="faq-item">
-                    <h3 class="faq-question">@Text.Faq1Question</h3>
-                    <p class="faq-answer">@((MarkupString)Text.Faq1Answer)</p>
-                </div>
-                <div class="faq-item">
-                    <h3 class="faq-question">@Text.Faq2Question</h3>
-                    <p class="faq-answer">@((MarkupString)Text.Faq2Answer)</p>
-                </div>
-                <div class="faq-item">
-                    <h3 class="faq-question">@Text.Faq3Question</h3>
-                    <p class="faq-answer">@((MarkupString)Text.Faq3Answer)</p>
-                </div>
-                <div class="faq-item">
-                    <h3 class="faq-question">@Text.Faq4Question</h3>
-                    <p class="faq-answer">@((MarkupString)Text.Faq4Answer)</p>
-                </div>
-                <div class="faq-item">
-                    <h3 class="faq-question">@Text.Faq5Question</h3>
-                    <p class="faq-answer">@((MarkupString)Text.Faq5Answer)</p>
-                </div>
-                <div class="faq-item">
-                    <h3 class="faq-question">@Text.Faq6Question</h3>
-                    <p class="faq-answer">@((MarkupString)Text.Faq6Answer)</p>
-                </div>
-                <div class="faq-item">
-                    <h3 class="faq-question">@Text.Faq7Question</h3>
-                    <p class="faq-answer">@((MarkupString)Text.Faq7Answer)</p>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">@Text.Faq1Question</button>
+                        </h3>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Faq1Answer)</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">@Text.Faq2Question</button>
+                        </h3>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Faq2Answer)</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">@Text.Faq3Question</button>
+                        </h3>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Faq3Answer)</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">@Text.Faq4Question</button>
+                        </h3>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Faq4Answer)</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">@Text.Faq5Question</button>
+                        </h3>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Faq5Answer)</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">@Text.Faq6Question</button>
+                        </h3>
+                        <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Faq6Answer)</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">@Text.Faq7Question</button>
+                        </h3>
+                        <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Faq7Answer)</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -217,7 +253,7 @@
         var webPage = new WebPage
         {
             Name = "Automobilio pirkimo pardavimo sutartis internetu | AutoDokas",
-            Description = "Automobilio pirkimo pardavimo sutartis internetu. Užpildykite, pasirašykite ir atsisiųskite — greitai, saugiai, be spausdintuvo.",
+            Description = "Automobilio pirkimo pardavimo sutartis internetu. Užpildykite, pasirašykite ir atsisiųskite - greitai, saugiai, be spausdintuvo.",
             Url = new Uri("https://autodokas.lt/"),
             InLanguage = "lt",
             IsPartOf = webSite,
