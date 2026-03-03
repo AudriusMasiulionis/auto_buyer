@@ -257,9 +257,29 @@
             AreaServed = "Lietuva",
         };
 
-        var schemas = new Thing[] { organization, webSite, webPage, service };
+        var faqPage = new FAQPage
+        {
+            Name = Text.FaqHeading,
+            MainEntity = new OneOrMany<IThing>(new List<IThing>
+            {
+                new Question { Name = Text.Faq1Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Faq1Answer) } },
+                new Question { Name = Text.Faq2Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Faq2Answer) } },
+                new Question { Name = Text.Faq3Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Faq3Answer) } },
+                new Question { Name = Text.Faq4Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Faq4Answer) } },
+                new Question { Name = Text.Faq5Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Faq5Answer) } },
+                new Question { Name = Text.Faq6Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Faq6Answer) } },
+                new Question { Name = Text.Faq7Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Faq7Answer) } },
+            }),
+        };
+
+        var schemas = new Thing[] { organization, webSite, webPage, service, faqPage };
         var jsonParts = schemas.Select(s => s.ToHtmlEscapedString());
         _jsonLd = string.Join("\n", jsonParts.Select(j =>
             $"<script type=\"application/ld+json\">{j}</script>"));
+    }
+
+    private static string StripHtml(string html)
+    {
+        return System.Text.RegularExpressions.Regex.Replace(html, "<[^>]+>", "");
     }
 }

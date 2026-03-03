@@ -602,6 +602,46 @@ h1:focus {
     letter-spacing: 0.05em;
 }
 
+/* ===== FAQ ===== */
+.faq-section {
+    padding: 4rem 0;
+    background: var(--ad-surface);
+}
+
+.faq-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-question {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ad-navy);
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+}
+
+.faq-answer {
+    font-size: 1rem;
+    color: var(--ad-slate);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+.faq-answer a {
+    color: var(--bs-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.faq-answer a:hover {
+    color: #1d4ed8;
+}
+
 /* ===== FOOTER ===== */
 .footer-site {
     background: #080d19;
