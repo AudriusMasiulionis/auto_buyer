@@ -74,6 +74,10 @@ Recent decisions affecting current work:
 
 None yet.
 
+### Roadmap Evolution
+
+- Phase 02.1 inserted after Phase 2: Homepage Content Optimization (URGENT)
+
 ### Blockers/Concerns
 
 - OG image asset (1200x630px) may need design work -- flagged in research as gap
@@ -81,5 +85,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 02-02-PLAN.md (Phase 02 complete)
-Resume file: None
+Stopped at: Phase 2.1 context gathered
+Resume file: .planning/phases/02.1-homepage-content-optimization/02.1-CONTEXT.md
