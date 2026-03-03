@@ -6,6 +6,10 @@
 
 @if (!Env.IsDevelopment()) { return; }
 
+<HeadContent>
+    <meta name="robots" content="noindex" />
+</HeadContent>
+
 <ContractPdfTemplate Contract=@contract />
 
 @code {
