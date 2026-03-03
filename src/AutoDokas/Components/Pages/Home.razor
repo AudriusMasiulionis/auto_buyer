@@ -1,5 +1,6 @@
 @page "/"
 @using AutoDokas.Resources
+@using Schema.NET
 
 <PageTitle>@Text.HomeTitle</PageTitle>
 
@@ -12,6 +13,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="AutoDokas" />
 </HeadContent>
+
+@((MarkupString)_jsonLd)
 
 <!-- Hero Section -->
 <section class="hero">
@@ -139,3 +142,47 @@
         </div>
     </div>
 </section>
+
+@code {
+    private string _jsonLd = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var organization = new Organization
+        {
+            Name = "AutoDokas",
+            Url = new Uri("https://autodokas.lt"),
+        };
+
+        var webSite = new WebSite
+        {
+            Name = "AutoDokas",
+            Url = new Uri("https://autodokas.lt"),
+            InLanguage = "lt",
+        };
+
+        var webPage = new WebPage
+        {
+            Name = "Automobilio pirkimo pardavimo sutartis internetu | AutoDokas",
+            Description = "Automobilio pirkimo pardavimo sutartis internetu. Užpildykite, pasirašykite ir atsisiųskite — greitai, saugiai, be spausdintuvo.",
+            Url = new Uri("https://autodokas.lt/"),
+            InLanguage = "lt",
+            IsPartOf = webSite,
+        };
+
+        var service = new Service
+        {
+            Name = "Automobilio pirkimo pardavimo sutarties sudarymas internetu",
+            Description = "Internetinė paslauga automobilio pirkimo pardavimo sutarčiai sudaryti, pasirašyti ir atsisiųsti PDF formatu.",
+            Url = new Uri("https://autodokas.lt/"),
+            Broker = organization,
+            ServiceType = "Automobilio pirkimo pardavimo sutarties sudarymas",
+            AreaServed = "Lietuva",
+        };
+
+        var schemas = new Thing[] { organization, webSite, webPage, service };
+        var jsonParts = schemas.Select(s => s.ToHtmlEscapedString());
+        _jsonLd = string.Join("\n", jsonParts.Select(j =>
+            $"<script type=\"application/ld+json\">{j}</script>"));
+    }
+}
