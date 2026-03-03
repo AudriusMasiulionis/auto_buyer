@@ -47,7 +47,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md — Add keyword-optimized title, meta description, canonical URL, and Open Graph tags
-- [ ] 02-02-PLAN.md — Add JSON-LD structured data (Organization, WebSite, WebPage, Service) via Schema.NET
+- [x] 02-02-PLAN.md — Add JSON-LD structured data (Organization, WebSite, WebPage, Service) via Schema.NET
 
 ### Phase 3: Validation and Submission
 **Goal**: All SEO changes are verified correct and submitted to Google for indexing
@@ -58,10 +58,11 @@ Plans:
   2. Homepage URL Inspection in Search Console shows the page is indexable with correct meta tags
   3. Google Rich Results Test returns zero errors for all structured data on the homepage
   4. Lighthouse SEO audit scores 90 or higher
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md — Deployment verification, Lighthouse SEO audit (90+ target), and Search Console submission documentation
+- [ ] 03-02-PLAN.md — Structured data validation via Rich Results Test and Schema Markup Validator
 
 ## Progress
 
@@ -71,5 +72,5 @@ Phases execute in numeric order: 1 -> 2 -> 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Crawl Infrastructure | 2/2 | Complete | 2026-03-03 |
-| 2. Homepage SEO | 1/2 | In progress | - |
-| 3. Validation and Submission | 0/? | Not started | - |
+| 2. Homepage SEO | 2/2 | Complete | 2026-03-03 |
+| 3. Validation and Submission | 0/2 | Not started | - |
