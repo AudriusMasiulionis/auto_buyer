@@ -17,10 +17,10 @@ Requirements for the SEO optimization release. Each maps to roadmap phases.
 
 ### Meta Tags
 
-- [ ] **META-01**: Homepage has keyword-optimized title using researched Lithuanian search terms
-- [ ] **META-02**: Homepage has meta description with Lithuanian keywords (max 160 chars)
-- [ ] **META-03**: Homepage has self-referential canonical URL
-- [ ] **META-04**: Homepage has Open Graph tags (og:title, og:description, og:url, og:type, og:site_name)
+- [x] **META-01**: Homepage has keyword-optimized title using researched Lithuanian search terms
+- [x] **META-02**: Homepage has meta description with Lithuanian keywords (max 160 chars)
+- [x] **META-03**: Homepage has self-referential canonical URL
+- [x] **META-04**: Homepage has Open Graph tags (og:title, og:description, og:url, og:type, og:site_name)
 
 ### Structured Data
 
@@ -75,10 +75,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRAWL-03 | Phase 1 | Complete |
 | CRAWL-04 | Phase 1 | Complete |
 | CRAWL-05 | Phase 1 | Complete |
-| META-01 | Phase 2 | Pending |
-| META-02 | Phase 2 | Pending |
-| META-03 | Phase 2 | Pending |
-| META-04 | Phase 2 | Pending |
+| META-01 | Phase 2 | Complete |
+| META-02 | Phase 2 | Complete |
+| META-03 | Phase 2 | Complete |
+| META-04 | Phase 2 | Complete |
 | SCHEMA-01 | Phase 2 | Pending |
 | SCHEMA-02 | Phase 2 | Pending |
 | SCHEMA-03 | Phase 2 | Pending |

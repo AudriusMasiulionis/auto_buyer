@@ -46,7 +46,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Add keyword-optimized title, meta description, canonical URL, and Open Graph tags
+- [x] 02-01-PLAN.md — Add keyword-optimized title, meta description, canonical URL, and Open Graph tags
 - [ ] 02-02-PLAN.md — Add JSON-LD structured data (Organization, WebSite, WebPage, Service) via Schema.NET
 
 ### Phase 3: Validation and Submission
@@ -71,5 +71,5 @@ Phases execute in numeric order: 1 -> 2 -> 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Crawl Infrastructure | 2/2 | Complete | 2026-03-03 |
-| 2. Homepage SEO | 0/2 | Not started | - |
+| 2. Homepage SEO | 1/2 | In progress | - |
 | 3. Validation and Submission | 0/? | Not started | - |
