@@ -66,7 +66,7 @@ Plans:
 
 Plans:
 - [x] 02.1-01-PLAN.md — Heading fixes, expanded copy, service description section, stats counter section
-- [ ] 02.1-02-PLAN.md — FAQ section with 5-8 Q&A pairs and FAQPage JSON-LD structured data
+- [x] 02.1-02-PLAN.md — FAQ section with 5-8 Q&A pairs and FAQPage JSON-LD structured data
 
 ### Phase 3: Validation and Submission
 **Goal**: All SEO changes are verified correct and submitted to Google for indexing
@@ -92,5 +92,5 @@ Phases execute in numeric order: 1 -> 2 -> 2.1 -> 3
 |-------|----------------|--------|-----------|
 | 1. Crawl Infrastructure | 2/2 | Complete | 2026-03-03 |
 | 2. Homepage SEO | 2/2 | Complete | 2026-03-03 |
-| 2.1 Homepage Content Optimization | 1/2 | In progress | - |
+| 2.1 Homepage Content Optimization | 2/2 | Complete | 2026-03-03 |
 | 3. Validation and Submission | 0/2 | Not started | - |

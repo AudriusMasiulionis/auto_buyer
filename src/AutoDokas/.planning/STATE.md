@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-last_updated: "2026-03-03T21:01:55Z"
+last_updated: "2026-03-03T21:07:47Z"
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -22,19 +22,19 @@ See: .planning/PROJECT.md (updated 2026-03-02)
 
 ## Current Position
 
-Phase: 2.1 of 3 (Homepage Content Optimization) -- IN PROGRESS
-Plan: 1 of 2 in current phase
-Status: Plan 02.1-01 complete, continuing to 02.1-02
-Last activity: 2026-03-03 -- Completed 02.1-01 (Homepage content enrichment, headings, stats)
+Phase: 2.1 of 3 (Homepage Content Optimization) -- COMPLETE
+Plan: 2 of 2 in current phase (all plans complete)
+Status: Phase 02.1 complete, all phases done
+Last activity: 2026-03-03 -- Completed 02.1-02 (FAQ section, FAQPage JSON-LD)
 
-Progress: [########░░] ~83%
+Progress: [##########] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: ~2 min
-- Total execution time: ~10 min
+- Total execution time: ~12 min
 
 **By Phase:**
 
@@ -42,10 +42,10 @@ Progress: [########░░] ~83%
 |-------|-------|-------|----------|
 | 01-crawl | 2 | ~2 min | ~1 min |
 | 02-homepage-seo | 2 | ~5 min | ~2.5 min |
-| 02.1-homepage-content | 1 | ~3 min | ~3 min |
+| 02.1-homepage-content | 2 | ~5 min | ~2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (~1 min), 02-01 (~1 min), 02-02 (~4 min), 02.1-01 (~3 min)
+- Last 5 plans: 02-01 (~1 min), 02-02 (~4 min), 02.1-01 (~3 min), 02.1-02 (~2 min)
 - Trend: consistent
 
 *Updated after each plan completion*
@@ -74,6 +74,9 @@ Recent decisions affecting current work:
 - [02.1-01]: Service description section between hero and How It Works for content depth
 - [02.1-01]: Stats section shows single completed contracts counter for trust signaling
 - [02.1-01]: h5->h3 with margin-top: 0 to prevent browser default margin shift
+- [02.1-02]: OneOrMany<IThing> for FAQPage MainEntity (Schema.NET 13.0.0 API)
+- [02.1-02]: 7 FAQ pairs covering key Lithuanian vehicle sale contract search queries
+- [02.1-02]: StripHtml regex helper for clean JSON-LD text from HTML resource strings
 
 ### Pending Todos
 
@@ -90,5 +93,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 02.1-01-PLAN.md
-Resume file: .planning/phases/02.1-homepage-content-optimization/02.1-01-SUMMARY.md
+Stopped at: Completed 02.1-02-PLAN.md (Phase 02.1 complete, all phases done)
+Resume file: .planning/phases/02.1-homepage-content-optimization/02.1-02-SUMMARY.md
