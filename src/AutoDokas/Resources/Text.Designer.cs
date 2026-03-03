@@ -472,7 +472,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sutartis paruošiama per kelias minutes — nuo duomenų užpildymo iki PDF atsisiuntimo..
+        ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutartis paruošiama per kelias minutes — nuo duomenų užpildymo iki PDF atsisiuntimo. Skaitmeninė sutartis leidžia sutaupyti laiką ir atlikti viską iš namų ar bet kurios kitos vietos. Nereikia ieškoti sutarties šablono ar formos — viskas automatizuota..
         /// </summary>
         public static string Feature1Text {
             get {
@@ -490,7 +490,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jūsų duomenys apsaugoti ir tvarkomi pagal privatumo politiką. Saugi platforma sutarčių sudarymui..
+        ///   Looks up a localized string similar to Jūsų duomenys apsaugoti ir tvarkomi pagal privatumo politiką. Saugi platforma automobilio sutarčių sudarymui — duomenys šifruojami ir naudojami tik sutarties generavimui. Pirkimo pardavimo sutartis saugoma jūsų paskyroje ir prieinama bet kuriuo metu..
         /// </summary>
         public static string Feature2Text {
             get {
@@ -508,7 +508,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pildykite ir pasirašykite sutartį iš bet kurio įrenginio — telefono, planšetės ar kompiuterio..
+        ///   Looks up a localized string similar to Pildykite ir pasirašykite automobilio sutartį be spausdintuvo iš bet kurio įrenginio — telefono, planšetės ar kompiuterio. Automobilio pirkimo pardavimo sutartis internetu prieinama visą parą, todėl galite ją sudaryti bet kuriuo patogiu metu..
         /// </summary>
         public static string Feature3Text {
             get {
@@ -526,7 +526,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Privalumai.
+        ///   Looks up a localized string similar to Automobilio sutarties internetu privalumai.
         /// </summary>
         public static string FeaturesTitle {
             get {
@@ -544,7 +544,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Užpildykite, pasirašykite ir atsisiųskite — viskas internetu.
+        ///   Looks up a localized string similar to Užpildykite, pasirašykite ir atsisiųskite automobilio pirkimo pardavimo sutartį — viskas internetu, nemokamai. Greitai, saugiai ir be spausdintuvo. Teisiškai galiojanti sutartis per kelias minutes..
         /// </summary>
         public static string HeroSubtitle {
             get {
@@ -562,7 +562,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pagrindinis.
+        ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutartis internetu | AutoDokas.
         /// </summary>
         public static string HomeTitle {
             get {
@@ -571,7 +571,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trys paprasti žingsniai iki sutarties.
+        ///   Looks up a localized string similar to Trys paprasti žingsniai iki automobilio pirkimo pardavimo sutarties.
         /// </summary>
         public static string HowItWorksSubtitle {
             get {
@@ -580,7 +580,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kaip tai veikia?.
+        ///   Looks up a localized string similar to Kaip sudaryti automobilio sutartį?.
         /// </summary>
         public static string HowItWorksTitle {
             get {
@@ -1048,6 +1048,24 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AutoDokas.lt — tai nemokama internetinė platforma, skirta automobilio pirkimo pardavimo sutarčiai sudaryti greitai ir paprastai. Nesvarbu, ar perkate, ar parduodate transporto priemonę Lietuvoje — mūsų sistema padės suformuoti teisiškai galiojančią sutartį per kelias minutes. Nereikia ieškoti sutarties formos ar šablono internete, nereikia spausdintuvo — viskas atliekama skaitmeniškai. Tiesiog užpildykite duomenis, pasirašykite elektroniniu parašu ir atsisiųskite paruoštą PDF dokumentą..
+        /// </summary>
+        public static string ServiceDescription {
+            get {
+                return ResourceManager.GetString("ServiceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutartis internetu.
+        /// </summary>
+        public static string ServiceDescriptionHeading {
+            get {
+                return ResourceManager.GetString("ServiceDescriptionHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pasirašyti.
         /// </summary>
         public static string Sign {
@@ -1102,7 +1120,25 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Įveskite transporto priemonės, mokėjimo ir pardavėjo informaciją paprastoje formoje..
+        ///   Looks up a localized string similar to Sutarčių sudaryta.
+        /// </summary>
+        public static string StatsContractsCreated {
+            get {
+                return ResourceManager.GetString("StatsContractsCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutarčių sėkmingai sudaryta mūsų platformoje.
+        /// </summary>
+        public static string StatsContractsDesc {
+            get {
+                return ResourceManager.GetString("StatsContractsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Įveskite transporto priemonės, mokėjimo ir pardavėjo informaciją paprastoje formoje. Automobilio sutarties pildymas užtrunka vos kelias minutes — nereikia jokių specialių žinių ar teisinės patirties. Mūsų sistema automatiškai suformuoja pirkimo pardavimo sutartį pagal jūsų pateiktus duomenis..
         /// </summary>
         public static string Step1Text {
             get {
@@ -1120,7 +1156,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abu sandorio dalyviai pasirašo sutartį elektroniniu parašu tiesiai iš savo įrenginio..
+        ///   Looks up a localized string similar to Abu sandorio dalyviai pasirašo sutartį elektroniniu parašu tiesiai iš savo įrenginio. Elektroninis parašas automobilio sutartyje yra teisiškai galiojantis — nereikia spausdintuvo ar rašiklio. Pasirašyti galite telefonu, planšete ar kompiuteriu..
         /// </summary>
         public static string Step2Text {
             get {
@@ -1138,7 +1174,7 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paruoštas PDF dokumentas automatiškai išsiunčiamas abiem šalims el. paštu..
+        ///   Looks up a localized string similar to Paruoštas PDF dokumentas automatiškai išsiunčiamas abiem šalims el. paštu. Transporto priemonės pirkimo pardavimo sutartis paruošiama iš karto — galite ją atsisiųsti arba gauti el. paštu. Sutartį galite naudoti registruojant automobilį Regitra sistemoje..
         /// </summary>
         public static string Step3Text {
             get {

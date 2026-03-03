@@ -154,7 +154,7 @@
     <comment/>
   </data>
   <data name="HeroSubtitle" xml:space="preserve">
-    <value>Užpildykite, pasirašykite ir atsisiųskite — viskas internetu</value>
+    <value>Užpildykite, pasirašykite ir atsisiųskite automobilio pirkimo pardavimo sutartį — viskas internetu, nemokamai. Greitai, saugiai ir be spausdintuvo. Teisiškai galiojanti sutartis per kelias minutes.</value>
     <comment/>
   </data>
   <data name="SellNowButton" xml:space="preserve">
@@ -170,7 +170,7 @@
     <comment/>
   </data>
   <data name="FeaturesTitle" xml:space="preserve">
-    <value>Privalumai</value>
+    <value>Automobilio sutarties internetu privalumai</value>
     <comment/>
   </data>
   <data name="Feature1Title" xml:space="preserve">
@@ -178,7 +178,7 @@
     <comment/>
   </data>
   <data name="Feature1Text" xml:space="preserve">
-    <value>Sutartis paruošiama per kelias minutes — nuo duomenų užpildymo iki PDF atsisiuntimo.</value>
+    <value>Automobilio pirkimo pardavimo sutartis paruošiama per kelias minutes — nuo duomenų užpildymo iki PDF atsisiuntimo. Skaitmeninė sutartis leidžia sutaupyti laiką ir atlikti viską iš namų ar bet kurios kitos vietos. Nereikia ieškoti sutarties šablono ar formos — viskas automatizuota.</value>
     <comment/>
   </data>
   <data name="Feature2Title" xml:space="preserve">
@@ -186,7 +186,7 @@
     <comment/>
   </data>
   <data name="Feature2Text" xml:space="preserve">
-    <value>Jūsų duomenys apsaugoti ir tvarkomi pagal privatumo politiką. Saugi platforma sutarčių sudarymui.</value>
+    <value>Jūsų duomenys apsaugoti ir tvarkomi pagal privatumo politiką. Saugi platforma automobilio sutarčių sudarymui — duomenys šifruojami ir naudojami tik sutarties generavimui. Pirkimo pardavimo sutartis saugoma jūsų paskyroje ir prieinama bet kuriuo metu.</value>
     <comment/>
   </data>
   <data name="Feature3Title" xml:space="preserve">
@@ -194,7 +194,7 @@
     <comment/>
   </data>
   <data name="Feature3Text" xml:space="preserve">
-    <value>Pildykite ir pasirašykite sutartį iš bet kurio įrenginio — telefono, planšetės ar kompiuterio.</value>
+    <value>Pildykite ir pasirašykite automobilio sutartį be spausdintuvo iš bet kurio įrenginio — telefono, planšetės ar kompiuterio. Automobilio pirkimo pardavimo sutartis internetu prieinama visą parą, todėl galite ją sudaryti bet kuriuo patogiu metu.</value>
     <comment/>
   </data>
   <data name="StepText" xml:space="preserve">
@@ -578,11 +578,11 @@
     <comment/>
   </data>
   <data name="HowItWorksTitle" xml:space="preserve">
-    <value>Kaip tai veikia?</value>
+    <value>Kaip sudaryti automobilio sutartį?</value>
     <comment/>
   </data>
   <data name="HowItWorksSubtitle" xml:space="preserve">
-    <value>Trys paprasti žingsniai iki sutarties</value>
+    <value>Trys paprasti žingsniai iki automobilio pirkimo pardavimo sutarties</value>
     <comment/>
   </data>
   <data name="Step1Title" xml:space="preserve">
@@ -590,7 +590,7 @@
     <comment/>
   </data>
   <data name="Step1Text" xml:space="preserve">
-    <value>Įveskite transporto priemonės, mokėjimo ir pardavėjo informaciją paprastoje formoje.</value>
+    <value>Įveskite transporto priemonės, mokėjimo ir pardavėjo informaciją paprastoje formoje. Automobilio sutarties pildymas užtrunka vos kelias minutes — nereikia jokių specialių žinių ar teisinės patirties. Mūsų sistema automatiškai suformuoja pirkimo pardavimo sutartį pagal jūsų pateiktus duomenis.</value>
     <comment/>
   </data>
   <data name="Step2Title" xml:space="preserve">
@@ -598,7 +598,7 @@
     <comment/>
   </data>
   <data name="Step2Text" xml:space="preserve">
-    <value>Abu sandorio dalyviai pasirašo sutartį elektroniniu parašu tiesiai iš savo įrenginio.</value>
+    <value>Abu sandorio dalyviai pasirašo sutartį elektroniniu parašu tiesiai iš savo įrenginio. Elektroninis parašas automobilio sutartyje yra teisiškai galiojantis — nereikia spausdintuvo ar rašiklio. Pasirašyti galite telefonu, planšete ar kompiuteriu.</value>
     <comment/>
   </data>
   <data name="Step3Title" xml:space="preserve">
@@ -606,7 +606,7 @@
     <comment/>
   </data>
   <data name="Step3Text" xml:space="preserve">
-    <value>Paruoštas PDF dokumentas automatiškai išsiunčiamas abiem šalims el. paštu.</value>
+    <value>Paruoštas PDF dokumentas automatiškai išsiunčiamas abiem šalims el. paštu. Transporto priemonės pirkimo pardavimo sutartis paruošiama iš karto — galite ją atsisiųsti arba gauti el. paštu. Sutartį galite naudoti registruojant automobilį Regitra sistemoje.</value>
     <comment/>
   </data>
   <data name="CtaTitle" xml:space="preserve">
@@ -639,6 +639,22 @@
   </data>
   <data name="DraftCreatedAt" xml:space="preserve">
     <value>Sukurta</value>
+    <comment/>
+  </data>
+  <data name="ServiceDescriptionHeading" xml:space="preserve">
+    <value>Automobilio pirkimo pardavimo sutartis internetu</value>
+    <comment/>
+  </data>
+  <data name="ServiceDescription" xml:space="preserve">
+    <value>AutoDokas.lt — tai nemokama internetinė platforma, skirta automobilio pirkimo pardavimo sutarčiai sudaryti greitai ir paprastai. Nesvarbu, ar perkate, ar parduodate transporto priemonę Lietuvoje — mūsų sistema padės suformuoti teisiškai galiojančią sutartį per kelias minutes. Nereikia ieškoti sutarties formos ar šablono internete, nereikia spausdintuvo — viskas atliekama skaitmeniškai. Tiesiog užpildykite duomenis, pasirašykite elektroniniu parašu ir atsisiųskite paruoštą PDF dokumentą.</value>
+    <comment/>
+  </data>
+  <data name="StatsContractsCreated" xml:space="preserve">
+    <value>Sutarčių sudaryta</value>
+    <comment/>
+  </data>
+  <data name="StatsContractsDesc" xml:space="preserve">
+    <value>Automobilio pirkimo pardavimo sutarčių sėkmingai sudaryta mūsų platformoje</value>
     <comment/>
   </data>
 </root>
