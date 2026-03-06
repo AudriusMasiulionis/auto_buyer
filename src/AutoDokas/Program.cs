@@ -4,6 +4,7 @@ using AutoDokas.Data;
 using AutoDokas.Extensions;
 using AutoDokas.Services;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using PuppeteerSharp;
@@ -55,6 +56,12 @@ builder.Services.AddScoped<PdfService>();
 
 // Register the appropriate email service based on the environment
 builder.Services.AddEmailServices(builder.Configuration);
+
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDataProtection()
+        .PersistKeysToFileSystem(new DirectoryInfo("/app/data/DataProtection-Keys"));
+}
 
 builder.Services.AddHttpClient();
 builder.Services.AddMemoryCache();

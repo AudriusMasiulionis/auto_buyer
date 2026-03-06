@@ -144,8 +144,7 @@ public partial class Contract : ComponentBase
     {
         try
         {
-            var result = await LocalStorage.GetAsync<List<DraftEntry>>(DraftsStorageKey);
-            var drafts = result.Value ?? [];
+            var drafts = await GetDraftsFromStorage();
 
             if (drafts.Count == 0) return;
 
@@ -176,8 +175,7 @@ public partial class Contract : ComponentBase
     {
         try
         {
-            var result = await LocalStorage.GetAsync<List<DraftEntry>>(DraftsStorageKey);
-            var drafts = result.Value ?? [];
+            var drafts = await GetDraftsFromStorage();
             drafts.RemoveAll(d => d.Id == id);
             drafts.Insert(0, new DraftEntry(id, regNumber, make, createdAt));
             await LocalStorage.SetAsync(DraftsStorageKey, drafts);
@@ -192,14 +190,28 @@ public partial class Contract : ComponentBase
     {
         try
         {
-            var result = await LocalStorage.GetAsync<List<DraftEntry>>(DraftsStorageKey);
-            var drafts = result.Value ?? [];
+            var drafts = await GetDraftsFromStorage();
             drafts.RemoveAll(d => d.Id == id);
             await LocalStorage.SetAsync(DraftsStorageKey, drafts);
         }
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error removing draft");
+        }
+    }
+
+    private async Task<List<DraftEntry>> GetDraftsFromStorage()
+    {
+        try
+        {
+            var result = await LocalStorage.GetAsync<List<DraftEntry>>(DraftsStorageKey);
+            return result.Value ?? [];
+        }
+        catch (System.Security.Cryptography.CryptographicException)
+        {
+            Logger.LogWarning("Drafts storage corrupted (Data Protection key changed), clearing stored drafts");
+            await LocalStorage.DeleteAsync(DraftsStorageKey);
+            return [];
         }
     }
 
