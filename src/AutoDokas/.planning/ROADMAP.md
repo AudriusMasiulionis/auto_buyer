@@ -77,11 +77,12 @@ Plans:
   2. Homepage URL Inspection in Search Console shows the page is indexable with correct meta tags
   3. Google Rich Results Test returns zero errors for all structured data on the homepage
   4. Lighthouse SEO audit scores 90 or higher
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
 - [ ] 03-01-PLAN.md — Deployment verification, Lighthouse SEO audit (90+ target), and Search Console submission documentation
 - [ ] 03-02-PLAN.md — Structured data validation via Rich Results Test and Schema Markup Validator
+- [ ] 03-03-PLAN.md — Cross-phase content and schema integration verification (all 5 JSON-LD schemas, heading hierarchy, FAQ content)
 
 ## Progress
 
@@ -93,4 +94,4 @@ Phases execute in numeric order: 1 -> 2 -> 2.1 -> 3
 | 1. Crawl Infrastructure | 2/2 | Complete | 2026-03-03 |
 | 2. Homepage SEO | 2/2 | Complete | 2026-03-03 |
 | 2.1 Homepage Content Optimization | 2/2 | Complete | 2026-03-03 |
-| 3. Validation and Submission | 0/2 | Not started | - |
+| 3. Validation and Submission | 0/3 | Not started | - |
