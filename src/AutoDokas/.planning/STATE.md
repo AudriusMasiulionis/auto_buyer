@@ -25,7 +25,7 @@ See: .planning/PROJECT.md (updated 2026-03-02)
 Phase: 2.1 of 3 (Homepage Content Optimization) -- COMPLETE
 Plan: 2 of 2 in current phase (all plans complete)
 Status: Phase 02.1 complete, all phases done
-Last activity: 2026-03-03 -- Completed 02.1-02 (FAQ section, FAQPage JSON-LD)
+Last activity: 2026-03-12 - Completed quick task 1: v2 for seo. landing pages with specific keywords
 
 Progress: [##########] 100%
 
@@ -89,6 +89,12 @@ None yet.
 ### Blockers/Concerns
 
 - OG image asset (1200x630px) may need design work -- flagged in research as gap
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 1 | v2 for seo. landing pages with specific keywords | 2026-03-12 | 0002fae | [1-v2-for-seo-landing-pages-with-specific-k](./quick/1-v2-for-seo-landing-pages-with-specific-k/) |
 
 ## Session Continuity
 
