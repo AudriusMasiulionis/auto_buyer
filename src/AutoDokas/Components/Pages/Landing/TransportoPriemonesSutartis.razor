@@ -1,0 +1,162 @@
+@page "/transporto-priemones-pirkimo-pardavimo-sutartis"
+@using AutoDokas.Resources
+@using Schema.NET
+
+<PageTitle>@Text.Lp2Title</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="@Text.Lp2MetaDescription" />
+    <link rel="canonical" href="https://autodokas.lt/transporto-priemones-pirkimo-pardavimo-sutartis" />
+    <meta property="og:title" content="@Text.Lp2Title" />
+    <meta property="og:description" content="@Text.Lp2MetaDescription" />
+    <meta property="og:url" content="https://autodokas.lt/transporto-priemones-pirkimo-pardavimo-sutartis" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AutoDokas" />
+</HeadContent>
+
+@((MarkupString)_jsonLd)
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-bg">
+        <div class="hero-orb hero-orb--1"></div>
+        <div class="hero-orb hero-orb--2"></div>
+        <div class="hero-grid"></div>
+    </div>
+    <div class="container">
+        <div class="row align-items-center min-vh-hero">
+            <div class="col-lg-8 hero-col">
+                <p class="hero-eyebrow">AutoDokas.lt</p>
+                <h1 class="hero-heading">@Text.Lp2HeroTitle</h1>
+                <p class="hero-desc">@Text.Lp2HeroSubtitle</p>
+                <a href="/contract" class="btn-hero">
+                    @Text.StartNow
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Content Section -->
+<section class="service-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="section-heading">@Text.Lp2ContentHeading</h2>
+                <p class="service-desc">@Text.Lp2Content1</p>
+                <p class="service-desc">@Text.Lp2Content2</p>
+                <p class="service-desc">@Text.Lp2Content3</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-heading">@Text.Lp2FaqHeading</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">@Text.Lp2Faq1Question</button>
+                        </h3>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Lp2Faq1Answer)</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">@Text.Lp2Faq2Question</button>
+                        </h3>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Lp2Faq2Answer)</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">@Text.Lp2Faq3Question</button>
+                        </h3>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Lp2Faq3Answer)</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">@Text.Lp2Faq4Question</button>
+                        </h3>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">@((MarkupString)Text.Lp2Faq4Answer)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bottom-cta">
+    <div class="bottom-cta-orb"></div>
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="bottom-cta-heading">@Text.Lp2CtaTitle</h2>
+                <p class="bottom-cta-desc">@Text.Lp2CtaSubtitle</p>
+                <a href="/contract" class="btn-hero btn-hero--light">
+                    @Text.StartNow
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private string _jsonLd = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var webSite = new WebSite
+        {
+            Name = "AutoDokas",
+            Url = new Uri("https://autodokas.lt"),
+            InLanguage = "lt",
+        };
+
+        var webPage = new WebPage
+        {
+            Name = Text.Lp2Title,
+            Description = Text.Lp2MetaDescription,
+            Url = new Uri("https://autodokas.lt/transporto-priemones-pirkimo-pardavimo-sutartis"),
+            InLanguage = "lt",
+            IsPartOf = webSite,
+        };
+
+        var faqPage = new FAQPage
+        {
+            Name = Text.Lp2FaqHeading,
+            MainEntity = new OneOrMany<IThing>(new List<IThing>
+            {
+                new Question { Name = Text.Lp2Faq1Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Lp2Faq1Answer) } },
+                new Question { Name = Text.Lp2Faq2Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Lp2Faq2Answer) } },
+                new Question { Name = Text.Lp2Faq3Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Lp2Faq3Answer) } },
+                new Question { Name = Text.Lp2Faq4Question, AcceptedAnswer = new Answer { Text = StripHtml(Text.Lp2Faq4Answer) } },
+            }),
+        };
+
+        var schemas = new Thing[] { webSite, webPage, faqPage };
+        var jsonParts = schemas.Select(s => s.ToHtmlEscapedString());
+        _jsonLd = string.Join("\n", jsonParts.Select(j =>
+            $"<script type=\"application/ld+json\">{j}</script>"));
+    }
+
+    private static string StripHtml(string html)
+    {
+        return System.Text.RegularExpressions.Regex.Replace(html, "<[^>]+>", "");
+    }
+}

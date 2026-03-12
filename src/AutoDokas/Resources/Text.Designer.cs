@@ -418,6 +418,213 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Atsisiųsti pavyzdinę sutartį (PDF).
+        /// </summary>
+        public static string DemoDownloadButton {
+            get {
+                return ResourceManager.GetString("DemoDownloadButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peržiūrėjote visus žingsnius! Atsisiųskite pavyzdinę sutartį su bandomaisiais duomenimis ir pamatykite, kaip atrodo galutinis dokumentas..
+        /// </summary>
+        public static string DemoDownloadDesc {
+            get {
+                return ResourceManager.GetString("DemoDownloadDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atsisiųskite bandomąją sutartį.
+        /// </summary>
+        public static string DemoDownloadTitle {
+            get {
+                return ResourceManager.GetString("DemoDownloadTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pildomi laukai:.
+        /// </summary>
+        public static string DemoFieldsLabel {
+            get {
+                return ResourceManager.GetString("DemoFieldsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sutarties peržiūra | AutoDokas.
+        /// </summary>
+        public static string DemoPageTitle {
+            get {
+                return ResourceManager.GetString("DemoPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pradėti tikrą sutartį.
+        /// </summary>
+        public static string DemoStartReal {
+            get {
+                return ResourceManager.GetString("DemoStartReal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pirmame žingsnyje įvesite transporto priemonės duomenis: savininko deklaravimo kodą (SDK), gamybinę markę ir modelį, valstybinį registracijos numerį, VIN kodą, ridą, techninės apžiūros galiojimą ir informaciją apie žinomus pažeidimus ar trūkumus..
+        /// </summary>
+        public static string DemoStep1Desc {
+            get {
+                return ResourceManager.GetString("DemoStep1Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pvz., Volkswagen Golf, ABC 000, rida 150 000 km.
+        /// </summary>
+        public static string DemoStep1Example {
+            get {
+                return ResourceManager.GetString("DemoStep1Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transporto priemonės duomenys.
+        /// </summary>
+        public static string DemoStep1Title {
+            get {
+                return ResourceManager.GetString("DemoStep1Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antrame žingsnyje nurodysite transporto priemonės kainą, atsiskaitymo būdą (grynaisiais ar bankiniu pavedimu), mokėjimo momentą ir ar perduodamas draudimas pirkėjui..
+        /// </summary>
+        public static string DemoStep2Desc {
+            get {
+                return ResourceManager.GetString("DemoStep2Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pvz., 5 000 €, bankinis pavedimas, mokama sutarties metu.
+        /// </summary>
+        public static string DemoStep2Example {
+            get {
+                return ResourceManager.GetString("DemoStep2Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mokėjimo duomenys.
+        /// </summary>
+        public static string DemoStep2Title {
+            get {
+                return ResourceManager.GetString("DemoStep2Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pardavėjas įveda savo vardą ir pavardę, asmens kodą, telefono numerį, adresą, el. pašto adresą, pasirenka sutarties sudarymo šalį, pasirašo elektroniniu parašu ir patvirtina sutikimą su naudojimo sąlygomis..
+        /// </summary>
+        public static string DemoStep3Desc {
+            get {
+                return ResourceManager.GetString("DemoStep3Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pvz., Jonas Jonaitis, Gedimino pr. 1, Vilnius.
+        /// </summary>
+        public static string DemoStep3Example {
+            get {
+                return ResourceManager.GetString("DemoStep3Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pardavėjo duomenys.
+        /// </summary>
+        public static string DemoStep3Title {
+            get {
+                return ResourceManager.GetString("DemoStep3Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pasirenkate, kaip pirkėjas užpildys savo informaciją ir pasirašys sutartį: šiame pačiame įrenginyje (perduodant telefoną ar kompiuterį) arba nuotoliniu būdu (pirkėjas gaus el. laišką su nuoroda)..
+        /// </summary>
+        public static string DemoStep4Desc {
+            get {
+                return ResourceManager.GetString("DemoStep4Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2 variantai: pasirašyti čia pat arba siųsti nuorodą el. paštu.
+        /// </summary>
+        public static string DemoStep4Example {
+            get {
+                return ResourceManager.GetString("DemoStep4Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pirkėjo pasirašymo būdas.
+        /// </summary>
+        public static string DemoStep4Title {
+            get {
+                return ResourceManager.GetString("DemoStep4Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pirkėjas įveda savo vardą ir pavardę, asmens kodą, telefono numerį, adresą, el. pašto adresą, pasirašo elektroniniu parašu ir patvirtina sutikimą. Po pasirašymo sutartis automatiškai sugeneruojama PDF formatu..
+        /// </summary>
+        public static string DemoStep5Desc {
+            get {
+                return ResourceManager.GetString("DemoStep5Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pvz., Petras Petraitis, Laisvės al. 10, Kaunas.
+        /// </summary>
+        public static string DemoStep5Example {
+            get {
+                return ResourceManager.GetString("DemoStep5Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pirkėjo duomenys.
+        /// </summary>
+        public static string DemoStep5Title {
+            get {
+                return ResourceManager.GetString("DemoStep5Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sužinokite, kokią informaciją reikia užpildyti kiekviename žingsnyje, ir atsisiųskite bandomąją sutartį su pavyzdiniais duomenimis..
+        /// </summary>
+        public static string DemoSubtitle {
+            get {
+                return ResourceManager.GetString("DemoSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peržiūrėkite, kaip veikia AutoDokas.
+        /// </summary>
+        public static string DemoTitle {
+            get {
+                return ResourceManager.GetString("DemoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sukurta.
         /// </summary>
         public static string DraftCreatedAt {
@@ -765,6 +972,861 @@ namespace AutoDokas.Resources {
         public static string IsInspected {
             get {
                 return ResourceManager.GetString("IsInspected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tradicinis būdas sudaryti automobilio pirkimo pardavimo sutartį reikalauja spausdintuvo, rašiklio ir dažnai — kelionės iki biuro ar spausdinimo paslaugų punkto. Tačiau šiandien visa tai galite atlikti internetu. AutoDokas.lt platforma leidžia suformuoti teisiškai galiojančią transporto priemonės sutartį per kelias minutes, nesvarbu, kur esate..
+        /// </summary>
+        public static string Lp1Content1 {
+            get {
+                return ResourceManager.GetString("Lp1Content1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skaitmeninis procesas yra ne tik patogesnis, bet ir saugesnis. Jūsų duomenys šifruojami, o sutartis generuojama automatiškai pagal standartinę formą. Nereikia ieškoti šablonų internete ar nerimauti dėl klaidų — sistema pati patikrina įvestus duomenis ir suformuoja korektišką dokumentą PDF formatu..
+        /// </summary>
+        public static string Lp1Content2 {
+            get {
+                return ResourceManager.GetString("Lp1Content2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio sutartis internetu ypač patogi, kai pirkėjas ir pardavėjas yra skirtinguose miestuose. Pardavėjas užpildo savo dalį ir pasirašo, o pirkėjas gauna nuorodą el. paštu ir pasirašo savo įrenginyje. Viskas — be jokio fizinio kontakto su dokumentu..
+        /// </summary>
+        public static string Lp1Content3 {
+            get {
+                return ResourceManager.GetString("Lp1Content3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kodėl verta sudaryti automobilio sutartį internetu?.
+        /// </summary>
+        public static string Lp1ContentHeading {
+            get {
+                return ResourceManager.GetString("Lp1ContentHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Be spausdintuvo, be rašiklio, be eilių. Viskas internetu..
+        /// </summary>
+        public static string Lp1CtaSubtitle {
+            get {
+                return ResourceManager.GetString("Lp1CtaSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sudarykite sutartį internetu per kelias minutes.
+        /// </summary>
+        public static string Lp1CtaTitle {
+            get {
+                return ResourceManager.GetString("Lp1CtaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taip, pagal Lietuvos Respublikos civilinį kodeksą transporto priemonės pirkimo pardavimo sutarčiai nereikia notarinio patvirtinimo. Rašytinė sutartis, pasirašyta abiejų šalių, yra teisiškai galiojanti — nesvarbu, ar ji sudaryta popieriuje, ar skaitmeniškai. &lt;a href=&quot;/contract&quot;&gt;Sudarykite sutartį dabar&lt;/a&gt;..
+        /// </summary>
+        public static string Lp1Faq1Answer {
+            get {
+                return ResourceManager.GetString("Lp1Faq1Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar automobilio sutartis internetu yra teisėta?.
+        /// </summary>
+        public static string Lp1Faq1Question {
+            get {
+                return ResourceManager.GetString("Lp1Faq1Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pardavėjas užpildo transporto priemonės ir savo duomenis, tada pasirašo pirštu arba pele tiesiai ekrane. Pirkėjas gali pasirašyti tame pačiame įrenginyje arba gauti nuorodą el. paštu ir pasirašyti nuotoliniu būdu iš savo įrenginio. Parašas įterpiamas į PDF dokumentą..
+        /// </summary>
+        public static string Lp1Faq2Answer {
+            get {
+                return ResourceManager.GetString("Lp1Faq2Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip veikia skaitmeninis pasirašymas?.
+        /// </summary>
+        public static string Lp1Faq2Question {
+            get {
+                return ResourceManager.GetString("Lp1Faq2Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ne, spausdinti nereikia. Visa sutartis sudaroma, pasirašoma ir saugoma skaitmeniškai. Galutinį PDF dokumentą galite atsisiųsti arba gauti el. paštu. Jei norite, galite atsispausdinti vėliau, bet tai nėra privaloma..
+        /// </summary>
+        public static string Lp1Faq3Answer {
+            get {
+                return ResourceManager.GetString("Lp1Faq3Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar reikia ką nors spausdinti?.
+        /// </summary>
+        public static string Lp1Faq3Question {
+            get {
+                return ResourceManager.GetString("Lp1Faq3Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taip, AutoDokas.lt veikia visuose įrenginiuose — telefonuose, planšetėse ir kompiuteriuose. Platforma pritaikyta mobiliems ekranams, todėl visą procesą — nuo duomenų įvedimo iki pasirašymo — galite atlikti tiesiai iš telefono. &lt;a href=&quot;/contract&quot;&gt;Pradėkite dabar&lt;/a&gt;..
+        /// </summary>
+        public static string Lp1Faq4Answer {
+            get {
+                return ResourceManager.GetString("Lp1Faq4Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar galiu sudaryti sutartį iš telefono?.
+        /// </summary>
+        public static string Lp1Faq4Question {
+            get {
+                return ResourceManager.GetString("Lp1Faq4Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klausimai apie automobilio sutartį internetu.
+        /// </summary>
+        public static string Lp1FaqHeading {
+            get {
+                return ResourceManager.GetString("Lp1FaqHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nereikia niekur eiti, nereikia nieko spausdinti. Sudarykite automobilio pirkimo pardavimo sutartį internetu per kelias minutes — tiesiog iš savo telefono ar kompiuterio..
+        /// </summary>
+        public static string Lp1HeroSubtitle {
+            get {
+                return ResourceManager.GetString("Lp1HeroSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio sutartis internetu — sudarykite be spausdintuvo.
+        /// </summary>
+        public static string Lp1HeroTitle {
+            get {
+                return ResourceManager.GetString("Lp1HeroTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio sutartis internetu be spausdintuvo. Užpildykite formą, pasirašykite ir atsisiųskite PDF per kelias minutes iš bet kurio įrenginio..
+        /// </summary>
+        public static string Lp1MetaDescription {
+            get {
+                return ResourceManager.GetString("Lp1MetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio sutartis internetu | AutoDokas.
+        /// </summary>
+        public static string Lp1Title {
+            get {
+                return ResourceManager.GetString("Lp1Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pagal Lietuvos Respublikos civilinį kodeksą, transporto priemonės pirkimo pardavimo sutartis turi būti sudaryta raštu. Sutartyje privalo būti nurodyti abiejų šalių duomenys (vardas, pavardė, asmens kodas, adresas), transporto priemonės identifikavimo duomenys (VIN, valstybinis numeris, markė) ir sandorio sąlygos (kaina, atsiskaitymo būdas)..
+        /// </summary>
+        public static string Lp2Content1 {
+            get {
+                return ResourceManager.GetString("Lp2Content1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Svarbu žinoti, kad notarinis patvirtinimas transporto priemonės sutarčiai nėra privalomas. Tačiau sutartis turi būti aiški, konkreti ir pasirašyta abiejų šalių. AutoDokas.lt sistema automatiškai suformuoja dokumentą pagal standartinę formą, užtikrinant, kad visi privalomi laukai būtų užpildyti..
+        /// </summary>
+        public static string Lp2Content2 {
+            get {
+                return ResourceManager.GetString("Lp2Content2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transporto priemonės pirkimo pardavimo sutartis reikalinga registruojant nuosavybės perėjimą VĮ Regitra sistemoje. Pardavėjas taip pat turi pateikti savininko deklaravimo kodą (SDK), o sutartyje rekomenduojama nurodyti techninės apžiūros galiojimą ir žinomus transporto priemonės trūkumus..
+        /// </summary>
+        public static string Lp2Content3 {
+            get {
+                return ResourceManager.GetString("Lp2Content3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teisiniai reikalavimai transporto priemonės sutarčiai.
+        /// </summary>
+        public static string Lp2ContentHeading {
+            get {
+                return ResourceManager.GetString("Lp2ContentHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teisiškai galiojanti sutartis per kelias minutes. Nemokamai..
+        /// </summary>
+        public static string Lp2CtaSubtitle {
+            get {
+                return ResourceManager.GetString("Lp2CtaSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sudarykite transporto priemonės sutartį dabar.
+        /// </summary>
+        public static string Lp2CtaTitle {
+            get {
+                return ResourceManager.GetString("Lp2CtaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transporto priemonės pirkimo pardavimo sutartis turi būti rašytinė, pasirašyta abiejų šalių. Joje turi būti nurodyti šalių asmens duomenys, transporto priemonės identifikavimo duomenys ir sandorio kaina. Notarinis tvirtinimas nėra privalomas. &lt;a href=&quot;/contract&quot;&gt;Suformuokite sutartį automatiškai&lt;/a&gt;..
+        /// </summary>
+        public static string Lp2Faq1Answer {
+            get {
+                return ResourceManager.GetString("Lp2Faq1Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kokie teisiniai reikalavimai taikomi transporto priemonės sutarčiai?.
+        /// </summary>
+        public static string Lp2Faq1Question {
+            get {
+                return ResourceManager.GetString("Lp2Faq1Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taip, AutoDokas.lt suformuota transporto priemonės pirkimo pardavimo sutartis atitinka visus VĮ Regitra reikalavimus. Sutartyje automatiškai įtraukiami visi būtini laukai — VIN kodas, valstybinis numeris, SDK, šalių duomenys ir parašai..
+        /// </summary>
+        public static string Lp2Faq2Answer {
+            get {
+                return ResourceManager.GetString("Lp2Faq2Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar ši sutartis tinka registracijai Regitra sistemoje?.
+        /// </summary>
+        public static string Lp2Faq2Question {
+            get {
+                return ResourceManager.GetString("Lp2Faq2Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jums reikės: abiejų šalių asmens tapatybės dokumentų (asmens kodas, adresas), transporto priemonės registracijos liudijimo (jame rasite VIN kodą, valstybinį numerį, markę) ir pardavėjo savininko deklaravimo kodo (SDK), kurį galima gauti per Regitra savitarną..
+        /// </summary>
+        public static string Lp2Faq3Answer {
+            get {
+                return ResourceManager.GetString("Lp2Faq3Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kokių dokumentų reikia sudarant transporto priemonės sutartį?.
+        /// </summary>
+        public static string Lp2Faq3Question {
+            get {
+                return ResourceManager.GetString("Lp2Faq3Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taip, AutoDokas.lt sutarties forma tinka bet kokiai transporto priemonei — lengvajam automobiliui, krovininiam automobiliui, motociklui, priekabai ar kitai registruotai transporto priemonei. Forma automatiškai prisitaiko prie įvedamų duomenų..
+        /// </summary>
+        public static string Lp2Faq4Answer {
+            get {
+                return ResourceManager.GetString("Lp2Faq4Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar sutartis tinka ir komerciniams automobiliams ar motociklams?.
+        /// </summary>
+        public static string Lp2Faq4Question {
+            get {
+                return ResourceManager.GetString("Lp2Faq4Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dažnai užduodami klausimai apie transporto priemonės sutartį.
+        /// </summary>
+        public static string Lp2FaqHeading {
+            get {
+                return ResourceManager.GetString("Lp2FaqHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teisiškai galiojanti transporto priemonės pirkimo pardavimo sutartis — automobiliui, motociklui, priekabai ar kitai transporto priemonei. Atitinka visus Lietuvos teisinius reikalavimus..
+        /// </summary>
+        public static string Lp2HeroSubtitle {
+            get {
+                return ResourceManager.GetString("Lp2HeroSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transporto priemonės pirkimo pardavimo sutartis.
+        /// </summary>
+        public static string Lp2HeroTitle {
+            get {
+                return ResourceManager.GetString("Lp2HeroTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transporto priemonės pirkimo pardavimo sutartis internetu. Teisiškai galiojanti sutartis automobiliui, motociklui ar kitai transporto priemonei..
+        /// </summary>
+        public static string Lp2MetaDescription {
+            get {
+                return ResourceManager.GetString("Lp2MetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transporto priemonės pirkimo pardavimo sutartis | AutoDokas.
+        /// </summary>
+        public static string Lp2Title {
+            get {
+                return ResourceManager.GetString("Lp2Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pirkdami naudotą automobilį, sutartis yra jūsų pagrindinė apsauga. Joje fiksuojama faktinė rida, pardavėjo deklaruojami trūkumai ir sandorio kaina. Jei vėliau paaiškėtų, kad pardavėjas nuslėpė defektus ar sukčiavo dėl ridos — sutartis tampa pagrindiniu įrodymu ginčo atveju..
+        /// </summary>
+        public static string Lp3Content1 {
+            get {
+                return ResourceManager.GetString("Lp3Content1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoDokas.lt sutarties formoje yra specialus skyrius, kuriame pardavėjas privalo nurodyti žinomus transporto priemonės trūkumus — nuo stabdžių sistemos iki apšvietimo defektų. Taip pat fiksuojama, ar automobilis buvo apgadintas eismo įvykiuose ir ar techninė apžiūra galioja. Ši informacija apsaugo pirkėją nuo nemalonių netikėtumų..
+        /// </summary>
+        public static string Lp3Content2 {
+            get {
+                return ResourceManager.GetString("Lp3Content2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prieš pasirašydami sutartį, patikrinkite VIN kodą per oficialias duomenų bazes, palyginkite ridą su techninės apžiūros duomenimis ir įsitikinkite, kad pardavėjas yra tikrasis savininkas. Visa tai galite padaryti dar prieš susitikimą — o sutartį sudaryti jau per AutoDokas.lt platformą..
+        /// </summary>
+        public static string Lp3Content3 {
+            get {
+                return ResourceManager.GetString("Lp3Content3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ką svarbu žinoti perkant naudotą automobilį.
+        /// </summary>
+        public static string Lp3ContentHeading {
+            get {
+                return ResourceManager.GetString("Lp3ContentHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fiksuokite ridą, trūkumus ir kainą vienoje sutartyje. Per kelias minutes..
+        /// </summary>
+        public static string Lp3CtaSubtitle {
+            get {
+                return ResourceManager.GetString("Lp3CtaSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apsaugokite save — sudarykite pirkimo sutartį.
+        /// </summary>
+        public static string Lp3CtaTitle {
+            get {
+                return ResourceManager.GetString("Lp3CtaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pardavėjas privalo nurodyti visus jam žinomus transporto priemonės trūkumus: stabdžių sistemos, vairo mechanizmo, pakabos, apšvietimo, saugos sistemų ir dujų išmetimo sistemos defektus. AutoDokas.lt formoje šie trūkumai pažymimi atskirame skyriuje su patogia pasirinkimo sąsaja..
+        /// </summary>
+        public static string Lp3Faq1Answer {
+            get {
+                return ResourceManager.GetString("Lp3Faq1Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kokius trūkumus pardavėjas privalo deklaruoti sutartyje?.
+        /// </summary>
+        public static string Lp3Faq1Question {
+            get {
+                return ResourceManager.GetString("Lp3Faq1Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ridą galite patikrinti per VĮ Regitra savitarną, kur matomi techninės apžiūros metu fiksuoti ridos duomenys. Taip pat galite pasinaudoti tarptautinėmis VIN patikros paslaugomis. Sutartyje nurodyta rida tampa teisiniu faktu, todėl svarbu, kad ji sutaptų su tikrove..
+        /// </summary>
+        public static string Lp3Faq2Answer {
+            get {
+                return ResourceManager.GetString("Lp3Faq2Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip patikrinti, ar nurodyta rida yra teisinga?.
+        /// </summary>
+        public static string Lp3Faq2Question {
+            get {
+                return ResourceManager.GetString("Lp3Faq2Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jei pardavėjas nuslėpė defektus, kurie nebuvo nurodyti sutartyje, pirkėjas turi teisę reikalauti kompensacijos arba sutarties nutraukimo pagal Civilinį kodeksą. Todėl labai svarbu, kad sutartyje būtų tiksliai užfiksuoti visi žinomi trūkumai — tai apsaugo abi šalis..
+        /// </summary>
+        public static string Lp3Faq3Answer {
+            get {
+                return ResourceManager.GetString("Lp3Faq3Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ką daryti, jei po pirkimo paaiškėja paslėpti defektai?.
+        /// </summary>
+        public static string Lp3Faq3Question {
+            get {
+                return ResourceManager.GetString("Lp3Faq3Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Techninė apžiūra nėra privaloma prieš pirkimą, tačiau rekomenduojama. Jei techninės apžiūros terminas baigęsi, naujasis savininkas turės ją atlikti prieš registruodamas automobilį savo vardu. AutoDokas.lt sutartyje galite pažymėti, ar techninė apžiūra galioja, ar ne. &lt;a href=&quot;/contract&quot;&gt;Pradėkite sutartį&lt;/a&gt;..
+        /// </summary>
+        public static string Lp3Faq4Answer {
+            get {
+                return ResourceManager.GetString("Lp3Faq4Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar reikia tikrinti techninę apžiūrą prieš perkant?.
+        /// </summary>
+        public static string Lp3Faq4Question {
+            get {
+                return ResourceManager.GetString("Lp3Faq4Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klausimai apie naudoto automobilio pirkimo sutartį.
+        /// </summary>
+        public static string Lp3FaqHeading {
+            get {
+                return ResourceManager.GetString("Lp3FaqHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perkate naudotą automobilį? Apsaugokite save tinkamai sudaryta pirkimo sutartimi. Fiksuokite ridą, trūkumus ir visas sandorio sąlygas viename dokumente..
+        /// </summary>
+        public static string Lp3HeroSubtitle {
+            get {
+                return ResourceManager.GetString("Lp3HeroSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naudoto automobilio pirkimo sutartis.
+        /// </summary>
+        public static string Lp3HeroTitle {
+            get {
+                return ResourceManager.GetString("Lp3HeroTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naudoto automobilio pirkimo sutartis internetu. Apsaugokite save kaip pirkėją — fiksuokite ridą, trūkumus ir sandorio sąlygas sutartyje..
+        /// </summary>
+        public static string Lp3MetaDescription {
+            get {
+                return ResourceManager.GetString("Lp3MetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naudoto automobilio pirkimo sutartis | AutoDokas.
+        /// </summary>
+        public static string Lp3Title {
+            get {
+                return ResourceManager.GetString("Lp3Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip automobilio pardavėjas, jūs esate atsakingas už teisingos informacijos pateikimą sutartyje. Tai apima tikslią ridą, žinomus transporto priemonės trūkumus ir eismo įvykių istoriją. Sąžiningas defektų deklaravimas apsaugo jus nuo galimų pretenzijų ateityje — pirkėjas negalės teigti, kad trūkumai buvo nuslėpti..
+        /// </summary>
+        public static string Lp4Content1 {
+            get {
+                return ResourceManager.GetString("Lp4Content1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prieš parduodant automobilį, pasiruoškite savininko deklaravimo kodą (SDK) — jį galite gauti per Regitra savitarną. SDK yra privalomas registruojant nuosavybės perėjimą pirkėjo vardu. Taip pat turėkite po ranka registracijos liudijimą, kuriame rasite VIN kodą ir kitus reikalingus duomenis..
+        /// </summary>
+        public static string Lp4Content2 {
+            get {
+                return ResourceManager.GetString("Lp4Content2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoDokas.lt leidžia jums paruošti sutartį iš anksto — užpildykite transporto priemonės duomenis ir savo informaciją, pasirašykite, o tada tiesiog pasidalinkite nuoroda su pirkėju. Pirkėjas užpildys savo dalį ir pasirašys nuotoliniu būdu. Taip sutaupysite laiko susitikimo metu..
+        /// </summary>
+        public static string Lp4Content3 {
+            get {
+                return ResourceManager.GetString("Lp4Content3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip pardavėjui tinkamai sudaryti automobilio sutartį.
+        /// </summary>
+        public static string Lp4ContentHeading {
+            get {
+                return ResourceManager.GetString("Lp4ContentHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Užpildykite, pasirašykite ir pasidalinkite su pirkėju. Paprasčiau nebūna..
+        /// </summary>
+        public static string Lp4CtaSubtitle {
+            get {
+                return ResourceManager.GetString("Lp4CtaSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paruoškite pardavimo sutartį per kelias minutes.
+        /// </summary>
+        public static string Lp4CtaTitle {
+            get {
+                return ResourceManager.GetString("Lp4CtaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pardavėjas privalo nurodyti savo asmens duomenis, transporto priemonės duomenis (VIN, valstybinis numeris, markė, rida), žinomus trūkumus, eismo įvykių istoriją ir techninės apžiūros galiojimą. Taip pat būtina nurodyti kainą ir atsiskaitymo sąlygas. &lt;a href=&quot;/contract&quot;&gt;Pradėkite pildyti sutartį&lt;/a&gt;..
+        /// </summary>
+        public static string Lp4Faq1Answer {
+            get {
+                return ResourceManager.GetString("Lp4Faq1Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ką pardavėjas privalo nurodyti automobilio sutartyje?.
+        /// </summary>
+        public static string Lp4Faq1Question {
+            get {
+                return ResourceManager.GetString("Lp4Faq1Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoDokas.lt sutartyje galite pažymėti, ar norite perduoti galiojantį transporto priemonės draudimą pirkėjui. Jei pasirenkate perduoti — pirkėjas perima esamą draudimo polisą. Jei ne — pirkėjas turės sudaryti naują draudimo sutartį savarankiškai..
+        /// </summary>
+        public static string Lp4Faq2Answer {
+            get {
+                return ResourceManager.GetString("Lp4Faq2Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip perduoti draudimą pirkėjui?.
+        /// </summary>
+        public static string Lp4Faq2Question {
+            get {
+                return ResourceManager.GetString("Lp4Faq2Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SDK — tai savininko deklaravimo kodas, kurį pardavėjas turi sugeneruoti per VĮ Regitra savitarną (epaslaugos.lt). Šis kodas reikalingas pirkėjui, kad jis galėtų perregistruoti transporto priemonę savo vardu. SDK galioja ribotą laiką, todėl rekomenduojame jį generuoti prieš pat sandorį..
+        /// </summary>
+        public static string Lp4Faq3Answer {
+            get {
+                return ResourceManager.GetString("Lp4Faq3Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kas yra SDK ir kaip jį gauti?.
+        /// </summary>
+        public static string Lp4Faq3Question {
+            get {
+                return ResourceManager.GetString("Lp4Faq3Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pardavėjui nereikia specialiai išregistruoti automobilio. Kai pirkėjas perregistruoja transporto priemonę savo vardu naudodamas SDK kodą, nuosavybė automatiškai pereina Regitra sistemoje. Tačiau rekomenduojama sekti, ar pirkėjas perregistravo per sutartą laiką..
+        /// </summary>
+        public static string Lp4Faq4Answer {
+            get {
+                return ResourceManager.GetString("Lp4Faq4Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kada pardavėjas turi išregistruoti automobilį?.
+        /// </summary>
+        public static string Lp4Faq4Question {
+            get {
+                return ResourceManager.GetString("Lp4Faq4Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klausimai pardavėjams apie automobilio sutartį.
+        /// </summary>
+        public static string Lp4FaqHeading {
+            get {
+                return ResourceManager.GetString("Lp4FaqHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parduodate automobilį? Paruoškite pardavimo sutartį iš anksto ir sutaupykite laiko susitikimo metu. Viskas — internetu, per kelias minutes..
+        /// </summary>
+        public static string Lp4HeroSubtitle {
+            get {
+                return ResourceManager.GetString("Lp4HeroSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio pardavimo sutartis — parduokite greitai ir saugiai.
+        /// </summary>
+        public static string Lp4HeroTitle {
+            get {
+                return ResourceManager.GetString("Lp4HeroTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio pardavimo sutartis internetu. Parduokite automobilį greitai ir saugiai — sudarykite sutartį, pasirašykite ir gaukite PDF..
+        /// </summary>
+        public static string Lp4MetaDescription {
+            get {
+                return ResourceManager.GetString("Lp4MetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio pardavimo sutartis | AutoDokas.
+        /// </summary>
+        public static string Lp4Title {
+            get {
+                return ResourceManager.GetString("Lp4Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daugelis žmonių internete ieško automobilio sutarties formos, blanko arba šablono PDF formatu. Atsisiuntę tuščią formą, jie turi ją spausdinti, pildyti ranka ir tikėtis, kad nepadarys klaidų. AutoDokas.lt siūlo geresnę alternatyvą — interaktyvią formą, kuri veda per visus žingsnius ir automatiškai suformuoja gatavą dokumentą..
+        /// </summary>
+        public static string Lp5Content1 {
+            get {
+                return ResourceManager.GetString("Lp5Content1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skirtingai nuo tuščio blanko, AutoDokas.lt forma patikrina įvestus duomenis, neleidžia praleisti privalomų laukų ir automatiškai suformatuoja dokumentą. Jums nereikia galvoti, ar užpildėte viską teisingai — sistema pasirūpina formatavimu, parašų vieta ir visais reikalingais laukais..
+        /// </summary>
+        public static string Lp5Content2 {
+            get {
+                return ResourceManager.GetString("Lp5Content2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoDokas.lt forma apima visus standartinius laukus: šalių duomenis, transporto priemonės informaciją (VIN, valstybinis numeris, markė, rida), trūkumų deklaravimą, mokėjimo sąlygas ir pasirašymo sritį. Galutinis rezultatas — profesionaliai suformuotas PDF dokumentas, paruoštas registracijai Regitra sistemoje..
+        /// </summary>
+        public static string Lp5Content3 {
+            get {
+                return ResourceManager.GetString("Lp5Content3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interaktyvi forma vietoj tuščio blanko.
+        /// </summary>
+        public static string Lp5ContentHeading {
+            get {
+                return ResourceManager.GetString("Lp5ContentHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nereikia blanko, nereikia spausdintuvo. Interaktyvi forma su automatiniu PDF..
+        /// </summary>
+        public static string Lp5CtaSubtitle {
+            get {
+                return ResourceManager.GetString("Lp5CtaSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Užpildykite formą ir gaukite paruoštą sutartį.
+        /// </summary>
+        public static string Lp5CtaTitle {
+            get {
+                return ResourceManager.GetString("Lp5CtaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Užuot ieškojus tuščio blanko PDF formatu, galite naudoti AutoDokas.lt interaktyvią formą. Ji veda per visus žingsnius, patikrina duomenis ir automatiškai sugeneruoja gatavą sutartį PDF formatu. &lt;a href=&quot;/contract&quot;&gt;Pradėkite pildyti formą&lt;/a&gt; — tai nemokama..
+        /// </summary>
+        public static string Lp5Faq1Answer {
+            get {
+                return ResourceManager.GetString("Lp5Faq1Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kur gauti automobilio pirkimo pardavimo sutarties formą?.
+        /// </summary>
+        public static string Lp5Faq1Question {
+            get {
+                return ResourceManager.GetString("Lp5Faq1Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tuščias blankas reikalauja spausdintuvo, pildymo ranka ir nepatikrina klaidų. AutoDokas.lt forma yra interaktyvi — ji veda jus per kiekvieną žingsnį, tikrina duomenis, neleidžia praleisti svarbių laukų ir automatiškai suformuoja profesionalų PDF dokumentą su parašais..
+        /// </summary>
+        public static string Lp5Faq2Answer {
+            get {
+                return ResourceManager.GetString("Lp5Faq2Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kuo AutoDokas.lt skiriasi nuo tuščio sutarties blanko?.
+        /// </summary>
+        public static string Lp5Faq2Question {
+            get {
+                return ResourceManager.GetString("Lp5Faq2Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taip, AutoDokas.lt suformuota sutartis apima visus standartinius laukus, kurie yra tradicinėje popierinėje formoje: šalių duomenys, transporto priemonės informacija, trūkumų deklaravimas, mokėjimo sąlygos ir parašai. Dokumentas atitinka Lietuvos teisinius reikalavimus..
+        /// </summary>
+        public static string Lp5Faq3Answer {
+            get {
+                return ResourceManager.GetString("Lp5Faq3Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ar AutoDokas.lt forma atitinka standartinę sutarties formą?.
+        /// </summary>
+        public static string Lp5Faq3Question {
+            get {
+                return ResourceManager.GetString("Lp5Faq3Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forma apima: pardavėjo ir pirkėjo duomenis (vardas, asmens kodas, adresas, telefonas, el. paštas), transporto priemonės duomenis (SDK, markė, VIN, valstybinis numeris, rida), techninės apžiūros galiojimą, trūkumų sąrašą, mokėjimo informaciją (kaina, būdas, momentas) ir elektroninio parašo sritį..
+        /// </summary>
+        public static string Lp5Faq4Answer {
+            get {
+                return ResourceManager.GetString("Lp5Faq4Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kokius laukus apima automobilio sutarties forma?.
+        /// </summary>
+        public static string Lp5Faq4Question {
+            get {
+                return ResourceManager.GetString("Lp5Faq4Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klausimai apie automobilio sutarties formą.
+        /// </summary>
+        public static string Lp5FaqHeading {
+            get {
+                return ResourceManager.GetString("Lp5FaqHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ieškote automobilio sutarties formos ar blanko? AutoDokas.lt — tai interaktyvi forma, kuri pati suformuoja gatavą sutartį. Nereikia pildyti tuščio PDF ranka..
+        /// </summary>
+        public static string Lp5HeroSubtitle {
+            get {
+                return ResourceManager.GetString("Lp5HeroSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutarties forma.
+        /// </summary>
+        public static string Lp5HeroTitle {
+            get {
+                return ResourceManager.GetString("Lp5HeroTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutarties forma internetu. Nereikia ieškoti blanko — užpildykite interaktyvią formą ir gaukite paruoštą PDF..
+        /// </summary>
+        public static string Lp5MetaDescription {
+            get {
+                return ResourceManager.GetString("Lp5MetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio sutarties forma | AutoDokas.
+        /// </summary>
+        public static string Lp5Title {
+            get {
+                return ResourceManager.GetString("Lp5Title", resourceCulture);
             }
         }
         
