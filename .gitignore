@@ -487,3 +487,7 @@ $RECYCLE.BIN/
 
 # data files
 *.db
+
+.playwright-cli
+
+.planning
