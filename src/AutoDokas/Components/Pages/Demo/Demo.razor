@@ -1,82 +1,169 @@
 @page "/demo"
+@page "/kaip-sudaryti-sutarti"
 @rendermode InteractiveServer
 @using AutoDokas.Components.Pages.Contract
 @using AutoDokas.Components.Pages.Contract.Sections
 @using AutoDokas.Components.Shared
 @using AutoDokas.Data.Models
 @using AutoDokas.Resources
+@using Schema.NET
 
-<PageTitle>@Text.DemoPageTitle</PageTitle>
+<PageTitle>@Text.HowToPageTitle</PageTitle>
 <HeadContent>
-    <meta name="robots" content="noindex" />
+    <meta name="description" content="@Text.HowToMetaDescription" />
+    <link rel="canonical" href="https://autodokas.lt/kaip-sudaryti-sutarti" />
+    <meta property="og:title" content="@Text.HowToPageTitle" />
+    <meta property="og:description" content="@Text.HowToMetaDescription" />
+    <meta property="og:url" content="https://autodokas.lt/kaip-sudaryti-sutarti" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="AutoDokas" />
 </HeadContent>
 
-<div class="contract-page demo-page">
-    <div id="demo-step-intro" class="contract-page-header">
-        <h1 class="contract-page-title">@Text.DemoTitle</h1>
-        <p class="demo-subtitle">@Text.DemoSubtitle</p>
-    </div>
+@((MarkupString)_jsonLd)
 
-    <div id="demo-step-vehicle">
-        <VehicleSection
-            @bind-State="_vehicleState"
-            Model="Model"
-            OnSubmit="Noop"
-            OnEdit="Noop" />
-    </div>
+<!-- How-To Guide Section -->
+<section class="service-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="section-heading">@Text.HowToHeading</h1>
 
-    <div id="demo-step-payment">
-        <PaymentSection
-            @bind-State="_paymentState"
-            Model="Model"
-            OnSubmit="Noop"
-            OnEdit="Noop" />
-    </div>
+                <div class="howto-card">
+                    <p class="service-desc">@Text.HowToIntro</p>
 
-    <div id="demo-step-seller">
-        <SellerSection
-            @bind-State="_sellerState"
-            Model="Model"
-            Countries="Countries"
-            OnSubmit="Noop"
-            OnEdit="Noop" />
-    </div>
+                    <h2 class="feat-title mt-4 mb-3">
+                        <i class="bi bi-folder2-open" style="color:var(--bs-primary);margin-right:0.5rem;"></i>@Text.HowToDocumentsHeading
+                    </h2>
+                    <p class="service-desc">@Text.HowToDocumentsText</p>
 
-    <div id="demo-step-buyer-method">
-        <BuyerMethodSection
-            @bind-State="_buyerMethodState"
-            Model="Model"
-            OnSubmit="NoopBuyerMethod"
-            OnEdit="Noop" />
-    </div>
+                    <h2 class="feat-title mt-4 mb-3">@Text.HowToStepsHeading</h2>
 
-    <div id="demo-step-buyer-info">
-        <BuyerInformationSection
-            @bind-State="_buyerInfoState"
-            Model="Model"
-            ReadOnlyEmail="true"
-            OnSubmit="Noop"
-            OnEdit="Noop" />
-    </div>
+                    <div class="howto-step">
+                        <span class="howto-step-num">1</span>
+                        <div>
+                            <h3 class="howto-step-title">@Text.DemoStep1Title</h3>
+                            <p class="howto-step-text">@Text.DemoStep1Desc</p>
+                        </div>
+                    </div>
+                    <div class="howto-step">
+                        <span class="howto-step-num">2</span>
+                        <div>
+                            <h3 class="howto-step-title">@Text.DemoStep2Title</h3>
+                            <p class="howto-step-text">@Text.DemoStep2Desc</p>
+                        </div>
+                    </div>
+                    <div class="howto-step">
+                        <span class="howto-step-num">3</span>
+                        <div>
+                            <h3 class="howto-step-title">@Text.DemoStep3Title</h3>
+                            <p class="howto-step-text">@Text.DemoStep3Desc</p>
+                        </div>
+                    </div>
+                    <div class="howto-step">
+                        <span class="howto-step-num">4</span>
+                        <div>
+                            <h3 class="howto-step-title">@Text.DemoStep4Title</h3>
+                            <p class="howto-step-text">@Text.DemoStep4Desc</p>
+                        </div>
+                    </div>
+                    <div class="howto-step">
+                        <span class="howto-step-num">5</span>
+                        <div>
+                            <h3 class="howto-step-title">@Text.DemoStep5Title</h3>
+                            <p class="howto-step-text">@Text.DemoStep5Desc</p>
+                        </div>
+                    </div>
 
-    <div id="demo-step-download" class="demo-download-card">
-        <div class="demo-download-icon">
-            <i class="bi bi-file-earmark-pdf-fill"></i>
+                    <p class="service-desc mt-4 mb-0">@Text.HowToOutro</p>
+                </div>
+
+                <div class="text-center mt-5 d-flex flex-wrap gap-3 justify-content-center">
+                    <a href="/contract" class="btn-hero">
+                        @Text.StartNow
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                    @if (!_tourStarted)
+                    {
+                        <button class="btn-hero btn-hero--outline" @onclick="StartTour">
+                            <i class="bi bi-play-circle"></i>
+                            @Text.HowToStartTour
+                        </button>
+                    }
+                </div>
+            </div>
         </div>
-        <h2 class="demo-download-title">@Text.DemoDownloadTitle</h2>
-        <p class="demo-download-desc">@Text.DemoDownloadDesc</p>
-        <a href="/pavyzdine-sutartis.pdf" class="btn-hero" style="opacity: 1; animation: none;" download target="_blank">
-            <i class="bi bi-download"></i>
-            @Text.DemoDownloadButton
-        </a>
-        <div class="demo-start-real">
-            <a href="/contract" class="btn-hero btn-hero--outline">
-                @Text.NewContract
-                <i class="bi bi-arrow-right"></i>
+    </div>
+</section>
+
+@if (_tourStarted)
+{
+    <div class="contract-page demo-page">
+        <div id="demo-step-intro" class="contract-page-header">
+            <h1 class="contract-page-title">@Text.DemoTitle</h1>
+            <p class="demo-subtitle">@Text.DemoSubtitle</p>
+        </div>
+
+        <div id="demo-step-vehicle">
+            <VehicleSection
+                @bind-State="_vehicleState"
+                Model="Model"
+                OnSubmit="Noop"
+                OnEdit="Noop" />
+        </div>
+
+        <div id="demo-step-payment">
+            <PaymentSection
+                @bind-State="_paymentState"
+                Model="Model"
+                OnSubmit="Noop"
+                OnEdit="Noop" />
+        </div>
+
+        <div id="demo-step-seller">
+            <SellerSection
+                @bind-State="_sellerState"
+                Model="Model"
+                Countries="Countries"
+                OnSubmit="Noop"
+                OnEdit="Noop" />
+        </div>
+
+        <div id="demo-step-buyer-method">
+            <BuyerMethodSection
+                @bind-State="_buyerMethodState"
+                Model="Model"
+                OnSubmit="NoopBuyerMethod"
+                OnEdit="Noop" />
+        </div>
+
+        <div id="demo-step-buyer-info">
+            <BuyerInformationSection
+                @bind-State="_buyerInfoState"
+                Model="Model"
+                ReadOnlyEmail="true"
+                OnSubmit="Noop"
+                OnEdit="Noop" />
+        </div>
+
+        <div id="demo-step-download" class="demo-download-card">
+            <div class="demo-download-icon">
+                <i class="bi bi-file-earmark-pdf-fill"></i>
+            </div>
+            <h2 class="demo-download-title">@Text.DemoDownloadTitle</h2>
+            <p class="demo-download-desc">@Text.DemoDownloadDesc</p>
+            <a href="/pavyzdine-sutartis.pdf" class="btn-hero" style="opacity: 1; animation: none;" download target="_blank">
+                <i class="bi bi-download"></i>
+                @Text.DemoDownloadButton
             </a>
+            <div class="demo-start-real">
+                <a href="/contract" class="btn-hero btn-hero--outline">
+                    @Text.NewContract
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </div>
-</div>
+}
 
 @code {
     private void Noop() { }

@@ -6,6 +6,7 @@ using AutoDokas.Services;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Schema.NET;
 
 namespace AutoDokas.Components.Pages.Demo;
 
@@ -16,7 +17,8 @@ public partial class Demo : ComponentBase, IDisposable
     [Inject] private IWebHostEnvironment Env { get; set; } = null!;
 
     private ContractViewModel Model { get; set; } = new();
-    private List<Country> Countries { get; set; } = [];
+    private List<AutoDokas.Data.Models.Country> Countries { get; set; } = [];
+    private string _jsonLd = string.Empty;
 
     private SectionState _vehicleState = SectionState.ReadOnly;
     private SectionState _paymentState = SectionState.ReadOnly;
@@ -28,28 +30,56 @@ public partial class Demo : ComponentBase, IDisposable
 
     protected override async Task OnInitializedAsync()
     {
-        Countries = [.. await CsvReader.ReadAllAsync<Country>("countries.csv")];
+        Countries = [.. await CsvReader.ReadAllAsync<AutoDokas.Data.Models.Country>("countries.csv")];
         InitializeDemoData();
+        BuildJsonLd();
     }
+
+    private void BuildJsonLd()
+    {
+        var steps = new List<IHowToStep>
+        {
+            new HowToStep { Name = Text.DemoStep1Title, Text = Text.DemoStep1Desc, Position = 1 },
+            new HowToStep { Name = Text.DemoStep2Title, Text = Text.DemoStep2Desc, Position = 2 },
+            new HowToStep { Name = Text.DemoStep3Title, Text = Text.DemoStep3Desc, Position = 3 },
+            new HowToStep { Name = Text.DemoStep4Title, Text = Text.DemoStep4Desc, Position = 4 },
+            new HowToStep { Name = Text.DemoStep5Title, Text = Text.DemoStep5Desc, Position = 5 },
+        };
+        var howTo = new HowTo
+        {
+            Name = Text.HowToHeading,
+            Description = Text.HowToMetaDescription,
+            Step = steps,
+        };
+        _jsonLd = $"<script type=\"application/ld+json\">{howTo.ToHtmlEscapedString()}</script>";
+    }
+
+    private bool _tourStarted;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             _dotnetRef = DotNetObjectReference.Create(this);
-            var steps = new[]
-            {
-                new { selector = "#demo-step-intro", title = Text.DemoTitle, description = Text.DemoSubtitle },
-                new { selector = "#demo-step-vehicle", title = Text.DemoStep1Title, description = Text.DemoStep1Desc },
-                new { selector = "#demo-step-payment", title = Text.DemoStep2Title, description = Text.DemoStep2Desc },
-                new { selector = "#demo-step-seller", title = Text.DemoStep3Title, description = Text.DemoStep3Desc },
-                new { selector = "#demo-step-buyer-method", title = Text.DemoStep4Title, description = Text.DemoStep4Desc },
-                new { selector = "#demo-step-buyer-info", title = Text.DemoStep5Title, description = Text.DemoStep5Desc },
-                new { selector = "#demo-step-download", title = Text.DemoDownloadTitle, description = Text.DemoDownloadDesc }
-            };
-            await Task.Delay(500);
-            await JS.InvokeVoidAsync("demoTour.start", _dotnetRef, steps);
         }
+    }
+
+    private async Task StartTour()
+    {
+        if (_tourStarted) return;
+        _tourStarted = true;
+        var steps = new[]
+        {
+            new { selector = "#demo-step-intro", title = Text.DemoTitle, description = Text.DemoSubtitle },
+            new { selector = "#demo-step-vehicle", title = Text.DemoStep1Title, description = Text.DemoStep1Desc },
+            new { selector = "#demo-step-payment", title = Text.DemoStep2Title, description = Text.DemoStep2Desc },
+            new { selector = "#demo-step-seller", title = Text.DemoStep3Title, description = Text.DemoStep3Desc },
+            new { selector = "#demo-step-buyer-method", title = Text.DemoStep4Title, description = Text.DemoStep4Desc },
+            new { selector = "#demo-step-buyer-info", title = Text.DemoStep5Title, description = Text.DemoStep5Desc },
+            new { selector = "#demo-step-download", title = Text.DemoDownloadTitle, description = Text.DemoDownloadDesc }
+        };
+        await Task.Delay(300);
+        await JS.InvokeVoidAsync("demoTour.start", _dotnetRef, steps);
     }
 
     [JSInvokable]

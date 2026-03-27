@@ -436,6 +436,59 @@ h1:focus {
     margin-bottom: 0;
 }
 
+/* ===== HOW-TO PAGE ===== */
+.howto-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* ===== HOW-TO STEPS ===== */
+.howto-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--ad-border);
+}
+
+.howto-step:last-child {
+    border-bottom: none;
+}
+
+.howto-step-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--bs-primary);
+    color: #fff;
+    font-family: 'Archivo', 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.15rem;
+}
+
+.howto-step-title {
+    font-family: 'Archivo', 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ad-heading);
+    margin-bottom: 0.35rem;
+}
+
+.howto-step-text {
+    color: var(--ad-slate);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 0;
+}
+
 /* ===== FEATURES ===== */
 .feat-section {
     padding: 6rem 0;

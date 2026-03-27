@@ -778,4 +778,38 @@
   <data name="DemoFieldsLabel" xml:space="preserve">
     <value>Pildomi laukai:</value>
   </data>
+  <!-- ===== How-To Page: /kaip-sudaryti-sutarti ===== -->
+  <data name="HowToPageTitle" xml:space="preserve">
+    <value>Kaip sudaryti automobilio pirkimo pardavimo sutartį internetu | AutoDokas</value>
+  </data>
+  <data name="HowToMetaDescription" xml:space="preserve">
+    <value>Žingsnis po žingsnio instrukcija, kaip sudaryti automobilio pirkimo pardavimo sutartį internetu. Sužinokite, kokių dokumentų reikia, kaip užpildyti formą ir pasirašyti.</value>
+  </data>
+  <data name="HowToHeading" xml:space="preserve">
+    <value>Kaip sudaryti automobilio pirkimo pardavimo sutartį internetu</value>
+  </data>
+  <data name="HowToIntro" xml:space="preserve">
+    <value>Automobilio pirkimo pardavimo sutartį galite sudaryti internetu per kelias minutes — nereikia nei spausdintuvo, nei rašiklio, nei kelionės iki biuro. AutoDokas.lt platforma veda jus per kiekvieną žingsnį ir automatiškai suformuoja teisiškai galiojantį PDF dokumentą, atitinkantį visus Lietuvos Respublikos civilinius reikalavimus.</value>
+  </data>
+  <data name="HowToDocumentsHeading" xml:space="preserve">
+    <value>Kokių dokumentų reikia prieš pradedant?</value>
+  </data>
+  <data name="HowToDocumentsText" xml:space="preserve">
+    <value>Prieš pildant sutartį, pasiruoškite: pardavėjo savininko deklaravimo kodą (SDK), kurį galima gauti per Regitra savitarną (epaslaugos.lt); transporto priemonės registracijos liudijimą, kuriame rasite VIN kodą, valstybinį numerį ir markę; abiejų šalių asmens tapatybės dokumentus (vardas, pavardė, asmens kodas, adresas). Taip pat naudinga žinoti techninės apžiūros galiojimo datą ir turėti informaciją apie žinomus transporto priemonės trūkumus.</value>
+  </data>
+  <data name="HowToStepsHeading" xml:space="preserve">
+    <value>Kaip tai veikia</value>
+  </data>
+  <data name="HowToOutro" xml:space="preserve">
+    <value>Po paskutinio žingsnio sutartis automatiškai sugeneruojama PDF formatu. Abu dalyviai gauna dokumentą el. paštu. Sutartis galioja iš karto — notarinis patvirtinimas nėra reikalingas. Su šia sutartimi galite registruoti nuosavybės perėjimą VĮ Regitra sistemoje.</value>
+  </data>
+  <data name="HowToPreviewHeading" xml:space="preserve">
+    <value>Interaktyvi peržiūra</value>
+  </data>
+  <data name="HowToPreviewSubtitle" xml:space="preserve">
+    <value>Peržiūrėkite kiekvieną sutarties skyrių su pavyzdiniais duomenimis ir atsisiųskite bandomąją sutartį.</value>
+  </data>
+  <data name="HowToStartTour" xml:space="preserve">
+    <value>Pradėti interaktyvią peržiūrą</value>
+  </data>
 </root>

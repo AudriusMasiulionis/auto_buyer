@@ -931,6 +931,105 @@ namespace AutoDokas.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kokių dokumentų reikia prieš pradedant?.
+        /// </summary>
+        public static string HowToDocumentsHeading {
+            get {
+                return ResourceManager.GetString("HowToDocumentsHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prieš pildant sutartį, pasiruoškite: pardavėjo savininko deklaravimo kodą (SDK), kurį galima gauti per Regitra savitarną (epaslaugos.lt); transporto priemonės registracijos liudijimą, kuriame rasite VIN kodą, valstybinį numerį ir markę; abiejų šalių asmens tapatybės dokumentus (vardas, pavardė, asmens kodas, adresas). Taip pat naudinga žinoti techninės apžiūros galiojimo datą ir turėti informaciją apie žinomus transporto priemonės trūkumus..
+        /// </summary>
+        public static string HowToDocumentsText {
+            get {
+                return ResourceManager.GetString("HowToDocumentsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip sudaryti automobilio pirkimo pardavimo sutartį internetu.
+        /// </summary>
+        public static string HowToHeading {
+            get {
+                return ResourceManager.GetString("HowToHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobilio pirkimo pardavimo sutartį galite sudaryti internetu per kelias minutes — nereikia nei spausdintuvo, nei rašiklio, nei kelionės iki biuro. AutoDokas.lt platforma veda jus per kiekvieną žingsnį ir automatiškai suformuoja teisiškai galiojantį PDF dokumentą, atitinkantį visus Lietuvos Respublikos civilinius reikalavimus..
+        /// </summary>
+        public static string HowToIntro {
+            get {
+                return ResourceManager.GetString("HowToIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Žingsnis po žingsnio instrukcija, kaip sudaryti automobilio pirkimo pardavimo sutartį internetu. Sužinokite, kokių dokumentų reikia, kaip užpildyti formą ir pasirašyti..
+        /// </summary>
+        public static string HowToMetaDescription {
+            get {
+                return ResourceManager.GetString("HowToMetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Po paskutinio žingsnio sutartis automatiškai sugeneruojama PDF formatu. Abu dalyviai gauna dokumentą el. paštu. Sutartis galioja iš karto — notarinis patvirtinimas nėra reikalingas. Su šia sutartimi galite registruoti nuosavybės perėjimą VĮ Regitra sistemoje..
+        /// </summary>
+        public static string HowToOutro {
+            get {
+                return ResourceManager.GetString("HowToOutro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip sudaryti automobilio pirkimo pardavimo sutartį internetu | AutoDokas.
+        /// </summary>
+        public static string HowToPageTitle {
+            get {
+                return ResourceManager.GetString("HowToPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interaktyvi peržiūra.
+        /// </summary>
+        public static string HowToPreviewHeading {
+            get {
+                return ResourceManager.GetString("HowToPreviewHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peržiūrėkite kiekvieną sutarties skyrių su pavyzdiniais duomenimis ir atsisiųskite bandomąją sutartį..
+        /// </summary>
+        public static string HowToPreviewSubtitle {
+            get {
+                return ResourceManager.GetString("HowToPreviewSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pradėti interaktyvią peržiūrą.
+        /// </summary>
+        public static string HowToStartTour {
+            get {
+                return ResourceManager.GetString("HowToStartTour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaip tai veikia.
+        /// </summary>
+        public static string HowToStepsHeading {
+            get {
+                return ResourceManager.GetString("HowToStepsHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Identifikavimo numeris (E).
         /// </summary>
         public static string IdentificationNumber {
